@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$description": "Ranked roadmap items for the DMS module, post-`[19.0][IMP]`. Same content as the table in ./README.md; structured so the Penpot bootstrap script can render a card stack on the 'Roadmap' page.",
+  "ranking_basis": "impact / effort (higher = ship sooner)",
+  "items": [
+    {
+      "rank": 1,
+      "title": "Per-extension tinted file form hero",
+      "surface": "form-hero",
+      "impact": "medium",
+      "effort": "small",
+      "estimate": "~0.5 day",
+      "dependency": "odoo_design_system (already merged on 19.0)",
+      "summary": "Replace the static `o_dms_hero_icon` with an <OdsCardTile> field widget that reads `record.extension` at runtime so the form hero tints to the file's extension color."
+    },
+    {
+      "rank": 2,
+      "title": "Drop-on-directory-card upload",
+      "surface": "dropzone+directory-kanban",
+      "impact": "high",
+      "effort": "medium",
+      "estimate": "~1–2 days",
+      "dependency": "Existing dms_file_upload.esm.js extension",
+      "summary": "Detect the directory card under the cursor during drag. Drop targets that card and uploads directly into it. Today the drop-zone is module-wide; the directory under the cursor is ignored."
+    },
+    {
+      "rank": 3,
+      "title": "Multi-select chip strip + bulk actions",
+      "surface": "file-kanban",
+      "impact": "high",
+      "effort": "medium",
+      "estimate": "~2 days",
+      "dependency": "Odoo 19 kanban multi-select API",
+      "summary": "When ≥1 record is checked, render a chip strip at the top of the kanban with aggregate size + extension breakdown + bulk-action drop-down. Mirrors the list-view bulk actions inside the kanban for touch users."
+    },
+    {
+      "rank": 4,
+      "title": "Mobile portrait portal layout",
+      "surface": "portal-grid",
+      "impact": "medium",
+      "effort": "small",
+      "estimate": "~0.5 day",
+      "dependency": "Pure SCSS pass",
+      "summary": "On <= 480px portrait: stack the badge above the body, tighten line-height, drop the side-by-side meta to a single line."
+    },
+    {
+      "rank": 5,
+      "title": "Empty-state illustration for /my/dms",
+      "surface": "portal-grid",
+      "impact": "medium",
+      "effort": "small",
+      "estimate": "~0.5 day",
+      "dependency": "unDraw / Storyset CC0 asset import",
+      "summary": "Replace the current `alert-warning` 'Not results' banner with a Lucide icon-at-scale or a CC0 illustration with helpful copy."
+    },
+    {
+      "rank": 6,
+      "title": "Versioning chip in file hero",
+      "surface": "form-hero",
+      "impact": "medium",
+      "effort": "small",
+      "estimate": "~1 day",
+      "dependency": "Optional dms_version addon",
+      "summary": "When `dms_version` is installed, surface the current version + last-edited-by in the hero pill row."
+    },
+    {
+      "rank": 7,
+      "title": "Saved-search chips persisted per user",
+      "surface": "searchpanel",
+      "impact": "medium",
+      "effort": "medium",
+      "estimate": "~1 day",
+      "dependency": "ir.filters polish",
+      "summary": "User saves a search; it persists across sessions as a chip in the searchpanel. Today these are lost on logout."
+    },
+    {
+      "rank": 8,
+      "title": "Drag-to-reorder files within a group",
+      "surface": "file-kanban",
+      "impact": "low",
+      "effort": "medium",
+      "estimate": "~1–2 days",
+      "dependency": "Manual-sort field on dms.file",
+      "summary": "Today kanban groups by directory only — no manual reordering within a group. Add a sequence field + drag handle."
+    },
+    {
+      "rank": 9,
+      "title": "Inline preview-on-hover for image/PDF (portal)",
+      "surface": "portal-grid",
+      "impact": "medium",
+      "effort": "medium",
+      "estimate": "~2 days",
+      "dependency": "web/static/lib/pdfjs reuse",
+      "summary": "Hover an image or PDF card on the portal → render a popover preview. Mobile taps through as before."
+    },
+    {
+      "rank": 10,
+      "title": "OdsTokens JS export",
+      "surface": "cross-cutting",
+      "impact": "low",
+      "effort": "small",
+      "estimate": "~0.5 day",
+      "dependency": "Pure addition to odoo_design_system",
+      "summary": "Export a JS module that mirrors the Sass bucket palette so OWL code can read it without re-declaring the colors."
+    }
+  ]
+}
