@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$description": "Frame manifest for the DMS case study Penpot project. Each entry maps onto one Penpot page with the before / after image embeds and the annotation text rendered as a sticky note next to the frame. See ./README.md for the prose and ./scripts/bootstrap-penpot.mjs for the consumer.",
+  "project": "Ledo Design System",
+  "file": "DMS — Migration & Modernization",
+  "pages": [
+    {
+      "name": "1 · Directory Kanban",
+      "surface": "directory-kanban",
+      "frames": [
+        {
+          "label": "Before — OCA 18.0 baseline",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/dms/pr-1/before-directories-kanban.png",
+          "width": 1440,
+          "height": 900
+        },
+        {
+          "label": "After — [19.0][IMP] unified card chrome",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/dms/pr-1/after-directories-kanban.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Hash-tinted spine + tile keyed off data-initial=<first letter>. Footer chip row replaces text-with-icon counts. Directory and file kanbans now read as siblings.",
+      "next": [
+        "OdsCardTile accent=initial that renders a monogram when no children.",
+        "Color-picker integration with --ods-accent so user-set kanban color wins over the hash bucket."
+      ]
+    },
+    {
+      "name": "2 · File Kanban",
+      "surface": "file-kanban",
+      "frames": [
+        {
+          "label": "After — extension-tinted card chrome + image-preview swap-in",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/dms/pr-1/after-files-kanban.png",
+          "width": 1440,
+          "height": 900,
+          "note": "No 'before' captured; OCA 18.0 baseline visible upstream at github.com/OCA/dms/tree/18.0."
+        }
+      ],
+      "annotation": "Per-extension tint via data-ext. Image mimetypes drop the chrome treatment via o_dms_card_tile_preview. Extension chip strips its leading dot for consistency.",
+      "next": [
+        "Drag-to-reorder within a kanban group.",
+        "Multi-select chip strip with bulk actions.",
+        "'Recently opened' smart filter pinned to the searchpanel."
+      ]
+    },
+    {
+      "name": "3 · Form Hero",
+      "surface": "form-hero",
+      "frames": [
+        {
+          "label": "Before — bare title + notebook",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/dms/pr-1/before-directory-form.png",
+          "width": 1440,
+          "height": 900
+        },
+        {
+          "label": "After — hero icon + metadata pill row + path breadcrumb",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/dms/pr-1/after-directory-form.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Answers the four questions a user asks 90% of the time: what is this, how big, what's inside, where is it. Directory hero pins --ods-accent to amber to match the kanban tile; file hero stays neutral (per-ext tint needs runtime field access).",
+      "next": [
+        "Per-extension tinted file form hero via a tiny field widget that renders <OdsCardTile>.",
+        "Inline 'share' action in the hero.",
+        "Versioning chip when dms_version add-on is installed."
+      ]
+    },
+    {
+      "name": "4 · Portal Grid",
+      "surface": "portal-grid",
+      "frames": [
+        {
+          "label": "After — directory-only grid",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/dms/pr-1/after-portal-grid.png",
+          "width": 1440,
+          "height": 900
+        },
+        {
+          "label": "After — mixed directory + file grid",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/dms/pr-1/after-portal-mixed.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Cards with tinted left stripe (per-extension for files, amber for directories), soft top-edge gradient derived from --ods-accent, hover lift identical to the backend kanban. Portal users see the same color for a PDF that internal users do.",
+      "next": [
+        "Mobile portrait: stack badge above the body, tighten line-height.",
+        "Empty-state illustration with a Lucide icon at scale.",
+        "Inline preview-on-hover for image/PDF (desktop only)."
+      ]
+    },
+    {
+      "name": "5 · Searchpanel",
+      "surface": "searchpanel",
+      "frames": [
+        {
+          "label": "After — monospaced section headers, tabular counters",
+          "src": null,
+          "note": "Visible inside every Files/Directories kanban screenshot — left column. No standalone capture; reference the directory kanban after-shot."
+        }
+      ],
+      "annotation": "Repeated UI furniture gets out of the way: smaller monospaced labels, tabular numerals for counts (so 1, 12, 999 align).",
+      "next": [
+        "Saved-search chips persisted per user across sessions.",
+        "Hierarchy collapse-state persisted (Odoo loses it across navigation).",
+        "'Recently opened' smart filter (shared with File Kanban next item)."
+      ]
+    },
+    {
+      "name": "6 · Drop-zone",
+      "surface": "dropzone",
+      "frames": [
+        {
+          "label": "After — animated marching-dashed border + bobbing cloud",
+          "src": null,
+          "note": "Motion-dependent; static screenshot doesn't carry the design. See dms/static/src/scss/kanban.scss → .o_dropzone.o_dms_dropzone for the keyframe definition."
+        }
+      ],
+      "annotation": "Motion describes the action: this is an active target. Marching dashes + bob = earned attention, not decorative.",
+      "next": [
+        "Drop-on-directory-card to upload directly into the targeted directory.",
+        "File-type-aware overlay copy: 'drop 3 files (2 images, 1 PDF)'.",
+        "Progress feedback during upload."
+      ]
+    }
+  ]
+}
