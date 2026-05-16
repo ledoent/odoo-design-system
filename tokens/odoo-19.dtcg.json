@@ -1,0 +1,557 @@
+{
+  "odoo-19-dtcg": {
+    "number": {
+      "frontend-min-contrast-ratio": {
+        "$type": "number",
+        "$value": 2.9,
+        "$description": "Odoo 19.0 $o-frontend-min-contrast-ratio (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "line-height-base": {
+        "$type": "number",
+        "$value": 1.5,
+        "$description": "Odoo 19.0 $o-line-height-base (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "line-height-sm": {
+        "$type": "number",
+        "$value": 1.25,
+        "$description": "Odoo 19.0 $o-line-height-sm (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "line-height-lg": {
+        "$type": "number",
+        "$value": 2.0,
+        "$description": "Odoo 19.0 $o-line-height-lg (from addons/web/static/src/scss/primary_variables.scss)"
+      }
+    },
+    "dimension": {
+      "root-font-size": {
+        "$type": "dimension",
+        "$value": "1rem",
+        "$description": "Odoo 19.0 $o-root-font-size (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "font-size-base": {
+        "$type": "dimension",
+        "$value": "0.875rem",
+        "$description": "Odoo 19.0 $o-font-size-base (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "font-size-base-touch": {
+        "$type": "dimension",
+        "$value": "1.0rem",
+        "$description": "Odoo 19.0 $o-font-size-base-touch (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "font-size-base-small": {
+        "$type": "dimension",
+        "$value": "0.8125rem",
+        "$description": "Odoo 19.0 $o-font-size-base-small (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "font-size-base-smaller": {
+        "$type": "dimension",
+        "$value": "0.75rem",
+        "$description": "Odoo 19.0 $o-font-size-base-smaller (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "table-cell-padding-x-sm": {
+        "$type": "dimension",
+        "$value": ".3rem",
+        "$description": "Odoo 19.0 $o-table-cell-padding-x-sm (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "table-cell-padding-y-sm": {
+        "$type": "dimension",
+        "$value": ".5rem",
+        "$description": "Odoo 19.0 $o-table-cell-padding-y-sm (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "input-padding-y": {
+        "$type": "dimension",
+        "$value": "2px",
+        "$description": "Odoo 19.0 $o-input-padding-y (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "input-padding-x": {
+        "$type": "dimension",
+        "$value": "4px",
+        "$description": "Odoo 19.0 $o-input-padding-x (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "spacer": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Odoo 19.0 $o-spacer (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "form-spacing-unit": {
+        "$type": "dimension",
+        "$value": "5px",
+        "$description": "Odoo 19.0 $o-form-spacing-unit (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "horizontal-padding": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Odoo 19.0 $o-horizontal-padding (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "dropdown-hpadding": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$description": "Odoo 19.0 $o-dropdown-hpadding (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "dropdown-vpadding": {
+        "$type": "dimension",
+        "$value": "3px",
+        "$description": "Odoo 19.0 $o-dropdown-vpadding (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "dropdown-max-height": {
+        "$type": "dimension",
+        "$value": "70vh",
+        "$description": "Odoo 19.0 $o-dropdown-max-height (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "statbutton-height": {
+        "$type": "dimension",
+        "$value": "44px",
+        "$description": "Odoo 19.0 $o-statbutton-height (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "statbutton-spacing": {
+        "$type": "dimension",
+        "$value": "6px",
+        "$description": "Odoo 19.0 $o-statbutton-spacing (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "modal-lg": {
+        "$type": "dimension",
+        "$value": "980px",
+        "$description": "Odoo 19.0 $o-modal-lg (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "modal-md": {
+        "$type": "dimension",
+        "$value": "650px",
+        "$description": "Odoo 19.0 $o-modal-md (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "sheet-cancel-tpadding": {
+        "$type": "dimension",
+        "$value": "0px",
+        "$description": "Odoo 19.0 $o-sheet-cancel-tpadding (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "statusbar-height": {
+        "$type": "dimension",
+        "$value": "33px",
+        "$description": "Odoo 19.0 $o-statusbar-height (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "breadcrumb-item-padding-x": {
+        "$type": "dimension",
+        "$value": ".5rem",
+        "$description": "Odoo 19.0 $o-breadcrumb-item-padding-x (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "base-settings-mobile-tabs-height": {
+        "$type": "dimension",
+        "$value": "40px",
+        "$description": "Odoo 19.0 $o-base-settings-mobile-tabs-height (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "border-radius": {
+        "$type": "dimension",
+        "$value": "0.25rem",
+        "$description": "Odoo 19.0 $o-border-radius (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "border-radius-sm": {
+        "$type": "dimension",
+        "$value": "0.1875rem",
+        "$description": "Odoo 19.0 $o-border-radius-sm (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "border-radius-lg": {
+        "$type": "dimension",
+        "$value": "0.375rem",
+        "$description": "Odoo 19.0 $o-border-radius-lg (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "sheet-cancel-hpadding": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Odoo 19.0 $o-sheet-cancel-hpadding (from addons/web/static/src/scss/secondary_variables.scss)"
+      },
+      "sheet-cancel-bpadding": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Odoo 19.0 $o-sheet-cancel-bpadding (from addons/web/static/src/scss/secondary_variables.scss)"
+      },
+      "form-sheet-min-width": {
+        "$type": "dimension",
+        "$value": "990px",
+        "$description": "Odoo 19.0 $o-form-sheet-min-width (from addons/web/static/src/scss/secondary_variables.scss)"
+      },
+      "sheet-vpadding": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$description": "Odoo 19.0 $o-sheet-vpadding (from addons/web/static/src/views/form/form.variables.scss)"
+      },
+      "form-renderer-max-width": {
+        "$type": "dimension",
+        "$value": "2600px",
+        "$description": "Odoo 19.0 $o-form-renderer-max-width (from addons/web/static/src/views/form/form.variables.scss)"
+      },
+      "form-view-sheet-max-width": {
+        "$type": "dimension",
+        "$value": "1400px",
+        "$description": "Odoo 19.0 $o-form-view-sheet-max-width (from addons/web/static/src/views/form/form.variables.scss)"
+      },
+      "form-picture-size": {
+        "$type": "dimension",
+        "$value": "90px",
+        "$description": "Odoo 19.0 $o-form-picture-size (from addons/web/static/src/views/form/form.variables.scss)"
+      },
+      "kanban-default-record-width": {
+        "$type": "dimension",
+        "$value": "320px",
+        "$description": "Odoo 19.0 $o-kanban-default-record-width (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-small-record-width": {
+        "$type": "dimension",
+        "$value": "300px",
+        "$description": "Odoo 19.0 $o-kanban-small-record-width (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-image-width": {
+        "$type": "dimension",
+        "$value": "64px",
+        "$description": "Odoo 19.0 $o-kanban-image-width (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-image-fill-width": {
+        "$type": "dimension",
+        "$value": "95px",
+        "$description": "Odoo 19.0 $o-kanban-image-fill-width (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-inside-vgutter": {
+        "$type": "dimension",
+        "$value": "8px",
+        "$description": "Odoo 19.0 $o-kanban-inside-vgutter (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-inside-hgutter": {
+        "$type": "dimension",
+        "$value": "8px",
+        "$description": "Odoo 19.0 $o-kanban-inside-hgutter (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-color-border-width": {
+        "$type": "dimension",
+        "$value": "3px",
+        "$description": "Odoo 19.0 $o-kanban-color-border-width (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-inner-hmargin": {
+        "$type": "dimension",
+        "$value": "5px",
+        "$description": "Odoo 19.0 $o-kanban-inner-hmargin (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-progressbar-height": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$description": "Odoo 19.0 $o-kanban-progressbar-height (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-group-padding": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Odoo 19.0 $o-kanban-group-padding (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-inside-hgutter-mobile": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Odoo 19.0 $o-kanban-inside-hgutter-mobile (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-dashboard-dropdown-complex-gap": {
+        "$type": "dimension",
+        "$value": "5px",
+        "$description": "Odoo 19.0 $o-kanban-dashboard-dropdown-complex-gap (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "kanban-dashboard-hpadding": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Odoo 19.0 $o-kanban-dashboard-hpadding (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "navbar-height": {
+        "$type": "dimension",
+        "$value": "46px",
+        "$description": "Odoo 19.0 $o-navbar-height (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-padding-v": {
+        "$type": "dimension",
+        "$value": "0px",
+        "$description": "Odoo 19.0 $o-navbar-padding-v (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-font-size": {
+        "$type": "dimension",
+        "$value": "0.875rem",
+        "$description": "Odoo 19.0 $o-navbar-font-size (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-entry-padding-h": {
+        "$type": "dimension",
+        "$value": ".63em",
+        "$description": "Odoo 19.0 $o-navbar-entry-padding-h (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-entry-font-size": {
+        "$type": "dimension",
+        "$value": "1em",
+        "$description": "Odoo 19.0 $o-navbar-entry-font-size (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-brand-font-size": {
+        "$type": "dimension",
+        "$value": "1.2em",
+        "$description": "Odoo 19.0 $o-navbar-brand-font-size (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-badge-size": {
+        "$type": "dimension",
+        "$value": "11px",
+        "$description": "Odoo 19.0 $o-navbar-badge-size (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-badge-padding": {
+        "$type": "dimension",
+        "$value": "4px",
+        "$description": "Odoo 19.0 $o-navbar-badge-padding (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      }
+    },
+    "font-weight": {
+      "font-weight-normal": {
+        "$type": "fontWeight",
+        "$value": 400,
+        "$description": "Odoo 19.0 $o-font-weight-normal (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "font-weight-medium": {
+        "$type": "fontWeight",
+        "$value": 500,
+        "$description": "Odoo 19.0 $o-font-weight-medium (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "font-weight-bold": {
+        "$type": "fontWeight",
+        "$value": 700,
+        "$description": "Odoo 19.0 $o-font-weight-bold (from addons/web/static/src/scss/primary_variables.scss)"
+      }
+    },
+    "color": {
+      "white": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Odoo 19.0 $o-white (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "black": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "Odoo 19.0 $o-black (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "gray-100": {
+        "$type": "color",
+        "$value": "#f8f9fa",
+        "$description": "Odoo 19.0 $o-gray-100 (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "gray-200": {
+        "$type": "color",
+        "$value": "#e9ecef",
+        "$description": "Odoo 19.0 $o-gray-200 (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "gray-300": {
+        "$type": "color",
+        "$value": "#dee2e6",
+        "$description": "Odoo 19.0 $o-gray-300 (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "gray-400": {
+        "$type": "color",
+        "$value": "#ced4da",
+        "$description": "Odoo 19.0 $o-gray-400 (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "gray-500": {
+        "$type": "color",
+        "$value": "#adb5bd",
+        "$description": "Odoo 19.0 $o-gray-500 (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "gray-600": {
+        "$type": "color",
+        "$value": "#6c757d",
+        "$description": "Odoo 19.0 $o-gray-600 (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "gray-700": {
+        "$type": "color",
+        "$value": "#495057",
+        "$description": "Odoo 19.0 $o-gray-700 (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "gray-800": {
+        "$type": "color",
+        "$value": "#343a40",
+        "$description": "Odoo 19.0 $o-gray-800 (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "gray-900": {
+        "$type": "color",
+        "$value": "#212529",
+        "$description": "Odoo 19.0 $o-gray-900 (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "community-color": {
+        "$type": "color",
+        "$value": "#71639e",
+        "$description": "Odoo 19.0 $o-community-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "enterprise-color": {
+        "$type": "color",
+        "$value": "#714B67",
+        "$description": "Odoo 19.0 $o-enterprise-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "enterprise-action-color": {
+        "$type": "color",
+        "$value": "#017e84",
+        "$description": "Odoo 19.0 $o-enterprise-action-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "brand-odoo": {
+        "$type": "color",
+        "$value": "#71639e",
+        "$description": "Odoo 19.0 $o-brand-odoo (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "brand-primary": {
+        "$type": "color",
+        "$value": "#71639e",
+        "$description": "Odoo 19.0 $o-brand-primary (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "brand-secondary": {
+        "$type": "color",
+        "$value": "#8f8f8f",
+        "$description": "Odoo 19.0 $o-brand-secondary (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "brand-lightsecondary": {
+        "$type": "color",
+        "$value": "#f8f9fa",
+        "$description": "Odoo 19.0 $o-brand-lightsecondary (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "action": {
+        "$type": "color",
+        "$value": "#71639e",
+        "$description": "Odoo 19.0 $o-action (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "#28a745",
+        "$description": "Odoo 19.0 $o-success (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "info": {
+        "$type": "color",
+        "$value": "#17a2b8",
+        "$description": "Odoo 19.0 $o-info (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#ffac00",
+        "$description": "Odoo 19.0 $o-warning (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "danger": {
+        "$type": "color",
+        "$value": "#dc3545",
+        "$description": "Odoo 19.0 $o-danger (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "main-text-color": {
+        "$type": "color",
+        "$value": "#212529",
+        "$description": "Odoo 19.0 $o-main-text-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "main-headings-color": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "Odoo 19.0 $o-main-headings-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "main-favorite-color": {
+        "$type": "color",
+        "$value": "#f3cc00",
+        "$description": "Odoo 19.0 $o-main-favorite-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "main-code-color": {
+        "$type": "color",
+        "$value": "#d2317b",
+        "$description": "Odoo 19.0 $o-main-code-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "component-active-color": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "Odoo 19.0 $o-component-active-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "component-active-border": {
+        "$type": "color",
+        "$value": "#71639e",
+        "$description": "Odoo 19.0 $o-component-active-border (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "view-background-color": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Odoo 19.0 $o-view-background-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "shadow-color": {
+        "$type": "color",
+        "$value": "#303030",
+        "$description": "Odoo 19.0 $o-shadow-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "form-lightsecondary": {
+        "$type": "color",
+        "$value": "#ccc",
+        "$description": "Odoo 19.0 $o-form-lightsecondary (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "input-border-required": {
+        "$type": "color",
+        "$value": "#71639e",
+        "$description": "Odoo 19.0 $o-input-border-required (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "list-group-active-color": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "Odoo 19.0 $o-list-group-active-color (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "webclient-background-color": {
+        "$type": "color",
+        "$value": "#f8f9fa",
+        "$description": "Odoo 19.0 $o-webclient-background-color (from addons/web/static/src/scss/secondary_variables.scss)"
+      },
+      "kanban-background": {
+        "$type": "color",
+        "$value": "#f8f9fa",
+        "$description": "Odoo 19.0 $o-kanban-background (from addons/web/static/src/views/kanban/kanban.variables.scss)"
+      },
+      "navbar-background": {
+        "$type": "color",
+        "$value": "#71639e",
+        "$description": "Odoo 19.0 $o-navbar-background (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-entry-color--hover": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Odoo 19.0 $o-navbar-entry-color--hover (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-entry-color--active": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Odoo 19.0 $o-navbar-entry-color--active (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-badge-bg": {
+        "$type": "color",
+        "$value": "#28a745",
+        "$description": "Odoo 19.0 $o-navbar-badge-bg (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      }
+    },
+    "opacity": {
+      "opacity-disabled": {
+        "$type": "opacity",
+        "$value": 0.5,
+        "$description": "Odoo 19.0 $o-opacity-disabled (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "opacity-muted": {
+        "$type": "opacity",
+        "$value": 0.76,
+        "$description": "Odoo 19.0 $o-opacity-muted (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "label-font-size-factor": {
+        "$type": "opacity",
+        "$value": 0.8,
+        "$description": "Odoo 19.0 $o-label-font-size-factor (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "card-body-bg-opacity": {
+        "$type": "opacity",
+        "$value": 0.9,
+        "$description": "Odoo 19.0 $o-card-body-bg-opacity (from addons/web/static/src/scss/primary_variables.scss)"
+      },
+      "navbar-entry-margin-h": {
+        "$type": "opacity",
+        "$value": 0.0,
+        "$description": "Odoo 19.0 $o-navbar-entry-margin-h (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      },
+      "navbar-entry-border-radius": {
+        "$type": "opacity",
+        "$value": 0.0,
+        "$description": "Odoo 19.0 $o-navbar-entry-border-radius (from addons/web/static/src/webclient/navbar/navbar.variables.scss)"
+      }
+    }
+  },
+  "$themes": [],
+  "$metadata": {
+    "tokenSetOrder": [
+      "odoo-19-dtcg"
+    ],
+    "source": "odoo/odoo:19.0 — addons/web/static/src/scss/* (primary, secondary, view variables)",
+    "generator": "scripts/scss-to-dtcg.py"
+  }
+}
