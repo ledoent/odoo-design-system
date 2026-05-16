@@ -1,0 +1,106 @@
+{
+  "color": {
+    "brand": {
+      "primary":        { "$value": "#D97706", "$type": "color", "$description": "Amber-500. Maps to $o-enterprise-color / $primary in Odoo." },
+      "primary-hover":  { "$value": "#B45309", "$type": "color", "$description": "Amber-700. Link/button hover." },
+      "primary-active": { "$value": "#92400E", "$type": "color", "$description": "Amber-900. Active/pressed." },
+      "secondary":      { "$value": "#F59E0B", "$type": "color", "$description": "Amber-400. $o-brand-lighten." }
+    },
+    "portal": {
+      "nav-dark":       { "$value": "#1A1A1E", "$type": "color", "$description": "Portal navbar background." },
+      "sidebar-light":  { "$value": "#FAFAF8", "$type": "color", "$description": "Card-header / sidebar." },
+      "border":         { "$value": "#E5E5E5", "$type": "color", "$description": "Card border, sidebar divider." }
+    },
+    "bucket": {
+      "1": { "$value": "#4263eb", "$type": "color", "$description": "Indigo." },
+      "2": { "$value": "#1098ad", "$type": "color", "$description": "Teal." },
+      "3": { "$value": "#2f9e44", "$type": "color", "$description": "Green." },
+      "4": { "$value": "#f08c00", "$type": "color", "$description": "Orange." },
+      "5": { "$value": "#d6336c", "$type": "color", "$description": "Pink." },
+      "6": { "$value": "#ae3ec9", "$type": "color", "$description": "Violet." },
+      "7": { "$value": "#5f3dc4", "$type": "color", "$description": "Purple." },
+      "8": { "$value": "#495057", "$type": "color", "$description": "Slate." }
+    },
+    "ext": {
+      "pdf":   { "$value": "#d6336c", "$type": "color", "$description": "PDF." },
+      "doc":   { "$value": "#1971c2", "$type": "color", "$description": "Word base." },
+      "docx":  { "$value": "{color.ext.doc}", "$type": "color" },
+      "odt":   { "$value": "{color.ext.doc}", "$type": "color" },
+      "rtf":   { "$value": "{color.ext.doc}", "$type": "color" },
+      "txt":   { "$value": "#495057", "$type": "color", "$description": "Plain-text base." },
+      "md":    { "$value": "{color.ext.txt}", "$type": "color" },
+      "rst":   { "$value": "{color.ext.txt}", "$type": "color" },
+      "xls":   { "$value": "#2f9e44", "$type": "color", "$description": "Spreadsheet base." },
+      "xlsx":  { "$value": "{color.ext.xls}", "$type": "color" },
+      "ods":   { "$value": "{color.ext.xls}", "$type": "color" },
+      "csv":   { "$value": "{color.ext.xls}", "$type": "color" },
+      "ppt":   { "$value": "#e8590c", "$type": "color", "$description": "Slides base." },
+      "pptx":  { "$value": "{color.ext.ppt}", "$type": "color" },
+      "odp":   { "$value": "{color.ext.ppt}", "$type": "color" },
+      "zip":   { "$value": "#5f3dc4", "$type": "color", "$description": "Archive base." },
+      "tar":   { "$value": "{color.ext.zip}", "$type": "color" },
+      "gz":    { "$value": "{color.ext.zip}", "$type": "color" },
+      "rar":   { "$value": "{color.ext.zip}", "$type": "color" },
+      "image": { "$value": "#d6336c", "$type": "color", "$description": "Image base." },
+      "jpg":   { "$value": "{color.ext.image}", "$type": "color" },
+      "jpeg":  { "$value": "{color.ext.image}", "$type": "color" },
+      "png":   { "$value": "{color.ext.image}", "$type": "color" },
+      "gif":   { "$value": "{color.ext.image}", "$type": "color" },
+      "svg":   { "$value": "{color.ext.image}", "$type": "color" },
+      "webp":  { "$value": "{color.ext.image}", "$type": "color" },
+      "media": { "$value": "#ae3ec9", "$type": "color", "$description": "AV base." },
+      "mp4":   { "$value": "{color.ext.media}", "$type": "color" },
+      "mov":   { "$value": "{color.ext.media}", "$type": "color" },
+      "mkv":   { "$value": "{color.ext.media}", "$type": "color" },
+      "webm":  { "$value": "{color.ext.media}", "$type": "color" },
+      "mp3":   { "$value": "{color.ext.media}", "$type": "color" },
+      "wav":   { "$value": "{color.ext.media}", "$type": "color" },
+      "flac":  { "$value": "{color.ext.media}", "$type": "color" },
+      "ogg":   { "$value": "{color.ext.media}", "$type": "color" }
+    },
+    "neutral": {
+      "fallback": { "$value": "#adb5bd", "$type": "color", "$description": "var(--o-gray-500) default when no per-identity hash applies." }
+    }
+  },
+
+  "size": {
+    "card-radius":  { "$value": "6px",   "$type": "borderRadius", "$description": "Default card corner." },
+    "chip-radius":  { "$value": "999px", "$type": "borderRadius", "$description": "Pill shape." },
+    "tile-size":    { "$value": "56px",  "$type": "sizing",       "$description": "Default <OdsCardTile> footprint." },
+    "avatar-size":  { "$value": "22px",  "$type": "sizing",       "$description": "Default <OdsInitialsAvatar> diameter." },
+    "spine-width":  { "$value": "3px",   "$type": "borderWidth",  "$description": "Left-edge accent stripe (ods-card-chrome)." }
+  },
+
+  "shadow": {
+    "card": {
+      "$type": "shadow",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "1px",
+        "blur":    "3px",
+        "spread":  "0px",
+        "color":   "rgba(0, 0, 0, 0.08)"
+      },
+      "$description": "Resting card elevation."
+    },
+    "card-hover": {
+      "$type": "shadow",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "4px",
+        "blur":    "18px",
+        "spread":  "0px",
+        "color":   "rgba(0, 0, 0, 0.08)"
+      },
+      "$description": "Lifted card on hover."
+    }
+  },
+
+  "motion-note": {
+    "card-lift": {
+      "$value": "transition 150ms ease (transform + box-shadow)",
+      "$type": "other",
+      "$description": "Card hover transition. Penpot does not yet support DTCG duration/cubicBezier types; recorded as 'other' for designer reference only — implementation lives in ods-card-chrome SCSS."
+    }
+  }
+}
