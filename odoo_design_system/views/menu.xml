@@ -6,13 +6,13 @@
 <odoo>
     <record id="action_showcase" model="ir.actions.client">
         <field name="name">OCA Design System</field>
-        <field name="tag">oca_design_system.showcase</field>
+        <field name="tag">odoo_design_system.showcase</field>
     </record>
 
     <menuitem
         id="menu_root"
         name="Design System"
-        web_icon="oca_design_system,static/description/icon.png"
+        web_icon="odoo_design_system,static/description/icon.png"
         sequence="170"
     />
 

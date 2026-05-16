@@ -4,7 +4,7 @@
 // Layout for the in-app design-system showcase. Intentionally restrained
 // so the components on display read as the focus.
 
-.oca_ds_showcase {
+.ods_showcase {
     padding: 24px;
     max-width: 1200px;
     margin: 0 auto;
@@ -27,23 +27,23 @@
         font-family: var(--bs-font-monospace, monospace);
     }
 
-    .oca_ds_lead {
+    .ods_lead {
         color: var(--o-gray-600, #6c757d);
         margin-bottom: 16px;
     }
 
-    .oca_ds_section {
+    .ods_section {
         margin-bottom: 32px;
     }
 
-    .oca_ds_card {
+    .ods_card {
         border: 1px solid var(--o-gray-300, #dee2e6);
         border-radius: 8px;
         padding: 16px;
         background: white;
     }
 
-    .oca_ds_grid {
+    .ods_grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 16px;
@@ -53,18 +53,18 @@
         }
     }
 
-    .oca_ds_demo {
+    .ods_demo {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         gap: 8px;
         min-height: 80px;
         padding: 16px;
-        border-radius: var(--oca-card-radius, 6px);
+        border-radius: var(--ods-card-radius, 6px);
         background: var(--o-gray-100, #f8f9fa);
     }
 
-    pre.oca_ds_code {
+    pre.ods_code {
         margin: 0;
         padding: 12px;
         background: #1e1e1e;
@@ -72,23 +72,23 @@
         font-family: var(--bs-font-monospace, monospace);
         font-size: 12px;
         line-height: 1.5;
-        border-radius: var(--oca-card-radius, 6px);
+        border-radius: var(--ods-card-radius, 6px);
         overflow-x: auto;
 
-        .oca_ds_tag {
+        .ods_tag {
             color: #569cd6;
         }
 
-        .oca_ds_attr {
+        .ods_attr {
             color: #9cdcfe;
         }
 
-        .oca_ds_string {
+        .ods_string {
             color: #ce9178;
         }
     }
 
-    .oca_ds_token_table {
+    .ods_token_table {
         width: 100%;
         border-collapse: collapse;
         font-family: var(--bs-font-monospace, monospace);
@@ -110,7 +110,7 @@
             letter-spacing: 0.06em;
         }
 
-        .oca_ds_swatch {
+        .ods_swatch {
             display: inline-block;
             width: 16px;
             height: 16px;

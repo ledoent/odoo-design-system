@@ -5,13 +5,13 @@
 // ahead of this file by __manifest__.py).
 
 // ---------------------------------------------------------------------------
-// OcaChip — neutral pill with tonal variants.
+// OdsChip — neutral pill with tonal variants.
 
-.oca_chip {
+.ods_chip {
     display: inline-flex;
     align-items: center;
     padding: 2px 6px;
-    border-radius: var(--oca-chip-radius, 999px);
+    border-radius: var(--ods-chip-radius, 999px);
     background: var(--o-gray-200, #e9ecef);
     color: var(--o-gray-800, #495057);
     font-size: 11px;
@@ -25,68 +25,68 @@
     }
 }
 
-.oca_chip--ext {
+.ods_chip--ext {
     text-transform: uppercase;
     font-family: var(--bs-font-monospace, monospace);
-    background: color-mix(in srgb, var(--oca-accent, #5b3bd6) 14%, white);
-    color: color-mix(in srgb, var(--oca-accent, #5b3bd6) 75%, black);
+    background: color-mix(in srgb, var(--ods-accent, #5b3bd6) 14%, white);
+    color: color-mix(in srgb, var(--ods-accent, #5b3bd6) 75%, black);
 }
 
-.oca_chip--size {
+.ods_chip--size {
     font-variant-numeric: tabular-nums;
 }
 
-.oca_chip--count {
+.ods_chip--count {
     font-variant-numeric: tabular-nums;
-    background: color-mix(in srgb, var(--oca-accent, #adb5bd) 12%, white);
-    color: color-mix(in srgb, var(--oca-accent, #adb5bd) 70%, black);
+    background: color-mix(in srgb, var(--ods-accent, #adb5bd) 12%, white);
+    color: color-mix(in srgb, var(--ods-accent, #adb5bd) 70%, black);
 }
 
-.oca_chip--warning {
+.ods_chip--warning {
     background: var(--o-warning-100, #fff3cd);
     color: var(--o-warning-800, #856404);
 }
 
-.oca_chip--success {
+.ods_chip--success {
     background: var(--o-success-100, #d1e7dd);
     color: var(--o-success-800, #0f5132);
 }
 
-@include oca-extension-vars(".oca_chip--ext");
+@include ods-extension-vars(".ods_chip--ext");
 
 // ---------------------------------------------------------------------------
-// OcaInitialsAvatar — circle, hashed tint.
+// OdsInitialsAvatar — circle, hashed tint.
 
-.oca_initials_avatar {
-    width: var(--oca-avatar-size, 22px);
-    height: var(--oca-avatar-size, 22px);
+.ods_initials_avatar {
+    width: var(--ods-avatar-size, 22px);
+    height: var(--ods-avatar-size, 22px);
     border-radius: 50%;
-    background: var(--oca-accent, var(--o-gray-500, #6c757d));
+    background: var(--ods-accent, var(--o-gray-500, #6c757d));
     color: #fff;
     font-size: 11px;
     font-weight: 600;
-    line-height: var(--oca-avatar-size, 22px);
+    line-height: var(--ods-avatar-size, 22px);
     text-align: center;
     text-transform: uppercase;
     flex: 0 0 auto;
     display: inline-block;
 }
 
-@include oca-initial-vars(".oca_initials_avatar");
+@include ods-initial-vars(".ods_initials_avatar");
 
 // ---------------------------------------------------------------------------
-// OcaCardTile — accent thumbnail tile (folder icon, mimetype icon, or
+// OdsCardTile — accent thumbnail tile (folder icon, mimetype icon, or
 // real image preview).
 
-.oca_card_tile {
-    --oca-accent: var(--o-gray-500, #adb5bd);
-    flex: 0 0 var(--oca-tile-size, 56px);
-    width: var(--oca-tile-size, 56px);
-    height: var(--oca-tile-size, 56px);
-    border-radius: var(--oca-card-radius, 6px);
+.ods_card_tile {
+    --ods-accent: var(--o-gray-500, #adb5bd);
+    flex: 0 0 var(--ods-tile-size, 56px);
+    width: var(--ods-tile-size, 56px);
+    height: var(--ods-tile-size, 56px);
+    border-radius: var(--ods-card-radius, 6px);
     background:
         linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0)),
-        var(--oca-accent);
+        var(--ods-accent);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,7 +101,7 @@
         filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
     }
 
-    &.oca_card_tile--preview {
+    &.ods_card_tile--preview {
         background: var(--o-gray-100, #f1f3f5);
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
 
@@ -115,5 +115,5 @@
     }
 }
 
-@include oca-extension-vars(".oca_card_tile");
-@include oca-initial-vars(".oca_card_tile");
+@include ods-extension-vars(".ods_card_tile");
+@include ods-initial-vars(".ods_card_tile");

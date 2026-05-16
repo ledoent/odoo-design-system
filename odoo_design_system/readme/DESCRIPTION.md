@@ -7,11 +7,11 @@ patterns in every module.
 It ships:
 
 - A single SCSS partial — `static/src/scss/_tokens.scss` — that declares
-  one accent variable (`--oca-accent`), eight hashing-friendly bucket
+  one accent variable (`--ods-accent`), eight hashing-friendly bucket
   colors, a per-file-extension palette, and the mixins that emit the
   `data-*` keyed selectors. Every value falls back to an Odoo 19
   `$o-*` token, so the system inherits any host project theming.
-- Three OWL components — `OcaChip`, `OcaInitialsAvatar`, `OcaCardTile` —
+- Three OWL components — `OdsChip`, `OdsInitialsAvatar`, `OdsCardTile` —
   that wrap the most reused micro-patterns (label pill, hashed
   initials circle, accent thumbnail tile).
 - A "Design System" backend menu rendering every component live with

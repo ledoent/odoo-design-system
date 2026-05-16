@@ -1,15 +1,15 @@
 // Copyright 2026 Ledo / Subteno.
 // License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 //
-// <OcaCardTile accent="ext" dataExt="pdf">  — 56px square thumbnail
+// <OdsCardTile accent="ext" dataExt="pdf">  — 56px square thumbnail
 // tile carrying an icon or preview image on a tinted background.
 // Tint is keyed off `data-ext` (per file extension) or `data-initial`
 // (per directory / record name hash).
 
 import {Component} from "@odoo/owl";
 
-export class OcaCardTile extends Component {
-    static template = "oca_design_system.OcaCardTile";
+export class OdsCardTile extends Component {
+    static template = "odoo_design_system.OdsCardTile";
 
     static props = {
         // accent: "ext" — tint by file extension data-ext attribute
@@ -31,8 +31,8 @@ export class OcaCardTile extends Component {
 
     get className() {
         return this.props.accent === "preview"
-            ? "oca_card_tile oca_card_tile--preview"
-            : "oca_card_tile";
+            ? "ods_card_tile ods_card_tile--preview"
+            : "ods_card_tile";
     }
 
     get initial() {
@@ -45,7 +45,7 @@ export class OcaCardTile extends Component {
             const px = typeof this.props.size === "number"
                 ? `${this.props.size}px`
                 : this.props.size;
-            return `--oca-tile-size: ${px}`;
+            return `--ods-tile-size: ${px}`;
         }
         return "";
     }

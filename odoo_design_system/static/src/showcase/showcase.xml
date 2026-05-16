@@ -4,20 +4,20 @@
     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 -->
 <templates xml:space="preserve">
-    <t t-name="oca_design_system.Showcase">
-        <div class="oca_ds_showcase">
+    <t t-name="odoo_design_system.Showcase">
+        <div class="ods_showcase">
             <h1>OCA Design System — Odoo 19</h1>
-            <p class="oca_ds_lead">
+            <p class="ods_lead">
                 Shared OWL components + CSS tokens for OCA UI work. Copy a snippet,
                 adjust the props, and the result will read visually consistent with every
                 other OCA module that uses this addon.
             </p>
 
             <!-- Tokens -->
-            <section class="oca_ds_section">
+            <section class="ods_section">
                 <h2>Tokens</h2>
-                <div class="oca_ds_card">
-                    <table class="oca_ds_token_table">
+                <div class="ods_card">
+                    <table class="ods_token_table">
                         <thead>
                             <tr>
                                 <th>Variable</th>
@@ -37,16 +37,16 @@
             </section>
 
             <!-- Bucket palette -->
-            <section class="oca_ds_section">
+            <section class="ods_section">
                 <h2>Bucket palette</h2>
-                <p class="oca_ds_lead">
+                <p class="ods_lead">
                     Eight semantic buckets. Any identity (a record name, a creator initial,
                     a file family) deterministically hashes into one of these.
                 </p>
-                <div class="oca_ds_card">
-                    <div class="oca_ds_demo">
+                <div class="ods_card">
+                    <div class="ods_demo">
                         <span t-foreach="buckets" t-as="b" t-key="b.n"
-                              class="oca_chip"
+                              class="ods_chip"
                               t-attf-style="background: {{ b.hex }}; color: white;"
                               t-esc="b.n"/>
                     </div>
@@ -54,91 +54,91 @@
             </section>
 
             <!-- Chips -->
-            <section class="oca_ds_section">
-                <h2>Chips — `&lt;OcaChip&gt;`</h2>
-                <div class="oca_ds_grid">
-                    <div class="oca_ds_card">
-                        <div class="oca_ds_demo">
-                            <OcaChip label="2.4 MB" variant="'size'"/>
-                            <OcaChip label="5" icon="'fa-folder'" variant="'count'"/>
-                            <OcaChip icon="'fa-lock'" variant="'warning'" label="'Locked'"/>
-                            <OcaChip icon="'fa-unlock-alt'" variant="'success'" label="'Locked by me'"/>
-                            <OcaChip t-foreach="extensions" t-as="ext" t-key="ext"
+            <section class="ods_section">
+                <h2>Chips — `&lt;OdsChip&gt;`</h2>
+                <div class="ods_grid">
+                    <div class="ods_card">
+                        <div class="ods_demo">
+                            <OdsChip label="2.4 MB" variant="'size'"/>
+                            <OdsChip label="5" icon="'fa-folder'" variant="'count'"/>
+                            <OdsChip icon="'fa-lock'" variant="'warning'" label="'Locked'"/>
+                            <OdsChip icon="'fa-unlock-alt'" variant="'success'" label="'Locked by me'"/>
+                            <OdsChip t-foreach="extensions" t-as="ext" t-key="ext"
                                      variant="'ext'"
                                      dataExt="ext"
                                      label="ext.toUpperCase()"/>
                         </div>
                     </div>
-                    <pre class="oca_ds_code">
-&lt;OcaChip variant="'size'" label="'2.4 MB'"/&gt;
-&lt;OcaChip variant="'count'" icon="'fa-folder'" label="5"/&gt;
-&lt;OcaChip variant="'warning'" icon="'fa-lock'" label="'Locked'"/&gt;
-&lt;OcaChip variant="'ext'" dataExt="'pdf'" label="'PDF'"/&gt;
+                    <pre class="ods_code">
+&lt;OdsChip variant="'size'" label="'2.4 MB'"/&gt;
+&lt;OdsChip variant="'count'" icon="'fa-folder'" label="5"/&gt;
+&lt;OdsChip variant="'warning'" icon="'fa-lock'" label="'Locked'"/&gt;
+&lt;OdsChip variant="'ext'" dataExt="'pdf'" label="'PDF'"/&gt;
                     </pre>
                 </div>
             </section>
 
             <!-- Initials avatars -->
-            <section class="oca_ds_section">
-                <h2>Initials — `&lt;OcaInitialsAvatar&gt;`</h2>
-                <div class="oca_ds_grid">
-                    <div class="oca_ds_card">
-                        <div class="oca_ds_demo">
-                            <OcaInitialsAvatar t-foreach="people" t-as="person" t-key="person"
+            <section class="ods_section">
+                <h2>Initials — `&lt;OdsInitialsAvatar&gt;`</h2>
+                <div class="ods_grid">
+                    <div class="ods_card">
+                        <div class="ods_demo">
+                            <OdsInitialsAvatar t-foreach="people" t-as="person" t-key="person"
                                                name="person"/>
                         </div>
                     </div>
-                    <pre class="oca_ds_code">
-&lt;OcaInitialsAvatar name="'Mitchell Admin'"/&gt;
+                    <pre class="ods_code">
+&lt;OdsInitialsAvatar name="'Mitchell Admin'"/&gt;
 
 &lt;!-- Size override --&gt;
-&lt;OcaInitialsAvatar name="'M'" size="32"/&gt;
+&lt;OdsInitialsAvatar name="'M'" size="32"/&gt;
                     </pre>
                 </div>
             </section>
 
             <!-- Card tiles -->
-            <section class="oca_ds_section">
-                <h2>Card tiles — `&lt;OcaCardTile&gt;`</h2>
-                <div class="oca_ds_grid">
-                    <div class="oca_ds_card">
-                        <div class="oca_ds_demo">
-                            <OcaCardTile t-foreach="extensions" t-as="ext" t-key="ext"
+            <section class="ods_section">
+                <h2>Card tiles — `&lt;OdsCardTile&gt;`</h2>
+                <div class="ods_grid">
+                    <div class="ods_card">
+                        <div class="ods_demo">
+                            <OdsCardTile t-foreach="extensions" t-as="ext" t-key="ext"
                                          accent="'ext'"
                                          dataExt="ext">
                                 <i t-attf-class="fa fa-file-{{ ext }}-o" aria-hidden="true"/>
-                            </OcaCardTile>
+                            </OdsCardTile>
                         </div>
                     </div>
-                    <pre class="oca_ds_code">
-&lt;OcaCardTile accent="'ext'" dataExt="'pdf'" imgSrc="iconUrl"/&gt;
+                    <pre class="ods_code">
+&lt;OdsCardTile accent="'ext'" dataExt="'pdf'" imgSrc="iconUrl"/&gt;
 
 &lt;!-- Directory: hash-tint by first-letter of name --&gt;
-&lt;OcaCardTile accent="'initial'" name="'Documents'"/&gt;
+&lt;OdsCardTile accent="'initial'" name="'Documents'"/&gt;
 
 &lt;!-- Real photo preview --&gt;
-&lt;OcaCardTile accent="'preview'" imgSrc="thumbUrl"/&gt;
+&lt;OdsCardTile accent="'preview'" imgSrc="thumbUrl"/&gt;
                     </pre>
                 </div>
             </section>
 
             <!-- Card chrome mixin -->
-            <section class="oca_ds_section">
-                <h2>Card chrome — `@include oca-card-chrome($selector)`</h2>
-                <p class="oca_ds_lead">
+            <section class="ods_section">
+                <h2>Card chrome — `@include ods-card-chrome($selector)`</h2>
+                <p class="ods_lead">
                     A Sass mixin that adds an accent spine + hover lift to any card selector.
                 </p>
-                <div class="oca_ds_grid">
-                    <div class="oca_ds_card">
-                        <pre class="oca_ds_code">
+                <div class="ods_grid">
+                    <div class="ods_card">
+                        <pre class="ods_code">
 // In your module's SCSS
-@include oca-card-chrome(".my_app_card");
+@include ods-card-chrome(".my_app_card");
                         </pre>
                     </div>
-                    <div class="oca_ds_card">
+                    <div class="ods_card">
                         <p>Effect:</p>
                         <ul>
-                            <li>3px accent stripe on the left edge, colored by <code>--oca-accent</code></li>
+                            <li>3px accent stripe on the left edge, colored by <code>--ods-accent</code></li>
                             <li>Subtle 1px lift + shadow on hover</li>
                             <li>Stays compatible with Odoo's <code>highlight_color</code> kanban-color border</li>
                         </ul>

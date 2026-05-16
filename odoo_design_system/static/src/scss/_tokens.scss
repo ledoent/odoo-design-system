@@ -17,7 +17,7 @@
 // directory name, a creator initial, an asset type) hashes into this map.
 // Colors chosen to be visually distinct at small chip sizes and to read
 // cleanly over both light and dark Odoo themes.
-$oca-bucket-palette: (
+$ods-bucket-palette: (
     1: #4263eb,
     2: #1098ad,
     3: #2f9e44,
@@ -29,9 +29,9 @@ $oca-bucket-palette: (
 );
 
 // Per-extension accents. Grouped by family so adding an extension only
-// touches one row. Consumers read the generated --oca-accent variable;
+// touches one row. Consumers read the generated --ods-accent variable;
 // the map itself is never exposed.
-$oca-extension-accents: (
+$ods-extension-accents: (
     "pdf": #d6336c,
     "doc": #1971c2, "docx": #1971c2, "odt": #1971c2, "rtf": #1971c2,
     "txt": #495057, "md": #495057, "rst": #495057,
@@ -49,53 +49,53 @@ $oca-extension-accents: (
 // emits `data-initial="<first letter>"` and the CSS below picks the
 // matching bucket at compile time.
 
-@function oca-char-index($ch) {
+@function ods-char-index($ch) {
     $alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     $idx: str-index($alphabet, $ch);
     @return if($idx == null, 0, $idx);
 }
 
-@function oca-bucket-index($key, $bucket-count: 8) {
+@function ods-bucket-index($key, $bucket-count: 8) {
     $sum: 0;
     $upper: to-upper-case(if($key, $key, "?"));
     @for $i from 1 through str-length($upper) {
-        $sum: $sum + oca-char-index(str-slice($upper, $i, $i));
+        $sum: $sum + ods-char-index(str-slice($upper, $i, $i));
     }
     @return ($sum % $bucket-count) + 1;
 }
 
-@function oca-bucket-color($key) {
-    @return map-get($oca-bucket-palette, oca-bucket-index($key));
+@function ods-bucket-color($key) {
+    @return map-get($ods-bucket-palette, ods-bucket-index($key));
 }
 
 // ---------------------------------------------------------------------------
 // Mixins — consumers prefix their own selector and the mixin generates
 // the data-attribute-keyed CSS variable assignments.
 
-@mixin oca-extension-vars($selector) {
-    @each $ext, $color in $oca-extension-accents {
+@mixin ods-extension-vars($selector) {
+    @each $ext, $color in $ods-extension-accents {
         #{$selector}[data-ext=".#{$ext}"],
         #{$selector}[data-ext="#{$ext}"] {
-            --oca-accent: #{$color};
+            --ods-accent: #{$color};
         }
     }
 }
 
-@mixin oca-initial-vars($selector) {
+@mixin ods-initial-vars($selector) {
     $letters: ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
                "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
     @each $l in $letters {
         #{$selector}[data-initial="#{$l}"] {
-            --oca-accent: #{oca-bucket-color($l)};
+            --ods-accent: #{ods-bucket-color($l)};
         }
     }
 }
 
 // Card chrome — accent spine on the left + hover lift. Consumers wrap
 // their kanban / portal card markup with the named class.
-@mixin oca-card-chrome($selector) {
+@mixin ods-card-chrome($selector) {
     #{$selector} {
-        --oca-accent: var(--o-gray-500, #adb5bd);
+        --ods-accent: var(--o-gray-500, #adb5bd);
         position: relative;
         transition:
             transform 0.15s ease,
@@ -106,7 +106,7 @@ $oca-extension-accents: (
             position: absolute;
             inset: 0 auto 0 0;
             width: 3px;
-            background: var(--oca-accent);
+            background: var(--ods-accent);
             opacity: 0.85;
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
@@ -114,7 +114,7 @@ $oca-extension-accents: (
         }
 
         &:hover {
-            box-shadow: var(--oca-card-shadow-hover, 0 4px 18px rgba(0, 0, 0, 0.08));
+            box-shadow: var(--ods-card-shadow-hover, 0 4px 18px rgba(0, 0, 0, 0.08));
             transform: translateY(-1px);
         }
     }
@@ -124,11 +124,11 @@ $oca-extension-accents: (
 // CSS-side tokens — exposed on :root so any component can read them.
 
 :root {
-    --oca-card-radius: 6px;
-    --oca-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --oca-card-shadow-hover: 0 4px 18px rgba(0, 0, 0, 0.08);
-    --oca-chip-radius: 999px;
-    --oca-tile-size: 56px;
-    --oca-avatar-size: 22px;
-    --oca-spine-width: 3px;
+    --ods-card-radius: 6px;
+    --ods-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --ods-card-shadow-hover: 0 4px 18px rgba(0, 0, 0, 0.08);
+    --ods-chip-radius: 999px;
+    --ods-tile-size: 56px;
+    --ods-avatar-size: 22px;
+    --ods-spine-width: 3px;
 }

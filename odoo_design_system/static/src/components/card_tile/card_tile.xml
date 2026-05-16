@@ -4,14 +4,15 @@
     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 -->
 <templates xml:space="preserve">
-    <t t-name="oca_design_system.OcaChip">
-        <span
+    <t t-name="odoo_design_system.OdsCardTile">
+        <div
             t-att-class="className"
             t-att-data-ext="props.dataExt"
+            t-att-data-initial="initial"
+            t-att-style="style"
         >
-            <i t-if="props.icon" t-attf-class="fa {{ props.icon }} me-1" aria-hidden="true"/>
-            <t t-if="props.label" t-esc="props.label"/>
+            <img t-if="props.imgSrc" t-att-src="props.imgSrc" t-att-alt="props.imgAlt"/>
             <t t-slot="default"/>
-        </span>
+        </div>
     </t>
 </templates>

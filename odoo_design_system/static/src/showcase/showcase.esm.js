@@ -2,19 +2,19 @@
 // License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 //
 // "Design System" backend menu — a single OWL client-action route
-// (`oca_design_system.showcase`) that renders every component live with
+// (`odoo_design_system.showcase`) that renders every component live with
 // the source snippet next to it. Use this as the canonical reference
 // when contributing UI to any OCA module.
 
 import {Component} from "@odoo/owl";
 import {registry} from "@web/core/registry";
-import {OcaChip} from "../components/chip/chip.esm";
-import {OcaInitialsAvatar} from "../components/initials_avatar/initials_avatar.esm";
-import {OcaCardTile} from "../components/card_tile/card_tile.esm";
+import {OdsChip} from "../components/chip/chip.esm";
+import {OdsInitialsAvatar} from "../components/initials_avatar/initials_avatar.esm";
+import {OdsCardTile} from "../components/card_tile/card_tile.esm";
 
-export class OcaDesignSystemShowcase extends Component {
-    static template = "oca_design_system.Showcase";
-    static components = {OcaChip, OcaInitialsAvatar, OcaCardTile};
+export class OdsShowcase extends Component {
+    static template = "odoo_design_system.Showcase";
+    static components = {OdsChip, OdsInitialsAvatar, OdsCardTile};
 
     static props = {
         // Standard client-action props passed by the action service.
@@ -28,14 +28,14 @@ export class OcaDesignSystemShowcase extends Component {
     // Token reference — kept in sync with _tokens.scss and components.scss.
     get tokens() {
         return [
-            {name: "--oca-accent", value: "var(--o-gray-500, #adb5bd)", purpose: "Per-identity tint (set per element)"},
-            {name: "--oca-card-radius", value: "6px", purpose: "Standard tile / card radius"},
-            {name: "--oca-card-shadow", value: "0 1px 3px rgba(0,0,0,0.08)", purpose: "Resting card shadow"},
-            {name: "--oca-card-shadow-hover", value: "0 4px 18px rgba(0,0,0,0.08)", purpose: "Hover-lift shadow"},
-            {name: "--oca-chip-radius", value: "999px", purpose: "Pill chip radius"},
-            {name: "--oca-tile-size", value: "56px", purpose: "Square tile edge"},
-            {name: "--oca-avatar-size", value: "22px", purpose: "Initials circle edge"},
-            {name: "--oca-spine-width", value: "3px", purpose: "Card accent spine width"},
+            {name: "--ods-accent", value: "var(--o-gray-500, #adb5bd)", purpose: "Per-identity tint (set per element)"},
+            {name: "--ods-card-radius", value: "6px", purpose: "Standard tile / card radius"},
+            {name: "--ods-card-shadow", value: "0 1px 3px rgba(0,0,0,0.08)", purpose: "Resting card shadow"},
+            {name: "--ods-card-shadow-hover", value: "0 4px 18px rgba(0,0,0,0.08)", purpose: "Hover-lift shadow"},
+            {name: "--ods-chip-radius", value: "999px", purpose: "Pill chip radius"},
+            {name: "--ods-tile-size", value: "56px", purpose: "Square tile edge"},
+            {name: "--ods-avatar-size", value: "22px", purpose: "Initials circle edge"},
+            {name: "--ods-spine-width", value: "3px", purpose: "Card accent spine width"},
         ];
     }
 
@@ -74,6 +74,6 @@ export class OcaDesignSystemShowcase extends Component {
 }
 
 registry.category("actions").add(
-    "oca_design_system.showcase",
-    OcaDesignSystemShowcase,
+    "odoo_design_system.showcase",
+    OdsShowcase,
 );

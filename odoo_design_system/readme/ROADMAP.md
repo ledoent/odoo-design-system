@@ -1,7 +1,7 @@
 Initial release (19.0.1.0.0) intentionally ships a small surface:
 
-- Three OWL components (`OcaChip`, `OcaInitialsAvatar`, `OcaCardTile`)
-- One Sass mixin family (`oca-extension-vars`, `oca-initial-vars`, `oca-card-chrome`)
+- Three OWL components (`OdsChip`, `OdsInitialsAvatar`, `OdsCardTile`)
+- One Sass mixin family (`ods-extension-vars`, `ods-initial-vars`, `ods-card-chrome`)
 - One backend showcase menu
 
 Likely next steps:
