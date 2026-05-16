@@ -122,6 +122,39 @@
                 </div>
             </section>
 
+            <!-- Icons -->
+            <section class="ods_section">
+                <h2>Icons — `&lt;OdsIcon&gt;`</h2>
+                <p class="ods_lead">
+                    Bundled OSS icon sets, available at runtime via the addon's
+                    static path. Each set ships with its upstream LICENSE alongside
+                    the SVGs.
+                </p>
+                <div t-foreach="iconSets" t-as="iset" t-key="iset.set"
+                     class="ods_card" style="margin-bottom: 16px;">
+                    <div class="d-flex justify-content-between align-items-baseline mb-2">
+                        <div>
+                            <strong t-esc="iset.set"/>
+                            <span class="text-muted ms-2">
+                                — <t t-esc="iset.count"/> icons</span>
+                        </div>
+                        <span class="text-muted small" t-esc="iset.license"/>
+                    </div>
+                    <div class="ods_demo" style="gap: 12px;">
+                        <OdsIcon t-foreach="iset.samples" t-as="iname" t-key="iname"
+                                 name="iname"
+                                 set="iset.set"
+                                 size="24"
+                                 title="iname"/>
+                    </div>
+                </div>
+                <pre class="ods_code">
+&lt;OdsIcon name="'folder-open'" set="'lucide'" size="20"/&gt;
+&lt;OdsIcon name="'document-text'" set="'heroicons'"/&gt;
+&lt;OdsIcon name="'check'" set="'heroicons-mini'" size="16"/&gt;
+                </pre>
+            </section>
+
             <!-- Card chrome mixin -->
             <section class="ods_section">
                 <h2>Card chrome — `@include ods-card-chrome($selector)`</h2>

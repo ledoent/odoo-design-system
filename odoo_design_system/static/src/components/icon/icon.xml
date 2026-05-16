@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright 2026 Ledo / Subteno.
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+-->
+<templates xml:space="preserve">
+    <t t-name="odoo_design_system.OdsIcon">
+        <img
+            t-att-class="className"
+            t-att-src="url"
+            t-att-style="style"
+            t-att-title="props.title"
+            t-att-alt="props.title || props.name"
+        />
+    </t>
+</templates>

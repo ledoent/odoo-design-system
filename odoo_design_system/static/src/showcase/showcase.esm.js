@@ -11,10 +11,11 @@ import {registry} from "@web/core/registry";
 import {OdsChip} from "../components/chip/chip.esm";
 import {OdsInitialsAvatar} from "../components/initials_avatar/initials_avatar.esm";
 import {OdsCardTile} from "../components/card_tile/card_tile.esm";
+import {OdsIcon} from "../components/icon/icon.esm";
 
 export class OdsShowcase extends Component {
     static template = "odoo_design_system.Showcase";
-    static components = {OdsChip, OdsInitialsAvatar, OdsCardTile};
+    static components = {OdsChip, OdsInitialsAvatar, OdsCardTile, OdsIcon};
 
     static props = {
         // Standard client-action props passed by the action service.
@@ -70,6 +71,47 @@ export class OdsShowcase extends Component {
     // Demo extension chips for the chip section.
     get extensions() {
         return ["pdf", "docx", "xlsx", "pptx", "zip", "jpg", "mp4", "txt"];
+    }
+
+    // Curated subset of bundled OSS icons to demo each set.
+    get iconSets() {
+        return [
+            {
+                set: "lucide",
+                license: "ISC — © 2024 Lucide Contributors",
+                count: 1700,
+                samples: [
+                    "folder-open", "file-text", "image", "upload", "download",
+                    "search", "user", "users", "settings-2", "trash-2",
+                    "pencil", "plus", "x", "check", "chevron-right",
+                    "arrow-up-right", "star", "heart", "bell", "bookmark",
+                ],
+            },
+            {
+                set: "heroicons",
+                license: "MIT — © Tailwind Labs",
+                count: 324,
+                samples: [
+                    "folder-open", "document-text", "photo", "cloud-arrow-up",
+                    "magnifying-glass", "user", "user-group", "cog-6-tooth",
+                    "trash", "pencil-square", "plus", "x-mark", "check",
+                    "chevron-right", "arrow-top-right-on-square", "star",
+                    "heart", "bell", "bookmark", "sparkles",
+                ],
+            },
+            {
+                set: "heroicons-solid",
+                license: "MIT — © Tailwind Labs",
+                count: 324,
+                samples: [
+                    "folder-open", "document-text", "photo", "cloud-arrow-up",
+                    "magnifying-glass", "user", "user-group", "cog-6-tooth",
+                    "trash", "pencil-square", "plus", "x-mark", "check",
+                    "chevron-right", "arrow-top-right-on-square", "star",
+                    "heart", "bell", "bookmark", "sparkles",
+                ],
+            },
+        ];
     }
 }
 

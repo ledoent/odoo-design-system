@@ -26,6 +26,8 @@
             "odoo_design_system/static/src/components/initials_avatar/initials_avatar.xml",
             "odoo_design_system/static/src/components/card_tile/card_tile.esm.js",
             "odoo_design_system/static/src/components/card_tile/card_tile.xml",
+            "odoo_design_system/static/src/components/icon/icon.esm.js",
+            "odoo_design_system/static/src/components/icon/icon.xml",
             # Showcase client action
             "odoo_design_system/static/src/showcase/showcase.esm.js",
             "odoo_design_system/static/src/showcase/showcase.xml",

@@ -29,6 +29,31 @@ Sass mixins (consume by prefixing your own selector):
 <OdsCardTile accent="ext" data-ext="pdf">
     <img src="/dms/static/icons/file_pdf.svg" alt="PDF"/>
 </OdsCardTile>
+<OdsIcon name="folder-open" set="lucide" size="20"/>
+<OdsIcon name="document-text" set="heroicons"/>
+```
+
+## Bundled icon sets
+
+| Set | Count | License | Path |
+| --- | --- | --- | --- |
+| `lucide` (default) | 1700+ line icons, 24×24 source | ISC | `static/icons/lucide/` |
+| `heroicons` | 324 outline icons, 24×24 | MIT (Tailwind Labs) | `static/icons/heroicons/outline/` |
+| `heroicons-solid` | 324 solid icons, 24×24 | MIT | `static/icons/heroicons/solid/` |
+| `heroicons-mini` | 324 micro-solid icons, 20×20 | MIT | `static/icons/heroicons/mini/` |
+
+Each set ships with its upstream `LICENSE` file in the same directory.
+No runtime attribution is required by either license, but the LICENSE
+files are kept alongside the assets per OSS hygiene.
+
+To use icons outside `<OdsIcon>` (e.g. as a CSS `background-image`),
+reference them by their static path:
+
+```scss
+.my_button::before {
+    content: "";
+    background-image: url("/odoo_design_system/static/icons/lucide/upload.svg");
+}
 ```
 
 ## Living docs

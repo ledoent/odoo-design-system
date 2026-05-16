@@ -117,3 +117,16 @@
 
 @include ods-extension-vars(".ods_card_tile");
 @include ods-initial-vars(".ods_card_tile");
+
+// ---------------------------------------------------------------------------
+// OdsIcon — SVG glyph from a bundled OSS set. The icon ships as an <img>
+// for browser-cacheable delivery — using `mask-image` would let us
+// recolour with currentColor but would lose the cache hit; we keep the
+// API simple instead. Recolour via CSS filter or by swapping the set.
+
+.ods_icon {
+    display: inline-block;
+    flex: 0 0 auto;
+    vertical-align: middle;
+    pointer-events: none;
+}
