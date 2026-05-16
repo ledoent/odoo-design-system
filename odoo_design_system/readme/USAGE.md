@@ -56,6 +56,18 @@ reference them by their static path:
 }
 ```
 
+## Design-tool source (Penpot / Figma)
+
+The same tokens also ship as a [W3C Design Tokens Community Group](https://design-tokens.github.io/community-group/format/) JSON file at
+`static/src/tokens/design-system.dtcg.json`. This is the file designers
+import into Penpot (Tools → Design Tokens → Import) or any other tool
+that speaks DTCG.
+
+Today the JSON and `_tokens.scss` are hand-mirrored: change one, update
+the other in the same commit. A follow-up will add a `style-dictionary`
+build step that regenerates the SCSS from the JSON automatically (see
+ROADMAP).
+
 ## Living docs
 
 Backend menu **Design System** (`odoo_design_system.action_showcase`)
