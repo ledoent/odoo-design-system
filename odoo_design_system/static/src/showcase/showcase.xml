@@ -59,7 +59,7 @@
                 <div class="ods_grid">
                     <div class="ods_card">
                         <div class="ods_demo">
-                            <OdsChip label="2.4 MB" variant="'size'"/>
+                            <OdsChip label="'2.4 MB'" variant="'size'"/>
                             <OdsChip label="5" icon="'fa-folder'" variant="'count'"/>
                             <OdsChip icon="'fa-lock'" variant="'warning'" label="'Locked'"/>
                             <OdsChip icon="'fa-unlock-alt'" variant="'success'" label="'Locked by me'"/>
