@@ -15,7 +15,13 @@
     ],
     "assets": {
         "web.assets_backend": [
-            # SCSS — tokens must concatenate first, then component styles.
+            # SCSS — `_tokens.generated.scss` carries the palette maps + :root
+            # CSS variables (regenerated from `static/src/tokens/design-system.dtcg.json`
+            # by `pnpm run tokens`); `_tokens.scss` adds the hand-written
+            # hash helpers + mixins that consume those maps. Order matters:
+            # the generated maps must be in scope before the helpers reference
+            # them. `components.scss` then consumes the mixins.
+            "odoo_design_system/static/src/scss/_tokens.generated.scss",
             "odoo_design_system/static/src/scss/_tokens.scss",
             "odoo_design_system/static/src/scss/components.scss",
             "odoo_design_system/static/src/scss/showcase.scss",
@@ -35,6 +41,7 @@
         "web.assets_frontend": [
             # Tokens are also available on the portal/website side so OCA
             # frontend modules can consume `--ods-accent` etc.
+            "odoo_design_system/static/src/scss/_tokens.generated.scss",
             "odoo_design_system/static/src/scss/_tokens.scss",
         ],
     },

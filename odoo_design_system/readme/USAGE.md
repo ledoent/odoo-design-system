@@ -58,15 +58,41 @@ reference them by their static path:
 
 ## Design-tool source (Penpot / Figma)
 
-The same tokens also ship as a [W3C Design Tokens Community Group](https://design-tokens.github.io/community-group/format/) JSON file at
+The same tokens ship as a [W3C Design Tokens Community Group](https://design-tokens.github.io/community-group/format/) JSON file at
 `static/src/tokens/design-system.dtcg.json`. This is the file designers
 import into Penpot (Tools → Design Tokens → Import) or any other tool
-that speaks DTCG.
+that speaks DTCG. It's the **single source of truth** — the Sass
+partials in `static/src/scss/` are generated from it.
 
-Today the JSON and `_tokens.scss` are hand-mirrored: change one, update
-the other in the same commit. A follow-up will add a `style-dictionary`
-build step that regenerates the SCSS from the JSON automatically (see
-ROADMAP).
+The pipeline:
+
+```
+              ┌──────────────────────────────────────────┐
+              │ design-system.dtcg.json                  │  ← edit this
+              │ (designers edit via Penpot UI, devs      │
+              │  edit directly — same file either way)   │
+              └────────────────┬─────────────────────────┘
+                               │
+                  pnpm run tokens (style-dictionary)
+                               │
+                ┌──────────────┴───────────────┐
+                ▼                              ▼
+  odoo_design_system/static/src/   dist/brand_variables.scss
+  scss/_tokens.generated.scss      (drop into your branding module)
+  (auto-loaded by manifest)
+```
+
+After editing the JSON:
+
+```bash
+pnpm install            # once
+pnpm run tokens         # regenerates both SCSS outputs
+git diff                # review
+git add … && git commit
+```
+
+A `pnpm run tokens:check` script verifies the JSON and SCSS are in
+sync — wire it into your pre-commit / CI to fail fast on drift.
 
 ## Living docs
 
