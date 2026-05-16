@@ -18,12 +18,10 @@ Likely next steps:
   card", "form-view hero block" — full layouts rather than just
   components.
 - Translation (`.pot`) once strings stabilise.
-- **DTCG → SCSS generator.** `static/src/tokens/design-system.dtcg.json`
-  ships alongside `_tokens.scss` today, but the SCSS is hand-mirrored.
-  Wire up `style-dictionary` (or a small Python script) so the SCSS
-  partial regenerates from the DTCG JSON at build time. Then designers
-  edit tokens in Penpot, export DTCG, commit it, and the SCSS follows
-  automatically.
+- ~~**DTCG → SCSS generator.**~~ Shipped: `style-dictionary` wired up
+  via `pnpm run tokens`. The JSON is now the single source of truth;
+  `_tokens.generated.scss` and `dist/brand_variables.scss` regenerate
+  from it. `pnpm run tokens:check` is the CI gate against drift.
 - **Tokenized brand logo.** Move `ledoweb_branding/static/src/img/logo.svg`
   into a per-tenant override that uses `currentColor` (or
   `var(--o-color-primary)`) for the fill, so changing
