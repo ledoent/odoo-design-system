@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright 2026 Ledo / Subteno.
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+-->
+<templates xml:space="preserve">
+    <t t-name="oca_design_system.OcaInitialsAvatar">
+        <span
+            class="oca_initials_avatar"
+            t-att-data-initial="initial"
+            t-att-title="title"
+            t-att-style="style"
+            t-esc="initial"
+        />
+    </t>
+</templates>

@@ -1,0 +1,134 @@
+// Copyright 2026 Ledo / Subteno.
+// License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+//
+// Shared design tokens for OCA UI work on Odoo 19.
+//
+// This partial is concatenated at the top of both web.assets_backend and
+// web.assets_frontend by __manifest__.py — Sass maps + mixins below are
+// therefore visible to every other SCSS file in the same bundle (Odoo's
+// asset compiler rejects relative @import for security, so the
+// prepend-via-manifest pattern is the load mechanism).
+
+// ---------------------------------------------------------------------------
+// Sass-level palettes — internal source of truth for the generated
+// per-identity selectors below.
+
+// Eight buckets. Anything that needs a stable per-identity tint (a
+// directory name, a creator initial, an asset type) hashes into this map.
+// Colors chosen to be visually distinct at small chip sizes and to read
+// cleanly over both light and dark Odoo themes.
+$oca-bucket-palette: (
+    1: #4263eb,
+    2: #1098ad,
+    3: #2f9e44,
+    4: #f08c00,
+    5: #d6336c,
+    6: #ae3ec9,
+    7: #5f3dc4,
+    8: #495057,
+);
+
+// Per-extension accents. Grouped by family so adding an extension only
+// touches one row. Consumers read the generated --oca-accent variable;
+// the map itself is never exposed.
+$oca-extension-accents: (
+    "pdf": #d6336c,
+    "doc": #1971c2, "docx": #1971c2, "odt": #1971c2, "rtf": #1971c2,
+    "txt": #495057, "md": #495057, "rst": #495057,
+    "xls": #2f9e44, "xlsx": #2f9e44, "ods": #2f9e44, "csv": #2f9e44,
+    "ppt": #e8590c, "pptx": #e8590c, "odp": #e8590c,
+    "zip": #5f3dc4, "tar": #5f3dc4, "gz": #5f3dc4, "rar": #5f3dc4,
+    "jpg": #d6336c, "jpeg": #d6336c, "png": #d6336c, "gif": #d6336c,
+        "svg": #d6336c, "webp": #d6336c,
+    "mp4": #ae3ec9, "mov": #ae3ec9, "mkv": #ae3ec9, "webm": #ae3ec9,
+    "mp3": #ae3ec9, "wav": #ae3ec9, "flac": #ae3ec9, "ogg": #ae3ec9,
+);
+
+// ---------------------------------------------------------------------------
+// Pure-Sass deterministic hash. No JS hook is required — the markup
+// emits `data-initial="<first letter>"` and the CSS below picks the
+// matching bucket at compile time.
+
+@function oca-char-index($ch) {
+    $alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $idx: str-index($alphabet, $ch);
+    @return if($idx == null, 0, $idx);
+}
+
+@function oca-bucket-index($key, $bucket-count: 8) {
+    $sum: 0;
+    $upper: to-upper-case(if($key, $key, "?"));
+    @for $i from 1 through str-length($upper) {
+        $sum: $sum + oca-char-index(str-slice($upper, $i, $i));
+    }
+    @return ($sum % $bucket-count) + 1;
+}
+
+@function oca-bucket-color($key) {
+    @return map-get($oca-bucket-palette, oca-bucket-index($key));
+}
+
+// ---------------------------------------------------------------------------
+// Mixins — consumers prefix their own selector and the mixin generates
+// the data-attribute-keyed CSS variable assignments.
+
+@mixin oca-extension-vars($selector) {
+    @each $ext, $color in $oca-extension-accents {
+        #{$selector}[data-ext=".#{$ext}"],
+        #{$selector}[data-ext="#{$ext}"] {
+            --oca-accent: #{$color};
+        }
+    }
+}
+
+@mixin oca-initial-vars($selector) {
+    $letters: ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+               "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+    @each $l in $letters {
+        #{$selector}[data-initial="#{$l}"] {
+            --oca-accent: #{oca-bucket-color($l)};
+        }
+    }
+}
+
+// Card chrome — accent spine on the left + hover lift. Consumers wrap
+// their kanban / portal card markup with the named class.
+@mixin oca-card-chrome($selector) {
+    #{$selector} {
+        --oca-accent: var(--o-gray-500, #adb5bd);
+        position: relative;
+        transition:
+            transform 0.15s ease,
+            box-shadow 0.15s ease;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 3px;
+            background: var(--oca-accent);
+            opacity: 0.85;
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
+            pointer-events: none;
+        }
+
+        &:hover {
+            box-shadow: var(--oca-card-shadow-hover, 0 4px 18px rgba(0, 0, 0, 0.08));
+            transform: translateY(-1px);
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// CSS-side tokens — exposed on :root so any component can read them.
+
+:root {
+    --oca-card-radius: 6px;
+    --oca-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --oca-card-shadow-hover: 0 4px 18px rgba(0, 0, 0, 0.08);
+    --oca-chip-radius: 999px;
+    --oca-tile-size: 56px;
+    --oca-avatar-size: 22px;
+    --oca-spine-width: 3px;
+}
