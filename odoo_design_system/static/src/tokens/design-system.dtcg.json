@@ -1,159 +1,77 @@
 {
-  "$schema": "https://design-tokens.github.io/community-group/format/",
-  "$description": "Ledoweb / Odoo design system — bootstrap tokens. Sources: (a) ledoent/erp odoo/custom/src/private/ledoweb_branding/static/src/scss/{brand_variables,portal}.scss (brand + portal namespaces) and (b) ledoent/odoo-design-system odoo_design_system/static/src/scss/_tokens.scss (bucket, ext, size, shadow namespaces). Import via Penpot Tools → Design Tokens → Import. Keep this file in sync with both SCSS sources until Phase 2 auto-sync ships.",
-
   "color": {
     "brand": {
-      "$description": "Ledoweb brand colors — override Odoo's default purple via $o-enterprise-color → $primary chain.",
-      "primary": {
-        "$value": "#D97706",
-        "$type": "color",
-        "$description": "Amber-500. Maps to $o-enterprise-color, $o-community-color, $o-brand-odoo, $o-brand-primary."
-      },
-      "primary-hover": {
-        "$value": "#B45309",
-        "$type": "color",
-        "$description": "Amber-700. Link/button hover state."
-      },
-      "primary-active": {
-        "$value": "#92400E",
-        "$type": "color",
-        "$description": "Amber-900. Active/pressed link state."
-      },
-      "secondary": {
-        "$value": "#F59E0B",
-        "$type": "color",
-        "$description": "Amber-400. Lighter accent — $o-brand-lighten."
-      }
+      "primary":        { "$value": "#D97706", "$type": "color", "$description": "Amber-500. Maps to $o-enterprise-color / $primary in Odoo." },
+      "primary-hover":  { "$value": "#B45309", "$type": "color", "$description": "Amber-700. Link/button hover." },
+      "primary-active": { "$value": "#92400E", "$type": "color", "$description": "Amber-900. Active/pressed." },
+      "secondary":      { "$value": "#F59E0B", "$type": "color", "$description": "Amber-400. $o-brand-lighten." }
     },
-
     "portal": {
-      "$description": "Customer portal chrome.",
-      "nav-dark": {
-        "$value": "#1A1A1E",
-        "$type": "color",
-        "$description": "Portal navbar background."
-      },
-      "sidebar-light": {
-        "$value": "#FAFAF8",
-        "$type": "color",
-        "$description": "Portal card-header / sidebar background."
-      },
-      "border": {
-        "$value": "#E5E5E5",
-        "$type": "color",
-        "$description": "Portal card border + sidebar divider."
-      }
+      "nav-dark":       { "$value": "#1A1A1E", "$type": "color", "$description": "Portal navbar background." },
+      "sidebar-light":  { "$value": "#FAFAF8", "$type": "color", "$description": "Card-header / sidebar." },
+      "border":         { "$value": "#E5E5E5", "$type": "color", "$description": "Card border, sidebar divider." }
     },
-
     "bucket": {
-      "$description": "Eight-bucket palette from odoo-design-system. Hashes per-identity (directory name, creator initial, asset type) into a stable, visually-distinct tint. Used by ods-initial-vars / ods-bucket-color SCSS mixins.",
-      "1": { "$value": "#4263eb", "$type": "color", "$description": "Indigo — bucket index 1." },
-      "2": { "$value": "#1098ad", "$type": "color", "$description": "Teal — bucket index 2." },
-      "3": { "$value": "#2f9e44", "$type": "color", "$description": "Green — bucket index 3." },
-      "4": { "$value": "#f08c00", "$type": "color", "$description": "Orange — bucket index 4." },
-      "5": { "$value": "#d6336c", "$type": "color", "$description": "Pink — bucket index 5." },
-      "6": { "$value": "#ae3ec9", "$type": "color", "$description": "Violet — bucket index 6." },
-      "7": { "$value": "#5f3dc4", "$type": "color", "$description": "Purple — bucket index 7." },
-      "8": { "$value": "#495057", "$type": "color", "$description": "Slate — bucket index 8." }
+      "1": { "$value": "#4263eb", "$type": "color", "$description": "Indigo." },
+      "2": { "$value": "#1098ad", "$type": "color", "$description": "Teal." },
+      "3": { "$value": "#2f9e44", "$type": "color", "$description": "Green." },
+      "4": { "$value": "#f08c00", "$type": "color", "$description": "Orange." },
+      "5": { "$value": "#d6336c", "$type": "color", "$description": "Pink." },
+      "6": { "$value": "#ae3ec9", "$type": "color", "$description": "Violet." },
+      "7": { "$value": "#5f3dc4", "$type": "color", "$description": "Purple." },
+      "8": { "$value": "#495057", "$type": "color", "$description": "Slate." }
     },
-
     "ext": {
-      "$description": "Per-extension accents (file-type chip/tile coloring). Grouped by family so adding a new extension only touches one row. Consumers read --ods-accent emitted by ods-extension-vars mixin.",
-
-      "pdf": { "$value": "#d6336c", "$type": "color", "$description": "PDF — pink." },
-
-      "doc": {
-        "$value": "#1971c2",
-        "$type": "color",
-        "$description": "Word-family base — blue. Aliased by doc/docx/odt/rtf."
-      },
-      "docx": { "$value": "{color.ext.doc}", "$type": "color" },
-      "odt":  { "$value": "{color.ext.doc}", "$type": "color" },
-      "rtf":  { "$value": "{color.ext.doc}", "$type": "color" },
-
-      "txt": {
-        "$value": "#495057",
-        "$type": "color",
-        "$description": "Plain-text family base — slate. Aliased by txt/md/rst."
-      },
-      "md":  { "$value": "{color.ext.txt}", "$type": "color" },
-      "rst": { "$value": "{color.ext.txt}", "$type": "color" },
-
-      "xls": {
-        "$value": "#2f9e44",
-        "$type": "color",
-        "$description": "Spreadsheet family base — green. Aliased by xls/xlsx/ods/csv."
-      },
-      "xlsx": { "$value": "{color.ext.xls}", "$type": "color" },
-      "ods":  { "$value": "{color.ext.xls}", "$type": "color" },
-      "csv":  { "$value": "{color.ext.xls}", "$type": "color" },
-
-      "ppt": {
-        "$value": "#e8590c",
-        "$type": "color",
-        "$description": "Slides family base — burnt-orange. Aliased by ppt/pptx/odp."
-      },
-      "pptx": { "$value": "{color.ext.ppt}", "$type": "color" },
-      "odp":  { "$value": "{color.ext.ppt}", "$type": "color" },
-
-      "zip": {
-        "$value": "#5f3dc4",
-        "$type": "color",
-        "$description": "Archive family base — purple. Aliased by zip/tar/gz/rar."
-      },
-      "tar": { "$value": "{color.ext.zip}", "$type": "color" },
-      "gz":  { "$value": "{color.ext.zip}", "$type": "color" },
-      "rar": { "$value": "{color.ext.zip}", "$type": "color" },
-
-      "image": {
-        "$value": "#d6336c",
-        "$type": "color",
-        "$description": "Image family base — pink. Aliased by jpg/jpeg/png/gif/svg/webp."
-      },
-      "jpg":  { "$value": "{color.ext.image}", "$type": "color" },
-      "jpeg": { "$value": "{color.ext.image}", "$type": "color" },
-      "png":  { "$value": "{color.ext.image}", "$type": "color" },
-      "gif":  { "$value": "{color.ext.image}", "$type": "color" },
-      "svg":  { "$value": "{color.ext.image}", "$type": "color" },
-      "webp": { "$value": "{color.ext.image}", "$type": "color" },
-
-      "media": {
-        "$value": "#ae3ec9",
-        "$type": "color",
-        "$description": "AV family base — violet. Aliased by mp4/mov/mkv/webm/mp3/wav/flac/ogg."
-      },
-      "mp4":  { "$value": "{color.ext.media}", "$type": "color" },
-      "mov":  { "$value": "{color.ext.media}", "$type": "color" },
-      "mkv":  { "$value": "{color.ext.media}", "$type": "color" },
-      "webm": { "$value": "{color.ext.media}", "$type": "color" },
-      "mp3":  { "$value": "{color.ext.media}", "$type": "color" },
-      "wav":  { "$value": "{color.ext.media}", "$type": "color" },
-      "flac": { "$value": "{color.ext.media}", "$type": "color" },
-      "ogg":  { "$value": "{color.ext.media}", "$type": "color" }
+      "pdf":   { "$value": "#d6336c", "$type": "color", "$description": "PDF." },
+      "doc":   { "$value": "#1971c2", "$type": "color", "$description": "Word base." },
+      "docx":  { "$value": "{color.ext.doc}", "$type": "color" },
+      "odt":   { "$value": "{color.ext.doc}", "$type": "color" },
+      "rtf":   { "$value": "{color.ext.doc}", "$type": "color" },
+      "txt":   { "$value": "#495057", "$type": "color", "$description": "Plain-text base." },
+      "md":    { "$value": "{color.ext.txt}", "$type": "color" },
+      "rst":   { "$value": "{color.ext.txt}", "$type": "color" },
+      "xls":   { "$value": "#2f9e44", "$type": "color", "$description": "Spreadsheet base." },
+      "xlsx":  { "$value": "{color.ext.xls}", "$type": "color" },
+      "ods":   { "$value": "{color.ext.xls}", "$type": "color" },
+      "csv":   { "$value": "{color.ext.xls}", "$type": "color" },
+      "ppt":   { "$value": "#e8590c", "$type": "color", "$description": "Slides base." },
+      "pptx":  { "$value": "{color.ext.ppt}", "$type": "color" },
+      "odp":   { "$value": "{color.ext.ppt}", "$type": "color" },
+      "zip":   { "$value": "#5f3dc4", "$type": "color", "$description": "Archive base." },
+      "tar":   { "$value": "{color.ext.zip}", "$type": "color" },
+      "gz":    { "$value": "{color.ext.zip}", "$type": "color" },
+      "rar":   { "$value": "{color.ext.zip}", "$type": "color" },
+      "image": { "$value": "#d6336c", "$type": "color", "$description": "Image base." },
+      "jpg":   { "$value": "{color.ext.image}", "$type": "color" },
+      "jpeg":  { "$value": "{color.ext.image}", "$type": "color" },
+      "png":   { "$value": "{color.ext.image}", "$type": "color" },
+      "gif":   { "$value": "{color.ext.image}", "$type": "color" },
+      "svg":   { "$value": "{color.ext.image}", "$type": "color" },
+      "webp":  { "$value": "{color.ext.image}", "$type": "color" },
+      "media": { "$value": "#ae3ec9", "$type": "color", "$description": "AV base." },
+      "mp4":   { "$value": "{color.ext.media}", "$type": "color" },
+      "mov":   { "$value": "{color.ext.media}", "$type": "color" },
+      "mkv":   { "$value": "{color.ext.media}", "$type": "color" },
+      "webm":  { "$value": "{color.ext.media}", "$type": "color" },
+      "mp3":   { "$value": "{color.ext.media}", "$type": "color" },
+      "wav":   { "$value": "{color.ext.media}", "$type": "color" },
+      "flac":  { "$value": "{color.ext.media}", "$type": "color" },
+      "ogg":   { "$value": "{color.ext.media}", "$type": "color" }
     },
-
     "neutral": {
-      "$description": "Neutral fallback (matches the var(--o-gray-500) default in ods-card-chrome).",
-      "fallback": {
-        "$value": "#adb5bd",
-        "$type": "color",
-        "$description": "Default --ods-accent when no per-identity hash applies."
-      }
+      "fallback": { "$value": "#adb5bd", "$type": "color", "$description": "var(--o-gray-500) default when no per-identity hash applies." }
     }
   },
 
   "size": {
-    "$description": "Dimensional tokens — CSS-side custom properties exposed on :root by _tokens.scss.",
-    "card-radius":   { "$value": "6px",   "$type": "dimension", "$description": "Default card corner radius." },
-    "chip-radius":   { "$value": "999px", "$type": "dimension", "$description": "Pill-shape chip radius." },
-    "tile-size":     { "$value": "56px",  "$type": "dimension", "$description": "Default <OdsCardTile> footprint." },
-    "avatar-size":   { "$value": "22px",  "$type": "dimension", "$description": "Default <OdsInitialsAvatar> diameter." },
-    "spine-width":   { "$value": "3px",   "$type": "dimension", "$description": "Left-edge accent stripe on cards (ods-card-chrome)." }
+    "card-radius":  { "$value": "6px",   "$type": "borderRadius", "$description": "Default card corner." },
+    "chip-radius":  { "$value": "999px", "$type": "borderRadius", "$description": "Pill shape." },
+    "tile-size":    { "$value": "56px",  "$type": "sizing",       "$description": "Default <OdsCardTile> footprint." },
+    "avatar-size":  { "$value": "22px",  "$type": "sizing",       "$description": "Default <OdsInitialsAvatar> diameter." },
+    "spine-width":  { "$value": "3px",   "$type": "borderWidth",  "$description": "Left-edge accent stripe (ods-card-chrome)." }
   },
 
   "shadow": {
-    "$description": "Elevation tokens. Penpot represents shadows as a typed object — values mirror --ods-card-shadow / --ods-card-shadow-hover.",
     "card": {
       "$type": "shadow",
       "$value": {
@@ -178,17 +96,11 @@
     }
   },
 
-  "motion": {
-    "$description": "Default transition timing used by ods-card-chrome hover lift.",
-    "card-lift-duration": {
-      "$value": "150ms",
-      "$type": "duration",
-      "$description": "Hover transform + box-shadow transition."
-    },
-    "card-lift-easing": {
-      "$value": "ease",
-      "$type": "cubicBezier",
-      "$description": "Default easing keyword (matches ods-card-chrome)."
+  "motion-note": {
+    "card-lift": {
+      "$value": "transition 150ms ease (transform + box-shadow)",
+      "$type": "other",
+      "$description": "Card hover transition. Penpot does not yet support DTCG duration/cubicBezier types; recorded as 'other' for designer reference only — implementation lives in ods-card-chrome SCSS."
     }
   }
 }
