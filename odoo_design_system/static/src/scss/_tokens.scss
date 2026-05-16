@@ -3,46 +3,16 @@
 //
 // Shared design tokens for OCA UI work on Odoo 19.
 //
-// This partial is concatenated at the top of both web.assets_backend and
-// web.assets_frontend by __manifest__.py — Sass maps + mixins below are
-// therefore visible to every other SCSS file in the same bundle (Odoo's
-// asset compiler rejects relative @import for security, so the
-// prepend-via-manifest pattern is the load mechanism).
-
-// ---------------------------------------------------------------------------
-// Sass-level palettes — internal source of truth for the generated
-// per-identity selectors below.
-
-// Eight buckets. Anything that needs a stable per-identity tint (a
-// directory name, a creator initial, an asset type) hashes into this map.
-// Colors chosen to be visually distinct at small chip sizes and to read
-// cleanly over both light and dark Odoo themes.
-$ods-bucket-palette: (
-    1: #4263eb,
-    2: #1098ad,
-    3: #2f9e44,
-    4: #f08c00,
-    5: #d6336c,
-    6: #ae3ec9,
-    7: #5f3dc4,
-    8: #495057,
-);
-
-// Per-extension accents. Grouped by family so adding an extension only
-// touches one row. Consumers read the generated --ods-accent variable;
-// the map itself is never exposed.
-$ods-extension-accents: (
-    "pdf": #d6336c,
-    "doc": #1971c2, "docx": #1971c2, "odt": #1971c2, "rtf": #1971c2,
-    "txt": #495057, "md": #495057, "rst": #495057,
-    "xls": #2f9e44, "xlsx": #2f9e44, "ods": #2f9e44, "csv": #2f9e44,
-    "ppt": #e8590c, "pptx": #e8590c, "odp": #e8590c,
-    "zip": #5f3dc4, "tar": #5f3dc4, "gz": #5f3dc4, "rar": #5f3dc4,
-    "jpg": #d6336c, "jpeg": #d6336c, "png": #d6336c, "gif": #d6336c,
-        "svg": #d6336c, "webp": #d6336c,
-    "mp4": #ae3ec9, "mov": #ae3ec9, "mkv": #ae3ec9, "webm": #ae3ec9,
-    "mp3": #ae3ec9, "wav": #ae3ec9, "flac": #ae3ec9, "ogg": #ae3ec9,
-);
+// The palette maps + :root CSS custom properties are auto-generated from
+// `static/src/tokens/design-system.dtcg.json` into `_tokens.generated.scss`
+// (see top-level `style-dictionary.config.js`). __manifest__.py lists the
+// generated partial *before* this one, so `$ods-bucket-palette`,
+// `$ods-extension-accents`, and every `--ods-*` variable are already in
+// scope by the time the helpers below execute.
+//
+// This file holds the hand-written half: pure-Sass hash helpers + the
+// data-attribute-keyed selector mixins. They never need to change unless
+// the contract (bucket count, mixin signatures) changes.
 
 // ---------------------------------------------------------------------------
 // Pure-Sass deterministic hash. No JS hook is required — the markup
@@ -98,14 +68,14 @@ $ods-extension-accents: (
         --ods-accent: var(--o-gray-500, #adb5bd);
         position: relative;
         transition:
-            transform 0.15s ease,
-            box-shadow 0.15s ease;
+            transform var(--ods-card-lift-duration, 150ms) var(--ods-card-lift-easing, ease),
+            box-shadow var(--ods-card-lift-duration, 150ms) var(--ods-card-lift-easing, ease);
 
         &::before {
             content: "";
             position: absolute;
             inset: 0 auto 0 0;
-            width: 3px;
+            width: var(--ods-spine-width, 3px);
             background: var(--ods-accent);
             opacity: 0.85;
             border-top-left-radius: inherit;
@@ -118,17 +88,4 @@ $ods-extension-accents: (
             transform: translateY(-1px);
         }
     }
-}
-
-// ---------------------------------------------------------------------------
-// CSS-side tokens — exposed on :root so any component can read them.
-
-:root {
-    --ods-card-radius: 6px;
-    --ods-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --ods-card-shadow-hover: 0 4px 18px rgba(0, 0, 0, 0.08);
-    --ods-chip-radius: 999px;
-    --ods-tile-size: 56px;
-    --ods-avatar-size: 22px;
-    --ods-spine-width: 3px;
 }

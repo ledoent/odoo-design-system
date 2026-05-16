@@ -2,3 +2,4 @@
 __pycache__/
 .tmp-screens/
 .DS_Store
+node_modules/
