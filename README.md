@@ -40,6 +40,15 @@ git clone git@github.com:ledoent/odoo-design-system.git
 Then add `odoo_design_system` to `addons.yaml` and depend on it from
 any module that wants the tokens or components.
 
+## Showcase preview
+
+Open **Design System → Components** after install for the live page.
+Captured from a local doodba odoo-19 smoke test:
+
+![Tokens + bucket palette](https://storage.googleapis.com/ledo-pr-assets/odoo-design-system/screenshots/ods-showcase-viewport.png)
+![Chips, initials, card tiles](https://storage.googleapis.com/ledo-pr-assets/odoo-design-system/screenshots/ods-showcase-chips.png)
+![Heroicons + heroicons-solid + card chrome](https://storage.googleapis.com/ledo-pr-assets/odoo-design-system/screenshots/ods-showcase-icons.png)
+
 ## License
 
 LGPL-3
