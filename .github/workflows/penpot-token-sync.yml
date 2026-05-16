@@ -1,0 +1,92 @@
+name: penpot-token-sync
+
+# Fail PRs (and post a nightly status) when the committed DTCG JSON
+# diverges from what's currently in Penpot. Penpot is the source of
+# truth: designers edit there, engineers regenerate SCSS from the JSON.
+#
+# Required repo secret: PENPOT_TOKEN — service-account PAT from
+# .env (hello@ledoweb.com on design.hz.ledoweb.com).
+
+on:
+  pull_request:
+    paths:
+      - "odoo_design_system/static/src/tokens/**"
+      - "scripts/penpot-export-tokens.mjs"
+      - ".github/workflows/penpot-token-sync.yml"
+  schedule:
+    # Nightly at 04:00 UTC — catches drift even when no PR touches tokens.
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Export tokens from Penpot
+        env:
+          PENPOT_HOST: https://design.hz.ledoweb.com
+          PENPOT_TOKEN: ${{ secrets.PENPOT_TOKEN }}
+          PENPOT_FILE_ID: 038df003-0f49-80b2-8008-0774e5399553
+        run: node scripts/penpot-export-tokens.mjs /tmp/penpot-tokens.json
+
+      - name: Diff against committed DTCG JSON
+        id: diff
+        run: |
+          set +e
+          diff -u odoo_design_system/static/src/tokens/design-system.dtcg.json /tmp/penpot-tokens.json > /tmp/diff.patch
+          rc=$?
+          set -e
+          if [ "$rc" -eq 0 ]; then
+            echo "in_sync=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "in_sync=false" >> "$GITHUB_OUTPUT"
+            echo "::group::Penpot ↔ repo diff"
+            cat /tmp/diff.patch
+            echo "::endgroup::"
+          fi
+
+      - name: Comment on PR with the diff
+        if: github.event_name == 'pull_request' && steps.diff.outputs.in_sync == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const diff = fs.readFileSync('/tmp/diff.patch', 'utf8');
+            const body = [
+              '🎨 **Penpot tokens out of sync with repo**',
+              '',
+              'The committed `design-system.dtcg.json` does not match what is currently in the Penpot file ',
+              '[Ledo Odoo Design System](https://design.hz.ledoweb.com/#/workspace?file-id=038df003-0f49-80b2-8008-0774e5399553).',
+              '',
+              'Either:',
+              '1. Run `node scripts/penpot-export-tokens.mjs odoo_design_system/static/src/tokens/design-system.dtcg.json` ',
+              '   locally and commit the result (Penpot wins), or',
+              '2. Revert the design-side change in Penpot to bring it back in line with this PR.',
+              '',
+              '<details><summary>Diff (Penpot vs repo)</summary>',
+              '',
+              '```diff',
+              diff.slice(0, 50000),
+              '```',
+              '',
+              '</details>',
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+      - name: Fail if out of sync
+        if: steps.diff.outputs.in_sync == 'false'
+        run: |
+          echo "::error::Penpot tokens diverge from repo. See diff above and PR comment."
+          exit 1
