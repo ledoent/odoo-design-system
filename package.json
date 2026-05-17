@@ -1,17 +1,22 @@
 {
   "name": "odoo-design-system",
-  "version": "19.0.1.0.0",
+  "version": "19.0.3.0.0",
   "private": true,
   "description": "Build pipeline: regenerates Odoo-side SCSS partials from design-system.dtcg.json (the single source of truth for designers via Penpot/Figma).",
   "type": "module",
   "scripts": {
     "tokens": "style-dictionary build --config style-dictionary.config.js",
     "tokens:watch": "style-dictionary build --config style-dictionary.config.js --watch",
-    "tokens:check": "node scripts/check-tokens-in-sync.mjs"
+    "tokens:check": "node scripts/check-tokens-in-sync.mjs",
+    "test": "find tests -maxdepth 1 -name '*.test.mjs' -print0 | xargs -0 node --test --test-reporter=spec",
+    "test:e2e": "playwright test"
   },
   "license": "LGPL-3.0",
   "packageManager": "pnpm@10.33.2",
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "playwright": "^1.60.0",
+    "sass": "^1.99.0",
     "style-dictionary": "^5.4.0"
   }
 }

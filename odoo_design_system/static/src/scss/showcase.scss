@@ -5,42 +5,89 @@
 // so the components on display read as the focus.
 
 .ods_showcase {
-    padding: 24px;
+    padding: var(--ods-spacing-5, 24px);
     max-width: 1200px;
     margin: 0 auto;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: var(--ods-font-size-base, 14px);
+    line-height: var(--ods-line-height-normal, 1.5);
+    background: var(--ods-surface-canvas);
+    color: var(--ods-text-primary);
 
     h1 {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 4px;
+        font-size: var(--ods-font-size-3xl, 24px);
+        font-weight: var(--ods-font-weight-bold, 700);
+        margin-bottom: var(--ods-spacing-1, 4px);
+        color: var(--ods-text-primary);
     }
 
     h2 {
-        font-size: 16px;
-        font-weight: 600;
+        font-size: var(--ods-font-size-lg, 16px);
+        font-weight: var(--ods-font-weight-semibold, 600);
         text-transform: uppercase;
         letter-spacing: 0.08em;
-        color: var(--o-gray-600, #6c757d);
-        margin: 32px 0 12px;
-        font-family: var(--bs-font-monospace, monospace);
+        color: var(--ods-text-muted);
+        margin: var(--ods-spacing-6, 32px) 0 var(--ods-spacing-3, 12px);
+        font-family: var(--ods-font-family-mono, monospace);
     }
 
     .ods_lead {
-        color: var(--o-gray-600, #6c757d);
-        margin-bottom: 16px;
+        color: var(--ods-text-muted);
+        margin-bottom: var(--ods-spacing-4, 16px);
+    }
+
+    .ods_theme_switcher {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--ods-spacing-2, 8px);
+        padding: var(--ods-spacing-2, 8px);
+        margin-bottom: var(--ods-spacing-5, 24px);
+        background: var(--ods-surface-raised);
+        border: 1px solid var(--ods-border-default);
+        border-radius: var(--ods-radius-base, 4px);
+        box-shadow: var(--ods-elevation-1);
+    }
+
+    .ods_theme_switcher__label {
+        font-family: var(--ods-font-family-mono, monospace);
+        font-size: var(--ods-font-size-xs, 12px);
+        color: var(--ods-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0 var(--ods-spacing-1, 4px);
+    }
+
+    .ods_theme_switcher__btn {
+        appearance: none;
+        cursor: pointer;
+        padding: var(--ods-spacing-1, 4px) var(--ods-spacing-3, 12px);
+        font-size: var(--ods-font-size-sm, 13px);
+        font-family: inherit;
+        color: var(--ods-text-primary);
+        background: transparent;
+        border: 1px solid var(--ods-border-subtle);
+        border-radius: var(--ods-radius-sm, 3px);
+        transition: background var(--ods-duration-fast, 100ms) var(--ods-easing-standard);
+
+        &:hover {
+            background: var(--ods-surface-sunken);
+        }
+
+        &.is-active {
+            background: var(--ods-brand-primary);
+            color: var(--ods-text-on-brand);
+            border-color: var(--ods-brand-primary);
+        }
     }
 
     .ods_section {
-        margin-bottom: 32px;
+        margin-bottom: var(--ods-spacing-6, 32px);
     }
 
     .ods_card {
-        border: 1px solid var(--o-gray-300, #dee2e6);
-        border-radius: 8px;
-        padding: 16px;
-        background: white;
+        border: 1px solid var(--ods-border-default);
+        border-radius: var(--ods-radius-lg, 8px);
+        padding: var(--ods-spacing-4, 16px);
+        background: var(--ods-surface-raised);
     }
 
     .ods_grid {
@@ -57,11 +104,11 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 8px;
+        gap: var(--ods-spacing-2, 8px);
         min-height: 80px;
-        padding: 16px;
-        border-radius: var(--ods-card-radius, 6px);
-        background: var(--o-gray-100, #f8f9fa);
+        padding: var(--ods-spacing-4, 16px);
+        border-radius: var(--ods-radius-lg, 6px);
+        background: var(--ods-surface-sunken);
     }
 
     pre.ods_code {
@@ -91,21 +138,22 @@
     .ods_token_table {
         width: 100%;
         border-collapse: collapse;
-        font-family: var(--bs-font-monospace, monospace);
-        font-size: 13px;
+        font-family: var(--ods-font-family-mono, monospace);
+        font-size: var(--ods-font-size-sm, 13px);
+        color: var(--ods-text-primary);
 
         th,
         td {
-            padding: 8px 12px;
-            border-bottom: 1px solid var(--o-gray-200, #e9ecef);
+            padding: var(--ods-spacing-2, 8px) var(--ods-spacing-3, 12px);
+            border-bottom: 1px solid var(--ods-border-subtle);
             text-align: left;
         }
 
         th {
-            background: var(--o-gray-100, #f8f9fa);
-            font-weight: 600;
-            color: var(--o-gray-700, #495057);
-            font-size: 11px;
+            background: var(--ods-surface-sunken);
+            font-weight: var(--ods-font-weight-semibold, 600);
+            color: var(--ods-text-secondary);
+            font-size: var(--ods-font-size-xs, 11px);
             text-transform: uppercase;
             letter-spacing: 0.06em;
         }
@@ -114,9 +162,9 @@
             display: inline-block;
             width: 16px;
             height: 16px;
-            border-radius: 4px;
+            border-radius: var(--ods-radius-base, 4px);
             vertical-align: middle;
-            margin-right: 8px;
+            margin-right: var(--ods-spacing-2, 8px);
             box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
         }
     }

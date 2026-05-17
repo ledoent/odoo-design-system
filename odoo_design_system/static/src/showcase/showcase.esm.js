@@ -6,7 +6,7 @@
 // the source snippet next to it. Use this as the canonical reference
 // when contributing UI to any OCA module.
 
-import {Component} from "@odoo/owl";
+import {Component, onMounted, useState} from "@odoo/owl";
 import {registry} from "@web/core/registry";
 import {OdsChip} from "../components/chip/chip.esm";
 import {OdsInitialsAvatar} from "../components/initials_avatar/initials_avatar.esm";
@@ -26,17 +26,41 @@ export class OdsShowcase extends Component {
         "*": {optional: true},
     };
 
-    // Token reference — kept in sync with _tokens.scss and components.scss.
+    setup() {
+        this.state = useState({theme: "light"});
+        onMounted(() => {
+            // Default the page to the light theme so the switcher reflects truth
+            // on first paint. Clears on tear-down so other Odoo routes are not
+            // affected by leftover state.
+            document.documentElement.dataset.theme = this.state.theme;
+        });
+    }
+
+    setTheme(name) {
+        this.state.theme = name;
+        document.documentElement.dataset.theme = name;
+    }
+
+    // Token reference — flat snapshot of the most-referenced CSS custom
+    // properties. The full set lives in _tokens.generated.scss; this is just
+    // a quick-glance table for the showcase.
     get tokens() {
         return [
-            {name: "--ods-accent", value: "var(--o-gray-500, #adb5bd)", purpose: "Per-identity tint (set per element)"},
-            {name: "--ods-card-radius", value: "6px", purpose: "Standard tile / card radius"},
-            {name: "--ods-card-shadow", value: "0 1px 3px rgba(0,0,0,0.08)", purpose: "Resting card shadow"},
-            {name: "--ods-card-shadow-hover", value: "0 4px 18px rgba(0,0,0,0.08)", purpose: "Hover-lift shadow"},
-            {name: "--ods-chip-radius", value: "999px", purpose: "Pill chip radius"},
-            {name: "--ods-tile-size", value: "56px", purpose: "Square tile edge"},
-            {name: "--ods-avatar-size", value: "22px", purpose: "Initials circle edge"},
-            {name: "--ods-spine-width", value: "3px", purpose: "Card accent spine width"},
+            // Theme-switchable surface / text / border
+            {name: "--ods-surface-canvas",  value: "#FFFFFF (light) / #0F1115 (dark)", purpose: "Page background"},
+            {name: "--ods-surface-raised",  value: "Card / panel above canvas",       purpose: "Cards, panels"},
+            {name: "--ods-text-primary",    value: "#212529 (light) / #F8F9FA (dark)", purpose: "Body text"},
+            {name: "--ods-text-muted",      value: "Secondary text",                  purpose: "De-emphasised text"},
+            {name: "--ods-border-default",  value: "#DEE2E6 (light) / #495057 (dark)", purpose: "Card / input border"},
+            {name: "--ods-elevation-1",     value: "0 1px 3px rgba(0,0,0,0.08)",      purpose: "Resting card shadow"},
+            {name: "--ods-elevation-3",     value: "0 4px 18px rgba(0,0,0,0.08)",     purpose: "Hover-lift shadow"},
+            // Theme-invariant scale
+            {name: "--ods-spacing-4",       value: "16px",                            purpose: "Default spacing step"},
+            {name: "--ods-font-size-base", value: "14px",                             purpose: "Body font size"},
+            {name: "--ods-radius-lg",       value: "6px",                             purpose: "Card / tile radius"},
+            {name: "--ods-radius-pill",     value: "999px",                           purpose: "Pill chip radius"},
+            {name: "--ods-duration-base",  value: "150ms",                            purpose: "Standard transition"},
+            {name: "--ods-accent",          value: "Set per element",                 purpose: "Per-identity tint"},
         ];
     }
 
