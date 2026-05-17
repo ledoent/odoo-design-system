@@ -1,0 +1,35 @@
+name: test
+
+# Sanity gate on every PR: token build is reproducible, DTCG schema
+# invariants hold, generated SCSS contains the contract every consumer
+# expects. Live-Odoo Playwright tests are opt-in (set PW_ODOO_URL).
+
+on:
+  pull_request:
+  push:
+    branches: [19.0]
+  workflow_dispatch:
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Token sync (regenerates SCSS, fails if drift)
+        run: pnpm run tokens:check
+
+      - name: Token + SCSS contract tests
+        run: pnpm run test
