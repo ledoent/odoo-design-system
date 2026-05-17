@@ -55,33 +55,41 @@ if (!lib) {
     process.exit(3);
 }
 
-// Penpot's tokens-lib structure → DTCG-compatible JSON.
-// tokens-lib keys: <set-name>, $themes, $metadata.
-function dtcgFromSet(set) {
-    const out = {};
-    for (const [name, tok] of Object.entries(set.tokens || {})) {
-        const path = name.split(".");
-        let node = out;
-        for (let i = 0; i < path.length - 1; i++) {
-            node[path[i]] ??= {};
-            node = node[path[i]];
+// Penpot 2.x stores each token set as a nested DTCG tree already (groups
+// nest, leaves carry `$value` + `$type` + `$description`). Top-level
+// keys of `tokensLib` are set names plus `$themes` and `$metadata`.
+// Normalize a set: drop empty `$description` strings so the export
+// round-trips byte-equal against a hand-authored DTCG file.
+function normalize(node) {
+    if (node && typeof node === "object" && !Array.isArray(node)) {
+        if ("$value" in node) {
+            const out = {"$value": node.$value, "$type": node.$type};
+            if (node.$description) out.$description = node.$description;
+            return out;
         }
-        node[path[path.length - 1]] = {
-            "$value": tok.value ?? tok.resolvedValue,
-            "$type": tok.type,
-            ...(tok.description ? {"$description": tok.description} : {}),
-        };
+        const out = {};
+        for (const [k, v] of Object.entries(node)) {
+            if (k.startsWith("$")) continue;
+            out[k] = normalize(v);
+        }
+        return out;
     }
-    return out;
+    return node;
 }
 
 const result = {};
 for (const [setName, set] of Object.entries(lib)) {
-    if (setName.startsWith("$")) continue; // metadata
-    result[setName] = dtcgFromSet(set);
+    if (setName.startsWith("$")) continue;
+    result[setName] = normalize(set);
 }
 result.$themes = lib.$themes ?? [];
-result.$metadata = lib.$metadata ?? {tokenSetOrder: Object.keys(result).filter(k => !k.startsWith("$"))};
+// `$metadata.tokenSetOrder` drives the load order; preserve Penpot's view.
+// Filter out `activeThemes` / `activeSets` (UI state, not part of the
+// portable DTCG contract).
+const meta = lib.$metadata ?? {};
+result.$metadata = {
+    tokenSetOrder: meta.tokenSetOrder ?? Object.keys(result).filter((k) => !k.startsWith("$")),
+};
 
 const json = JSON.stringify(result, null, 2);
 if (OUT) {
