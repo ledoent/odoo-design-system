@@ -29,8 +29,13 @@ The DMS case-study lives in a sibling file: [`DMS — Migration & Modernization`
 
 ## Editing tokens
 
-Tokens are imported as a Penpot design-tokens set named `ledo-design-systemdtcg`.
-Open **TOKENS** (left sidebar, third tab) and edit values inline. Save is automatic.
+Tokens are imported as four Penpot design-tokens sets, in this order:
+`global`, `theme-light`, `theme-dark`, `theme-high-contrast`. The `global`
+set carries all theme-invariant tokens (spacing, typography, radius, motion,
+brand colors, neutral scale, the bucket + extension palettes). The three
+`theme-*` sets override only colors + elevation. Open **TOKENS** (left
+sidebar, third tab); the `$themes` dropdown lets you preview a theme
+without committing.
 
 When you change a token:
 
@@ -38,8 +43,25 @@ When you change a token:
    detects the divergence between Penpot and the committed JSON.
 2. Either: open a PR that runs `node scripts/penpot-export-tokens.mjs odoo_design_system/static/src/tokens/design-system.dtcg.json`
    and commits the regenerated JSON. The pre-existing `pnpm run tokens` then
-   regenerates the `_tokens.generated.scss` Odoo consumes.
+   regenerates the `_tokens.generated.scss` Odoo consumes (it carries a `:root`
+   + light block plus `[data-theme="dark"]` and `[data-theme="high-contrast"]`
+   override blocks; switching themes is a single `document.documentElement.dataset.theme = "<name>"` call).
 3. Or: undo the change in Penpot to keep the existing release.
+
+### Bulk-importing the JSON (one-time / major reshape)
+
+For a structural change (new groups, mass rename) the simplest path is
+Penpot's built-in import:
+
+1. In the file, open the **TOKENS** panel.
+2. Click the kebab menu next to **SETS** → **Import JSON**.
+3. Drag `odoo_design_system/static/src/tokens/design-system.dtcg.json` into
+   the dialog and confirm.
+
+Penpot replaces every named set in one transaction. After it lands,
+re-run `node scripts/penpot-export-tokens.mjs odoo_design_system/static/src/tokens/design-system.dtcg.json`
+to canonicalize whitespace + key order, then `pnpm run tokens` for the
+generated SCSS. Single PR, single commit.
 
 ## Editing components
 
