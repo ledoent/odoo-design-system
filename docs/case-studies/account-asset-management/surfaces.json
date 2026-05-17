@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$description": "Frame manifest for the OCA account_asset_management 19.0 visual review. Each entry maps onto one Penpot page with the captured screenshot embedded as a frame and the annotation rendered as a sticky note. See ./README.md for context (PR #2293 migration) and ./scripts/bootstrap-penpot.mjs for the consumer.",
+  "project": "OCA — account_asset_management 19.0 review",
+  "file": "Asset Management — 19.0 visual review",
+  "pages": [
+    {
+      "name": "1 · Assets — list",
+      "surface": "assets-list",
+      "frames": [
+        {
+          "label": "19.0 — list view across states (5 demo assets)",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/oca-asset-mgmt-review/01-assets-list.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Status badges (Draft / Running) render via the `state` widget. Three numeric columns (Depreciation Base, Depreciated, Residual Value) compete for attention — design opportunity to consolidate into one progress bar per row."
+    },
+    {
+      "name": "2 · Asset — form (open)",
+      "surface": "asset-form-open",
+      "frames": [
+        {
+          "label": "19.0 — validated asset, depreciation board populated",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/oca-asset-mgmt-review/02-asset-form-open.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Top sheet shows purchase value + profile + dates. Notebook below contains the depreciation lines and accounting moves. Audit Log: status badge top-right, set-to-draft button left of state widget."
+    },
+    {
+      "name": "3 · Asset — depreciation board",
+      "surface": "asset-depr-board",
+      "frames": [
+        {
+          "label": "19.0 — scrolled view of depreciation lines",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/oca-asset-mgmt-review/03-asset-depreciation-board.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Per-period rows with date / amount / move-state. Move-check column shows green/red dot. Design eye: consider freezing the table header on scroll; current implementation re-mounts on long boards."
+    },
+    {
+      "name": "4 · Asset Profiles — list",
+      "surface": "asset-profiles-list",
+      "frames": [
+        {
+          "label": "19.0 — 3 demo profiles (Computers / Vehicles / Equipment)",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/oca-asset-mgmt-review/04-asset-profiles.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Profile = template for new assets. Method + period + duration columns. Wide enough to benefit from a kanban variant grouped by method (linear/degressive)."
+    },
+    {
+      "name": "5 · Asset Profile — form",
+      "surface": "asset-profile-form",
+      "frames": [
+        {
+          "label": "19.0 — profile detail with accounting + method config",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/oca-asset-mgmt-review/05-profile-form.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Three accounts (asset / depreciation / expense) plus journal + method. Long form — design opportunity: collapse accounting fields into a 'Posting' section that defaults to sensible values per chart-of-accounts."
+    },
+    {
+      "name": "6 · Compute Depreciation wizard",
+      "surface": "compute-wizard",
+      "frames": [
+        {
+          "label": "19.0 — Compute Depreciation wizard launch",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/oca-asset-mgmt-review/06-compute-wizard.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Wizard drives the month-end / year-end depreciation run. Currently single screen — design audit: does it explain WHAT will happen on submit? Add a preview-count of journal entries that will be created."
+    },
+    {
+      "name": "7 · Asset Report wizard (XLS)",
+      "surface": "report-wizard",
+      "frames": [
+        {
+          "label": "19.0 — XLS export wizard",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/oca-asset-mgmt-review/07-report-wizard.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Filters: date range, asset profiles, groups. Outputs XLS via report_xlsx_helper. Design eye: filter UX feels like an old-style modal — consider porting to the standard search-and-export pattern on the asset list itself."
+    },
+    {
+      "name": "8 · Asset Groups",
+      "surface": "asset-groups",
+      "frames": [
+        {
+          "label": "19.0 — Group hierarchy (taxonomy)",
+          "src": "https://storage.googleapis.com/ledo-pr-assets/oca-asset-mgmt-review/08-asset-groups.png",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "annotation": "Hierarchical tags for cross-cutting categorization (e.g. 'Plant & Equipment', 'Vehicles → Fleet'). Empty in demo because we didn't seed any. Worth a small starter set in the module's seeded data."
+    }
+  ]
+}
