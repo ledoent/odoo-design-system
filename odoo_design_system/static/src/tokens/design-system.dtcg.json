@@ -1,292 +1,1029 @@
 {
   "global": {
     "color": {
-      "brand": {
-        "primary":        { "$value": "#D97706", "$type": "color", "$description": "Amber-500. Maps to $o-enterprise-color / $primary in Odoo." },
-        "primary-hover":  { "$value": "#B45309", "$type": "color", "$description": "Amber-700. Link/button hover." },
-        "primary-active": { "$value": "#92400E", "$type": "color", "$description": "Amber-900. Active/pressed." },
-        "secondary":      { "$value": "#F59E0B", "$type": "color", "$description": "Amber-400. $o-brand-lighten." }
-      },
-      "portal": {
-        "nav-dark":       { "$value": "#1A1A1E", "$type": "color", "$description": "Portal navbar background." },
-        "sidebar-light":  { "$value": "#FAFAF8", "$type": "color", "$description": "Card-header / sidebar." },
-        "border":         { "$value": "#E5E5E5", "$type": "color", "$description": "Card border, sidebar divider." }
+      "ext": {
+        "mp4": {
+          "$value": "{global.color.ext.media}",
+          "$type": "color"
+        },
+        "gif": {
+          "$value": "{global.color.ext.image}",
+          "$type": "color"
+        },
+        "webm": {
+          "$value": "{global.color.ext.media}",
+          "$type": "color"
+        },
+        "media": {
+          "$value": "#ae3ec9",
+          "$type": "color",
+          "$description": "AV base."
+        },
+        "md": {
+          "$value": "{global.color.ext.txt}",
+          "$type": "color"
+        },
+        "webp": {
+          "$value": "{global.color.ext.image}",
+          "$type": "color"
+        },
+        "ogg": {
+          "$value": "{global.color.ext.media}",
+          "$type": "color"
+        },
+        "flac": {
+          "$value": "{global.color.ext.media}",
+          "$type": "color"
+        },
+        "pdf": {
+          "$value": "#d6336c",
+          "$type": "color",
+          "$description": "PDF."
+        },
+        "image": {
+          "$value": "#d6336c",
+          "$type": "color",
+          "$description": "Image base."
+        },
+        "tar": {
+          "$value": "{global.color.ext.zip}",
+          "$type": "color"
+        },
+        "mp3": {
+          "$value": "{global.color.ext.media}",
+          "$type": "color"
+        },
+        "csv": {
+          "$value": "{global.color.ext.xls}",
+          "$type": "color"
+        },
+        "wav": {
+          "$value": "{global.color.ext.media}",
+          "$type": "color"
+        },
+        "svg": {
+          "$value": "{global.color.ext.image}",
+          "$type": "color"
+        },
+        "jpeg": {
+          "$value": "{global.color.ext.image}",
+          "$type": "color"
+        },
+        "mkv": {
+          "$value": "{global.color.ext.media}",
+          "$type": "color"
+        },
+        "gz": {
+          "$value": "{global.color.ext.zip}",
+          "$type": "color"
+        },
+        "ods": {
+          "$value": "{global.color.ext.xls}",
+          "$type": "color"
+        },
+        "xls": {
+          "$value": "#2f9e44",
+          "$type": "color",
+          "$description": "Spreadsheet base."
+        },
+        "ppt": {
+          "$value": "#e8590c",
+          "$type": "color",
+          "$description": "Slides base."
+        },
+        "pptx": {
+          "$value": "{global.color.ext.ppt}",
+          "$type": "color"
+        },
+        "mov": {
+          "$value": "{global.color.ext.media}",
+          "$type": "color"
+        },
+        "rst": {
+          "$value": "{global.color.ext.txt}",
+          "$type": "color"
+        },
+        "xlsx": {
+          "$value": "{global.color.ext.xls}",
+          "$type": "color"
+        },
+        "odt": {
+          "$value": "{global.color.ext.doc}",
+          "$type": "color"
+        },
+        "png": {
+          "$value": "{global.color.ext.image}",
+          "$type": "color"
+        },
+        "txt": {
+          "$value": "#495057",
+          "$type": "color",
+          "$description": "Plain-text base."
+        },
+        "rar": {
+          "$value": "{global.color.ext.zip}",
+          "$type": "color"
+        },
+        "odp": {
+          "$value": "{global.color.ext.ppt}",
+          "$type": "color"
+        },
+        "jpg": {
+          "$value": "{global.color.ext.image}",
+          "$type": "color"
+        },
+        "zip": {
+          "$value": "#5f3dc4",
+          "$type": "color",
+          "$description": "Archive base."
+        },
+        "doc": {
+          "$value": "#1971c2",
+          "$type": "color",
+          "$description": "Word base."
+        },
+        "rtf": {
+          "$value": "{global.color.ext.doc}",
+          "$type": "color"
+        },
+        "docx": {
+          "$value": "{global.color.ext.doc}",
+          "$type": "color"
+        }
       },
       "bucket": {
-        "1": { "$value": "#4263eb", "$type": "color", "$description": "Indigo." },
-        "2": { "$value": "#1098ad", "$type": "color", "$description": "Teal." },
-        "3": { "$value": "#2f9e44", "$type": "color", "$description": "Green." },
-        "4": { "$value": "#f08c00", "$type": "color", "$description": "Orange." },
-        "5": { "$value": "#d6336c", "$type": "color", "$description": "Pink." },
-        "6": { "$value": "#ae3ec9", "$type": "color", "$description": "Violet." },
-        "7": { "$value": "#5f3dc4", "$type": "color", "$description": "Purple." },
-        "8": { "$value": "#495057", "$type": "color", "$description": "Slate." }
-      },
-      "ext": {
-        "pdf":   { "$value": "#d6336c", "$type": "color", "$description": "PDF." },
-        "doc":   { "$value": "#1971c2", "$type": "color", "$description": "Word base." },
-        "docx":  { "$value": "{global.color.ext.doc}", "$type": "color" },
-        "odt":   { "$value": "{global.color.ext.doc}", "$type": "color" },
-        "rtf":   { "$value": "{global.color.ext.doc}", "$type": "color" },
-        "txt":   { "$value": "#495057", "$type": "color", "$description": "Plain-text base." },
-        "md":    { "$value": "{global.color.ext.txt}", "$type": "color" },
-        "rst":   { "$value": "{global.color.ext.txt}", "$type": "color" },
-        "xls":   { "$value": "#2f9e44", "$type": "color", "$description": "Spreadsheet base." },
-        "xlsx":  { "$value": "{global.color.ext.xls}", "$type": "color" },
-        "ods":   { "$value": "{global.color.ext.xls}", "$type": "color" },
-        "csv":   { "$value": "{global.color.ext.xls}", "$type": "color" },
-        "ppt":   { "$value": "#e8590c", "$type": "color", "$description": "Slides base." },
-        "pptx":  { "$value": "{global.color.ext.ppt}", "$type": "color" },
-        "odp":   { "$value": "{global.color.ext.ppt}", "$type": "color" },
-        "zip":   { "$value": "#5f3dc4", "$type": "color", "$description": "Archive base." },
-        "tar":   { "$value": "{global.color.ext.zip}", "$type": "color" },
-        "gz":    { "$value": "{global.color.ext.zip}", "$type": "color" },
-        "rar":   { "$value": "{global.color.ext.zip}", "$type": "color" },
-        "image": { "$value": "#d6336c", "$type": "color", "$description": "Image base." },
-        "jpg":   { "$value": "{global.color.ext.image}", "$type": "color" },
-        "jpeg":  { "$value": "{global.color.ext.image}", "$type": "color" },
-        "png":   { "$value": "{global.color.ext.image}", "$type": "color" },
-        "gif":   { "$value": "{global.color.ext.image}", "$type": "color" },
-        "svg":   { "$value": "{global.color.ext.image}", "$type": "color" },
-        "webp":  { "$value": "{global.color.ext.image}", "$type": "color" },
-        "media": { "$value": "#ae3ec9", "$type": "color", "$description": "AV base." },
-        "mp4":   { "$value": "{global.color.ext.media}", "$type": "color" },
-        "mov":   { "$value": "{global.color.ext.media}", "$type": "color" },
-        "mkv":   { "$value": "{global.color.ext.media}", "$type": "color" },
-        "webm":  { "$value": "{global.color.ext.media}", "$type": "color" },
-        "mp3":   { "$value": "{global.color.ext.media}", "$type": "color" },
-        "wav":   { "$value": "{global.color.ext.media}", "$type": "color" },
-        "flac":  { "$value": "{global.color.ext.media}", "$type": "color" },
-        "ogg":   { "$value": "{global.color.ext.media}", "$type": "color" }
+        "1": {
+          "$value": "#4263eb",
+          "$type": "color",
+          "$description": "Indigo."
+        },
+        "2": {
+          "$value": "#1098ad",
+          "$type": "color",
+          "$description": "Teal."
+        },
+        "3": {
+          "$value": "#2f9e44",
+          "$type": "color",
+          "$description": "Green."
+        },
+        "4": {
+          "$value": "#f08c00",
+          "$type": "color",
+          "$description": "Orange."
+        },
+        "5": {
+          "$value": "#d6336c",
+          "$type": "color",
+          "$description": "Pink."
+        },
+        "6": {
+          "$value": "#ae3ec9",
+          "$type": "color",
+          "$description": "Violet."
+        },
+        "7": {
+          "$value": "#5f3dc4",
+          "$type": "color",
+          "$description": "Purple."
+        },
+        "8": {
+          "$value": "#495057",
+          "$type": "color",
+          "$description": "Slate."
+        }
       },
       "neutral": {
-        "0":   { "$value": "#FFFFFF", "$type": "color" },
-        "100": { "$value": "#F8F9FA", "$type": "color", "$description": "Bootstrap gray-100. $o-gray-100." },
-        "200": { "$value": "#E9ECEF", "$type": "color", "$description": "$o-gray-200." },
-        "300": { "$value": "#DEE2E6", "$type": "color", "$description": "$o-gray-300." },
-        "400": { "$value": "#CED4DA", "$type": "color", "$description": "$o-gray-400." },
-        "500": { "$value": "#ADB5BD", "$type": "color", "$description": "$o-gray-500. Default per-identity fallback." },
-        "600": { "$value": "#6C757D", "$type": "color", "$description": "$o-gray-600." },
-        "700": { "$value": "#495057", "$type": "color", "$description": "$o-gray-700." },
-        "800": { "$value": "#343A40", "$type": "color", "$description": "$o-gray-800." },
-        "900": { "$value": "#212529", "$type": "color", "$description": "$o-gray-900. $o-main-text-color." },
-        "950": { "$value": "#0F1115", "$type": "color", "$description": "Deeper than Bootstrap's range. Used by dark theme canvas." },
-        "fallback": { "$value": "{global.color.neutral.500}", "$type": "color", "$description": "Alias of neutral.500 — kept for back-compat with consumers referencing var(--o-gray-500)." }
-      }
-    },
-    "spacing": {
-      "0": { "$value": "0",    "$type": "spacing", "$description": "Zero spacing." },
-      "1": { "$value": "4px",  "$type": "spacing", "$description": "Tight." },
-      "2": { "$value": "8px",  "$type": "spacing", "$description": "Base step." },
-      "3": { "$value": "12px", "$type": "spacing", "$description": "Compact." },
-      "4": { "$value": "16px", "$type": "spacing", "$description": "Default. $o-spacer / $o-horizontal-padding." },
-      "5": { "$value": "24px", "$type": "spacing", "$description": "$o-sheet-vpadding." },
-      "6": { "$value": "32px", "$type": "spacing", "$description": "Section." },
-      "7": { "$value": "48px", "$type": "spacing", "$description": "Hero." }
-    },
-    "typography": {
-      "family": {
-        "sans":    { "$value": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, 'Noto Sans', Arial, sans-serif", "$type": "fontFamily", "$description": "$o-font-family-sans-serif." },
-        "mono":    { "$value": "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace", "$type": "fontFamily", "$description": "$o-font-family-monospace." },
-        "heading": { "$value": "'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", "$type": "fontFamily", "$description": "$o-headings-font-family." }
+        "0": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        },
+        "100": {
+          "$value": "#F8F9FA",
+          "$type": "color",
+          "$description": "Bootstrap gray-100. $o-gray-100."
+        },
+        "200": {
+          "$value": "#E9ECEF",
+          "$type": "color",
+          "$description": "$o-gray-200."
+        },
+        "300": {
+          "$value": "#DEE2E6",
+          "$type": "color",
+          "$description": "$o-gray-300."
+        },
+        "400": {
+          "$value": "#CED4DA",
+          "$type": "color",
+          "$description": "$o-gray-400."
+        },
+        "500": {
+          "$value": "#ADB5BD",
+          "$type": "color",
+          "$description": "$o-gray-500. Default per-identity fallback."
+        },
+        "600": {
+          "$value": "#6C757D",
+          "$type": "color",
+          "$description": "$o-gray-600."
+        },
+        "700": {
+          "$value": "#495057",
+          "$type": "color",
+          "$description": "$o-gray-700."
+        },
+        "800": {
+          "$value": "#343A40",
+          "$type": "color",
+          "$description": "$o-gray-800."
+        },
+        "900": {
+          "$value": "#212529",
+          "$type": "color",
+          "$description": "$o-gray-900. $o-main-text-color."
+        },
+        "950": {
+          "$value": "#0F1115",
+          "$type": "color",
+          "$description": "Deeper than Bootstrap's range. Used by dark theme canvas."
+        },
+        "fallback": {
+          "$value": "{global.color.neutral.500}",
+          "$type": "color",
+          "$description": "Alias of neutral.500 — kept for back-compat with consumers referencing var(--o-gray-500)."
+        }
       },
-      "size": {
-        "xs":   { "$value": "12px", "$type": "fontSize", "$description": "$o-font-size-base-smaller." },
-        "sm":   { "$value": "13px", "$type": "fontSize", "$description": "$o-font-size-base-small." },
-        "base": { "$value": "14px", "$type": "fontSize", "$description": "$o-font-size-base." },
-        "lg":   { "$value": "16px", "$type": "fontSize", "$description": "$o-font-size-base-touch." },
-        "xl":   { "$value": "18px", "$type": "fontSize" },
-        "2xl":  { "$value": "22px", "$type": "fontSize" },
-        "3xl":  { "$value": "28px", "$type": "fontSize" },
-        "4xl":  { "$value": "36px", "$type": "fontSize" }
+      "portal": {
+        "sidebar-light": {
+          "$value": "#FAFAF8",
+          "$type": "color",
+          "$description": "Card-header / sidebar."
+        },
+        "nav-dark": {
+          "$value": "#1A1A1E",
+          "$type": "color",
+          "$description": "Portal navbar background."
+        },
+        "border": {
+          "$value": "#E5E5E5",
+          "$type": "color",
+          "$description": "Card border, sidebar divider."
+        }
       },
-      "weight": {
-        "light":    { "$value": "300", "$type": "fontWeight" },
-        "normal":   { "$value": "400", "$type": "fontWeight", "$description": "$o-font-weight-normal." },
-        "medium":   { "$value": "500", "$type": "fontWeight", "$description": "$o-font-weight-medium." },
-        "semibold": { "$value": "600", "$type": "fontWeight" },
-        "bold":     { "$value": "700", "$type": "fontWeight", "$description": "$o-font-weight-bold." }
-      },
-      "line-height": {
-        "tight":   { "$value": "1.1",  "$type": "lineHeight" },
-        "snug":    { "$value": "1.25", "$type": "lineHeight", "$description": "$o-line-height-sm." },
-        "normal":  { "$value": "1.5",  "$type": "lineHeight", "$description": "$o-line-height-base." },
-        "relaxed": { "$value": "1.75", "$type": "lineHeight" },
-        "loose":   { "$value": "2",    "$type": "lineHeight", "$description": "$o-line-height-lg." }
+      "brand": {
+        "primary-active": {
+          "$value": "#92400E",
+          "$type": "color",
+          "$description": "Amber-900. Active/pressed."
+        },
+        "secondary": {
+          "$value": "#F59E0B",
+          "$type": "color",
+          "$description": "Amber-400. $o-brand-lighten."
+        },
+        "primary-hover": {
+          "$value": "#B45309",
+          "$type": "color",
+          "$description": "Amber-700. Link/button hover."
+        },
+        "primary": {
+          "$value": "#D97706",
+          "$type": "color",
+          "$description": "Amber-500. Maps to $o-enterprise-color / $primary in Odoo."
+        }
       }
     },
     "radius": {
-      "sm":   { "$value": "3px",   "$type": "borderRadius", "$description": "$o-border-radius-sm." },
-      "base": { "$value": "4px",   "$type": "borderRadius", "$description": "$o-border-radius." },
-      "lg":   { "$value": "6px",   "$type": "borderRadius", "$description": "$o-border-radius-lg. Equals legacy size.card-radius." },
-      "pill": { "$value": "999px", "$type": "borderRadius", "$description": "Equals legacy size.chip-radius." }
-    },
-    "motion": {
-      "duration": {
-        "fast": { "$value": "100ms", "$type": "duration", "$description": "Snap interactions (chip toggle, focus ring)." },
-        "base": { "$value": "150ms", "$type": "duration", "$description": "Default — matches existing card-lift transition." },
-        "slow": { "$value": "300ms", "$type": "duration", "$description": "Modal / sheet entry." }
+      "base": {
+        "$value": "4px",
+        "$type": "borderRadius",
+        "$description": "$o-border-radius."
       },
-      "easing": {
-        "standard":   { "$value": "cubic-bezier(0.4, 0, 0.2, 1)", "$type": "cubicBezier", "$description": "Material standard." },
-        "decelerate": { "$value": "cubic-bezier(0, 0, 0.2, 1)",   "$type": "cubicBezier", "$description": "Entering." },
-        "accelerate": { "$value": "cubic-bezier(0.4, 0, 1, 1)",   "$type": "cubicBezier", "$description": "Leaving." }
+      "sm": {
+        "$value": "3px",
+        "$type": "borderRadius",
+        "$description": "$o-border-radius-sm."
+      },
+      "pill": {
+        "$value": "999px",
+        "$type": "borderRadius",
+        "$description": "Equals legacy size.chip-radius."
+      },
+      "lg": {
+        "$value": "6px",
+        "$type": "borderRadius",
+        "$description": "$o-border-radius-lg. Equals legacy size.card-radius."
+      }
+    },
+    "typography": {
+      "size": {
+        "2xl": {
+          "$value": "22px",
+          "$type": "fontSizes"
+        },
+        "xs": {
+          "$value": "12px",
+          "$type": "fontSizes",
+          "$description": "$o-font-size-base-smaller."
+        },
+        "4xl": {
+          "$value": "36px",
+          "$type": "fontSizes"
+        },
+        "3xl": {
+          "$value": "28px",
+          "$type": "fontSizes"
+        },
+        "base": {
+          "$value": "14px",
+          "$type": "fontSizes",
+          "$description": "$o-font-size-base."
+        },
+        "sm": {
+          "$value": "13px",
+          "$type": "fontSizes",
+          "$description": "$o-font-size-base-small."
+        },
+        "lg": {
+          "$value": "16px",
+          "$type": "fontSizes",
+          "$description": "$o-font-size-base-touch."
+        },
+        "xl": {
+          "$value": "18px",
+          "$type": "fontSizes"
+        }
+      },
+      "family": {
+        "heading": {
+          "$value": [
+            "'SF Pro Display'",
+            "system-ui",
+            "-apple-system",
+            "BlinkMacSystemFont",
+            "'Segoe UI'",
+            "Roboto",
+            "sans-serif"
+          ],
+          "$type": "fontFamilies",
+          "$description": "$o-headings-font-family."
+        },
+        "sans": {
+          "$value": [
+            "system-ui",
+            "-apple-system",
+            "BlinkMacSystemFont",
+            "'Segoe UI'",
+            "Roboto",
+            "'Helvetica Neue'",
+            "Ubuntu",
+            "'Noto Sans'",
+            "Arial",
+            "sans-serif"
+          ],
+          "$type": "fontFamilies",
+          "$description": "$o-font-family-sans-serif."
+        },
+        "mono": {
+          "$value": [
+            "SFMono-Regular",
+            "Menlo",
+            "Monaco",
+            "Consolas",
+            "'Liberation Mono'",
+            "'Courier New'",
+            "monospace"
+          ],
+          "$type": "fontFamilies",
+          "$description": "$o-font-family-monospace."
+        }
+      },
+      "weight": {
+        "bold": {
+          "$value": "700",
+          "$type": "fontWeights",
+          "$description": "$o-font-weight-bold."
+        },
+        "medium": {
+          "$value": "500",
+          "$type": "fontWeights",
+          "$description": "$o-font-weight-medium."
+        },
+        "light": {
+          "$value": "300",
+          "$type": "fontWeights"
+        },
+        "semibold": {
+          "$value": "600",
+          "$type": "fontWeights"
+        },
+        "normal": {
+          "$value": "400",
+          "$type": "fontWeights",
+          "$description": "$o-font-weight-normal."
+        }
       }
     },
     "size": {
-      "card-radius":  { "$value": "{global.radius.lg}",   "$type": "borderRadius", "$description": "Legacy alias of radius.lg — kept for back-compat." },
-      "chip-radius":  { "$value": "{global.radius.pill}", "$type": "borderRadius", "$description": "Legacy alias of radius.pill — kept for back-compat." },
-      "tile-size":    { "$value": "56px",  "$type": "sizing",      "$description": "Default <OdsCardTile> footprint." },
-      "avatar-size":  { "$value": "22px",  "$type": "sizing",      "$description": "Default <OdsInitialsAvatar> diameter." },
-      "spine-width":  { "$value": "3px",   "$type": "borderWidth", "$description": "Left-edge accent stripe (ods-card-chrome)." }
+      "tile-size": {
+        "$value": "56px",
+        "$type": "sizing",
+        "$description": "Default <OdsCardTile> footprint."
+      },
+      "avatar-size": {
+        "$value": "22px",
+        "$type": "sizing",
+        "$description": "Default <OdsInitialsAvatar> diameter."
+      },
+      "chip-radius": {
+        "$value": "{global.radius.pill}",
+        "$type": "borderRadius",
+        "$description": "Legacy alias of radius.pill — kept for back-compat."
+      },
+      "card-radius": {
+        "$value": "{global.radius.lg}",
+        "$type": "borderRadius",
+        "$description": "Legacy alias of radius.lg — kept for back-compat."
+      },
+      "spine-width": {
+        "$value": "3px",
+        "$type": "borderWidth",
+        "$description": "Left-edge accent stripe (ods-card-chrome)."
+      }
+    },
+    "spacing": {
+      "0": {
+        "$value": "0",
+        "$type": "spacing",
+        "$description": "Zero spacing."
+      },
+      "1": {
+        "$value": "4px",
+        "$type": "spacing",
+        "$description": "Tight."
+      },
+      "2": {
+        "$value": "8px",
+        "$type": "spacing",
+        "$description": "Base step."
+      },
+      "3": {
+        "$value": "12px",
+        "$type": "spacing",
+        "$description": "Compact."
+      },
+      "4": {
+        "$value": "16px",
+        "$type": "spacing",
+        "$description": "Default. $o-spacer / $o-horizontal-padding."
+      },
+      "5": {
+        "$value": "24px",
+        "$type": "spacing",
+        "$description": "$o-sheet-vpadding."
+      },
+      "6": {
+        "$value": "32px",
+        "$type": "spacing",
+        "$description": "Section."
+      },
+      "7": {
+        "$value": "48px",
+        "$type": "spacing",
+        "$description": "Hero."
+      }
     }
   },
-
   "theme-light": {
     "color": {
-      "surface": {
-        "canvas":  { "$value": "{global.color.neutral.0}",   "$type": "color", "$description": "Page background." },
-        "raised":  { "$value": "{global.color.neutral.100}", "$type": "color", "$description": "Cards, panels above the canvas." },
-        "sunken":  { "$value": "{global.color.neutral.200}", "$type": "color", "$description": "Section dividers, inset wells." },
-        "overlay": { "$value": "rgba(0, 0, 0, 0.5)",  "$type": "color", "$description": "Modal backdrop." }
-      },
-      "text": {
-        "primary":   { "$value": "{global.color.neutral.900}", "$type": "color", "$description": "Default body text. $o-main-text-color." },
-        "secondary": { "$value": "{global.color.neutral.700}", "$type": "color" },
-        "muted":     { "$value": "{global.color.neutral.600}", "$type": "color" },
-        "on-brand":  { "$value": "{global.color.neutral.0}",   "$type": "color", "$description": "Text on brand-primary backgrounds." },
-        "inverse":   { "$value": "{global.color.neutral.0}",   "$type": "color", "$description": "Text on dark backgrounds." }
-      },
       "border": {
-        "subtle":  { "$value": "{global.color.neutral.200}", "$type": "color" },
-        "default": { "$value": "{global.color.neutral.300}", "$type": "color" },
-        "strong":  { "$value": "{global.color.neutral.500}", "$type": "color" }
+        "default": {
+          "$value": "{global.color.neutral.300}",
+          "$type": "color"
+        },
+        "strong": {
+          "$value": "{global.color.neutral.500}",
+          "$type": "color"
+        },
+        "subtle": {
+          "$value": "{global.color.neutral.200}",
+          "$type": "color"
+        }
       },
       "state": {
-        "success-bg": { "$value": "#D4EDDA", "$type": "color" },
-        "success-fg": { "$value": "#155724", "$type": "color" },
-        "warning-bg": { "$value": "#FFF3CD", "$type": "color" },
-        "warning-fg": { "$value": "#856404", "$type": "color" },
-        "danger-bg":  { "$value": "#F8D7DA", "$type": "color" },
-        "danger-fg":  { "$value": "#721C24", "$type": "color" },
-        "info-bg":    { "$value": "#D1ECF1", "$type": "color" },
-        "info-fg":    { "$value": "#0C5460", "$type": "color" }
+        "warning-fg": {
+          "$value": "#856404",
+          "$type": "color"
+        },
+        "success-bg": {
+          "$value": "#D4EDDA",
+          "$type": "color"
+        },
+        "success-fg": {
+          "$value": "#155724",
+          "$type": "color"
+        },
+        "danger-bg": {
+          "$value": "#F8D7DA",
+          "$type": "color"
+        },
+        "danger-fg": {
+          "$value": "#721C24",
+          "$type": "color"
+        },
+        "info-fg": {
+          "$value": "#0C5460",
+          "$type": "color"
+        },
+        "warning-bg": {
+          "$value": "#FFF3CD",
+          "$type": "color"
+        },
+        "info-bg": {
+          "$value": "#D1ECF1",
+          "$type": "color"
+        }
+      },
+      "text": {
+        "inverse": {
+          "$value": "{global.color.neutral.0}",
+          "$type": "color",
+          "$description": "Text on dark backgrounds."
+        },
+        "secondary": {
+          "$value": "{global.color.neutral.700}",
+          "$type": "color"
+        },
+        "muted": {
+          "$value": "{global.color.neutral.600}",
+          "$type": "color"
+        },
+        "primary": {
+          "$value": "{global.color.neutral.900}",
+          "$type": "color",
+          "$description": "Default body text. $o-main-text-color."
+        },
+        "on-brand": {
+          "$value": "{global.color.neutral.0}",
+          "$type": "color",
+          "$description": "Text on brand-primary backgrounds."
+        }
+      },
+      "surface": {
+        "overlay": {
+          "$value": "rgba(0, 0, 0, 0.5)",
+          "$type": "color",
+          "$description": "Modal backdrop."
+        },
+        "sunken": {
+          "$value": "{global.color.neutral.200}",
+          "$type": "color",
+          "$description": "Section dividers, inset wells."
+        },
+        "raised": {
+          "$value": "{global.color.neutral.100}",
+          "$type": "color",
+          "$description": "Cards, panels above the canvas."
+        },
+        "canvas": {
+          "$value": "{global.color.neutral.0}",
+          "$type": "color",
+          "$description": "Page background."
+        }
       }
     },
     "elevation": {
-      "0": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "0px",  "blur": "0px",  "spread": "0px", "color": "rgba(0, 0, 0, 0)"    } },
-      "1": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "1px",  "blur": "3px",  "spread": "0px", "color": "rgba(0, 0, 0, 0.08)" }, "$description": "Resting card. Matches existing shadow.card." },
-      "2": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "4px",  "blur": "6px",  "spread": "0px", "color": "rgba(0, 0, 0, 0.10)" } },
-      "3": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "4px",  "blur": "18px", "spread": "0px", "color": "rgba(0, 0, 0, 0.08)" }, "$description": "Lifted card on hover. Matches existing shadow.card-hover." },
-      "4": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "20px", "blur": "25px", "spread": "0px", "color": "rgba(0, 0, 0, 0.14)" }, "$description": "Modal / dialog." }
+      "0": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      },
+      "1": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "1px",
+            "blur": "3px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0.08)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow",
+        "$description": "Resting card. Matches existing shadow.card."
+      },
+      "2": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "4px",
+            "blur": "6px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0.10)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      },
+      "3": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "4px",
+            "blur": "18px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0.08)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow",
+        "$description": "Lifted card on hover. Matches existing shadow.card-hover."
+      },
+      "4": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "20px",
+            "blur": "25px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0.14)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow",
+        "$description": "Modal / dialog."
+      }
     }
   },
-
   "theme-dark": {
     "color": {
-      "surface": {
-        "canvas":  { "$value": "{global.color.neutral.950}", "$type": "color" },
-        "raised":  { "$value": "{global.color.neutral.900}", "$type": "color" },
-        "sunken":  { "$value": "#000000",             "$type": "color" },
-        "overlay": { "$value": "rgba(0, 0, 0, 0.7)",  "$type": "color" }
-      },
-      "text": {
-        "primary":   { "$value": "{global.color.neutral.100}", "$type": "color" },
-        "secondary": { "$value": "{global.color.neutral.300}", "$type": "color" },
-        "muted":     { "$value": "{global.color.neutral.500}", "$type": "color" },
-        "on-brand":  { "$value": "{global.color.neutral.0}",   "$type": "color" },
-        "inverse":   { "$value": "{global.color.neutral.900}", "$type": "color" }
-      },
       "border": {
-        "subtle":  { "$value": "{global.color.neutral.800}", "$type": "color" },
-        "default": { "$value": "{global.color.neutral.700}", "$type": "color" },
-        "strong":  { "$value": "{global.color.neutral.500}", "$type": "color" }
+        "default": {
+          "$value": "{global.color.neutral.700}",
+          "$type": "color"
+        },
+        "strong": {
+          "$value": "{global.color.neutral.500}",
+          "$type": "color"
+        },
+        "subtle": {
+          "$value": "{global.color.neutral.800}",
+          "$type": "color"
+        }
       },
       "state": {
-        "success-bg": { "$value": "#1E3A24", "$type": "color" },
-        "success-fg": { "$value": "#86EFAC", "$type": "color" },
-        "warning-bg": { "$value": "#3D2E0A", "$type": "color" },
-        "warning-fg": { "$value": "#FCD34D", "$type": "color" },
-        "danger-bg":  { "$value": "#3A1A1D", "$type": "color" },
-        "danger-fg":  { "$value": "#FCA5A5", "$type": "color" },
-        "info-bg":    { "$value": "#0E2E36", "$type": "color" },
-        "info-fg":    { "$value": "#67E8F9", "$type": "color" }
+        "warning-fg": {
+          "$value": "#FCD34D",
+          "$type": "color"
+        },
+        "success-bg": {
+          "$value": "#1E3A24",
+          "$type": "color"
+        },
+        "success-fg": {
+          "$value": "#86EFAC",
+          "$type": "color"
+        },
+        "danger-bg": {
+          "$value": "#3A1A1D",
+          "$type": "color"
+        },
+        "danger-fg": {
+          "$value": "#FCA5A5",
+          "$type": "color"
+        },
+        "info-fg": {
+          "$value": "#67E8F9",
+          "$type": "color"
+        },
+        "warning-bg": {
+          "$value": "#3D2E0A",
+          "$type": "color"
+        },
+        "info-bg": {
+          "$value": "#0E2E36",
+          "$type": "color"
+        }
+      },
+      "text": {
+        "inverse": {
+          "$value": "{global.color.neutral.900}",
+          "$type": "color"
+        },
+        "secondary": {
+          "$value": "{global.color.neutral.300}",
+          "$type": "color"
+        },
+        "muted": {
+          "$value": "{global.color.neutral.500}",
+          "$type": "color"
+        },
+        "primary": {
+          "$value": "{global.color.neutral.100}",
+          "$type": "color"
+        },
+        "on-brand": {
+          "$value": "{global.color.neutral.0}",
+          "$type": "color"
+        }
+      },
+      "surface": {
+        "overlay": {
+          "$value": "rgba(0, 0, 0, 0.7)",
+          "$type": "color"
+        },
+        "sunken": {
+          "$value": "#000000",
+          "$type": "color"
+        },
+        "raised": {
+          "$value": "{global.color.neutral.900}",
+          "$type": "color"
+        },
+        "canvas": {
+          "$value": "{global.color.neutral.950}",
+          "$type": "color"
+        }
       }
     },
     "elevation": {
-      "0": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "0px",  "blur": "0px",  "spread": "0px", "color": "rgba(0, 0, 0, 0)"    } },
-      "1": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "1px",  "blur": "3px",  "spread": "0px", "color": "rgba(0, 0, 0, 0.40)" } },
-      "2": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "4px",  "blur": "6px",  "spread": "0px", "color": "rgba(0, 0, 0, 0.45)" } },
-      "3": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "4px",  "blur": "18px", "spread": "0px", "color": "rgba(0, 0, 0, 0.50)" } },
-      "4": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "20px", "blur": "25px", "spread": "0px", "color": "rgba(0, 0, 0, 0.55)" } }
+      "0": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      },
+      "1": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "1px",
+            "blur": "3px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0.40)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      },
+      "2": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "4px",
+            "blur": "6px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0.45)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      },
+      "3": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "4px",
+            "blur": "18px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0.50)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      },
+      "4": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "20px",
+            "blur": "25px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0.55)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      }
     }
   },
-
   "theme-high-contrast": {
     "color": {
-      "surface": {
-        "canvas":  { "$value": "{global.color.neutral.0}",   "$type": "color" },
-        "raised":  { "$value": "{global.color.neutral.0}",   "$type": "color" },
-        "sunken":  { "$value": "{global.color.neutral.100}", "$type": "color" },
-        "overlay": { "$value": "rgba(0, 0, 0, 0.85)", "$type": "color" }
-      },
-      "text": {
-        "primary":   { "$value": "#000000",          "$type": "color" },
-        "secondary": { "$value": "#000000",          "$type": "color" },
-        "muted":     { "$value": "#1A1A1A",          "$type": "color" },
-        "on-brand":  { "$value": "#FFFFFF",          "$type": "color" },
-        "inverse":   { "$value": "#FFFFFF",          "$type": "color" }
-      },
       "border": {
-        "subtle":  { "$value": "#000000", "$type": "color" },
-        "default": { "$value": "#000000", "$type": "color" },
-        "strong":  { "$value": "#000000", "$type": "color" }
+        "default": {
+          "$value": "#000000",
+          "$type": "color"
+        },
+        "strong": {
+          "$value": "#000000",
+          "$type": "color"
+        },
+        "subtle": {
+          "$value": "#000000",
+          "$type": "color"
+        }
       },
       "state": {
-        "success-bg": { "$value": "#006400", "$type": "color" },
-        "success-fg": { "$value": "#FFFFFF", "$type": "color" },
-        "warning-bg": { "$value": "#B45309", "$type": "color" },
-        "warning-fg": { "$value": "#FFFFFF", "$type": "color" },
-        "danger-bg":  { "$value": "#8B0000", "$type": "color" },
-        "danger-fg":  { "$value": "#FFFFFF", "$type": "color" },
-        "info-bg":    { "$value": "#003366", "$type": "color" },
-        "info-fg":    { "$value": "#FFFFFF", "$type": "color" }
+        "warning-fg": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        },
+        "success-bg": {
+          "$value": "#006400",
+          "$type": "color"
+        },
+        "success-fg": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        },
+        "danger-bg": {
+          "$value": "#8B0000",
+          "$type": "color"
+        },
+        "danger-fg": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        },
+        "info-fg": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        },
+        "warning-bg": {
+          "$value": "#B45309",
+          "$type": "color"
+        },
+        "info-bg": {
+          "$value": "#003366",
+          "$type": "color"
+        }
+      },
+      "text": {
+        "inverse": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        },
+        "secondary": {
+          "$value": "#000000",
+          "$type": "color"
+        },
+        "muted": {
+          "$value": "#1A1A1A",
+          "$type": "color"
+        },
+        "primary": {
+          "$value": "#000000",
+          "$type": "color"
+        },
+        "on-brand": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        }
+      },
+      "surface": {
+        "overlay": {
+          "$value": "rgba(0, 0, 0, 0.85)",
+          "$type": "color"
+        },
+        "sunken": {
+          "$value": "{global.color.neutral.100}",
+          "$type": "color"
+        },
+        "raised": {
+          "$value": "{global.color.neutral.0}",
+          "$type": "color"
+        },
+        "canvas": {
+          "$value": "{global.color.neutral.0}",
+          "$type": "color"
+        }
       }
     },
     "elevation": {
-      "0": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "0px",  "blur": "0px", "spread": "0px",   "color": "rgba(0, 0, 0, 0)" } },
-      "1": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "0px",  "blur": "0px", "spread": "1.5px", "color": "#000000" }, "$description": "High-contrast: solid border instead of soft shadow." },
-      "2": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "0px",  "blur": "0px", "spread": "2px",   "color": "#000000" } },
-      "3": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "0px",  "blur": "0px", "spread": "2.5px", "color": "#000000" } },
-      "4": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "0px",  "blur": "0px", "spread": "3px",   "color": "#000000" } }
+      "0": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "0px",
+            "color": "rgba(0, 0, 0, 0)",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      },
+      "1": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "1.5px",
+            "color": "#000000",
+            "inset": false
+          }
+        ],
+        "$type": "shadow",
+        "$description": "High-contrast: solid border instead of soft shadow."
+      },
+      "2": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "2px",
+            "color": "#000000",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      },
+      "3": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "2.5px",
+            "color": "#000000",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      },
+      "4": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "3px",
+            "color": "#000000",
+            "inset": false
+          }
+        ],
+        "$type": "shadow"
+      }
     }
   },
-
   "$themes": [
     {
+      "id": "ecd71e1b-f020-80d0-8008-090544af95a4",
       "name": "light",
+      "group": "",
+      "description": "",
+      "isSource": false,
       "selectedTokenSets": {
-        "global": "source",
-        "theme-light": "enabled"
+        "theme-light": "enabled",
+        "global": "enabled"
       }
     },
     {
+      "id": "ecd71e1b-f020-80d0-8008-090544b39e1b",
       "name": "dark",
+      "group": "",
+      "description": "",
+      "isSource": false,
       "selectedTokenSets": {
-        "global": "source",
-        "theme-dark": "enabled"
+        "theme-dark": "enabled",
+        "global": "enabled"
       }
     },
     {
+      "id": "ecd71e1b-f020-80d0-8008-090544b39e1d",
       "name": "high-contrast",
+      "group": "",
+      "description": "",
+      "isSource": false,
       "selectedTokenSets": {
-        "global": "source",
-        "theme-high-contrast": "enabled"
+        "theme-high-contrast": "enabled",
+        "global": "enabled"
       }
     }
   ],
-
   "$metadata": {
-    "tokenSetOrder": ["global", "theme-light", "theme-dark", "theme-high-contrast"]
+    "tokenSetOrder": [
+      "global",
+      "theme-light",
+      "theme-dark",
+      "theme-high-contrast"
+    ]
   }
 }
