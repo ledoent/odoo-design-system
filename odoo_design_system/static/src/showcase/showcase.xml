@@ -13,6 +13,19 @@
                 other OCA module that uses this addon.
             </p>
 
+            <div class="ods_theme_switcher" t-att-data-active="state.theme">
+                <span class="ods_theme_switcher__label">Theme:</span>
+                <button type="button" data-theme="light"
+                        t-att-class="{'ods_theme_switcher__btn': true, 'is-active': state.theme === 'light'}"
+                        t-on-click="() =&gt; this.setTheme('light')">Light</button>
+                <button type="button" data-theme="dark"
+                        t-att-class="{'ods_theme_switcher__btn': true, 'is-active': state.theme === 'dark'}"
+                        t-on-click="() =&gt; this.setTheme('dark')">Dark</button>
+                <button type="button" data-theme="high-contrast"
+                        t-att-class="{'ods_theme_switcher__btn': true, 'is-active': state.theme === 'high-contrast'}"
+                        t-on-click="() =&gt; this.setTheme('high-contrast')">High contrast</button>
+            </div>
+
             <!-- Tokens -->
             <section class="ods_section">
                 <h2>Tokens</h2>
