@@ -8,7 +8,7 @@
     "tokens": "style-dictionary build --config style-dictionary.config.js",
     "tokens:watch": "style-dictionary build --config style-dictionary.config.js --watch",
     "tokens:check": "node scripts/check-tokens-in-sync.mjs",
-    "test": "node --test --test-reporter=spec 'tests/*.test.mjs'",
+    "test": "find tests -maxdepth 1 -name '*.test.mjs' -print0 | xargs -0 node --test --test-reporter=spec",
     "test:e2e": "playwright test"
   },
   "license": "LGPL-3.0",
