@@ -1,0 +1,37 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$description": "Canonical shape for a Penpot rect with a fill bound to a design token via Penpot 2.x's appliedTokens map. Discovered 2026-05-17 via REST probe against design.hz.ledoweb.com (Penpot version 2.15.3). The Penpot source schema is `cto/schema:applied-tokens` in `common/src/app/common/types/token.cljc` — confirmed via the Penpot GitHub repo. Field-name notes:\n\n- The shape attribute is `appliedTokens` in JSON / camelCase responses; `applied-tokens` (kebab-case) when posting via `update-file` PCS mod-obj operations.\n- The value of each key inside `appliedTokens` is a token name string. Penpot resolves it against whichever token set is currently active (the `$themes` machinery decides which set is active per theme).\n- The token name is the GROUP-PREFIXED path (e.g., `color.surface.canvas`), NOT the fully-qualified path including the set name (e.g., NOT `theme-light.color.surface.canvas`).\n- A literal `fills` value should always be set alongside `appliedTokens.fill` as a fallback for when no theme set is active.\n\nKey-name reference (subset, from Penpot source):\n  - color tokens:   fill, stroke-color\n  - sizing tokens:  width, height, layout-item-min-w, layout-item-max-w, layout-item-min-h, layout-item-max-h\n  - spacing tokens: p1, p2, p3, p4, m1, m2, m3, m4, row-gap, column-gap\n  - radius tokens:  r1, r2, r3, r4\n  - typography:     font-size, font-family, font-weight, letter-spacing, line-height",
+    "shape": {
+        "id": "<uuid>",
+        "type": "rect",
+        "name": "<human-readable>",
+        "x": 0, "y": 0, "width": 1440, "height": 900, "rotation": 0,
+        "frame-id": "00000000-0000-0000-0000-000000000000",
+        "parent-id": "00000000-0000-0000-0000-000000000000",
+        "fills": [{"fill-color": "#FFFFFF", "fill-opacity": 1}],
+        "applied-tokens": {"fill": "color.surface.canvas"}
+    },
+    "post_persist_returns": {
+        "appliedTokens": {"fill": "color.surface.canvas"},
+        "fills": [{"fillColor": "#FFFFFF", "fillOpacity": 1}],
+        "_comment": "Penpot normalises kebab-case → camelCase on read."
+    },
+    "rpc_examples": {
+        "add-obj": {
+            "type": "add-obj",
+            "id": "<uuid>",
+            "page-id": "<page-uuid>",
+            "frame-id": "00000000-0000-0000-0000-000000000000",
+            "parent-id": "00000000-0000-0000-0000-000000000000",
+            "obj": "<shape — see 'shape' above>"
+        },
+        "mod-obj": {
+            "type": "mod-obj",
+            "page-id": "<page-uuid>",
+            "id": "<shape-uuid>",
+            "operations": [
+                {"type": "set", "attr": "applied-tokens", "val": {"fill": "color.surface.canvas"}}
+            ]
+        }
+    }
+}

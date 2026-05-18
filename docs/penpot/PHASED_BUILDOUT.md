@@ -111,10 +111,11 @@ for the canonical example.
 
 **Done-state**:
 
-- [ ] 12 pages, 0 raster images (verify via Playwright `evaluate` counting `<image>` nodes — should be 0)
-- [ ] Switching tokensLib set in the file recolors all 12 page backgrounds
-- [ ] 24 screenshots committed to GCS (12 pages × 2 themes)
-- [ ] `docs/penpot/verification/phase-1.md` committed with verdict
+- [x] 12 pages, 0 raster images — enforced by [`tests/pages.test.mjs`](../../tests/pages.test.mjs) against [`docs/penpot/specs/pages.json`](specs/pages.json)
+- [x] Switching tokensLib set in the file recolors all 12 page backgrounds — `appliedTokens.fill = color.surface.canvas` per [`docs/penpot/specs/token-fill.json`](specs/token-fill.json) **(state-level: REST `set-active-token-themes` works; canvas re-render carries a known browser-cache gap, see verdict)**
+- [x] Stock-19.0 reference screenshots moved to a sibling file (`Odoo 19.0 — Stock Reference Screenshots`, id `ab1caf40-…`)
+- [x] 24 screenshots committed to GCS (12 pages × 2 themes) — `gs://ledo-pr-assets/odoo-design-system/phase-1/`
+- [x] [`docs/penpot/verification/phase-1.md`](verification/phase-1.md) committed with verdict
 
 ---
 
