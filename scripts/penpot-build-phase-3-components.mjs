@@ -101,9 +101,9 @@ function bucketForLetter(letter) {
 
 // ---------- atomic specimens (mini-emitters per shape kind) ----------
 
-function makeIconBox({id, name, x, y, size, setLabel, iconName, accent}) {
+function makeIconBox({id, name, x, y, size, iconName}) {
     // Placeholder for the icon SVG: a soft-bordered square with the
-    // icon's `name` centered as monospace text. Phase 3b uploads
+    // icon's `name` centered below as a tiny label. Phase 3b uploads
     // real icon media via Penpot's media endpoint and swaps these
     // out for `fillImage` rects.
     return [
@@ -111,7 +111,7 @@ function makeIconBox({id, name, x, y, size, setLabel, iconName, accent}) {
             id, name,
             x, y, w: size, h: size,
             fillColor: "#FFFFFF",
-            strokeColor: accent || "#DEE2E6",
+            strokeColor: "#DEE2E6",
             strokeWidth: 1,
             radius: 4,
         }),
@@ -249,7 +249,7 @@ function mainInstance(comp, addObj) {
     const m = comp.main;
     switch (m.kind) {
         case "icon":
-            return makeIconBox({id, name, x, y, size: m.size, setLabel: m.set, iconName: m.name}).forEach(addObj);
+            return makeIconBox({id, name, x, y, size: m.size, iconName: m.name}).forEach(addObj);
         case "chip":
             return makeChip({id, name, x, y, label: m.label, literalBg: "#F1F3F5", literalFg: "#212529", withIcon: false}).forEach(addObj);
         case "avatar":
@@ -283,7 +283,7 @@ function iconMatrix(comp, addObj) {
             makeIconBox({
                 id: randomUUID(),
                 name: `__phase3.${comp.id}.${setName}.${icoName}`,
-                x, y, size: s.iconSize, setLabel: setName, iconName: icoName,
+                x, y, size: s.iconSize, iconName: icoName,
             }).forEach(addObj);
         });
     });

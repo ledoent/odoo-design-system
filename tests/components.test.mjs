@@ -143,27 +143,19 @@ test("Shared Components page has no orphan __phase3.* shapes", {
     assert.ok(targetPid);
     const page = file.data.pagesIndex[targetPid];
 
-    // Expected names include the per-specimen children that the build
-    // script's atomic builders add: `.label`, `.letter`, `.icon`,
-    // `.spine`, `.caption`, `.name`. Build a tolerant prefix set and
-    // accept any phase-3 shape whose name has an expected ancestor.
+    // The build script's atomic shape builders add per-specimen
+    // children with these suffixes (e.g. `__phase3.ods-chip.neutral`
+    // → also emits `…neutral.label`, `…neutral.icon`). Treat any
+    // expected name as a permitted prefix for those suffixes.
+    const SUFFIXES = [".label", ".letter", ".icon", ".spine", ".caption", ".name"];
     const expected = new Set(expectedShapeNames());
-    const expectedPrefixes = [...expected];
 
     const orphans = [];
     for (const s of Object.values(page.objects)) {
         const name = s?.name || "";
         if (!name.startsWith("__phase3.")) continue;
         if (expected.has(name)) continue;
-        // Allow shape children with the per-atom suffixes.
-        const matched = expectedPrefixes.some((p) =>
-            name === `${p}.label` ||
-            name === `${p}.letter` ||
-            name === `${p}.icon` ||
-            name === `${p}.spine` ||
-            name === `${p}.caption` ||
-            name === `${p}.name`
-        );
+        const matched = [...expected].some((p) => SUFFIXES.some((suf) => name === p + suf));
         if (!matched) orphans.push(name);
     }
     assert.deepEqual(orphans, [], `orphan __phase3.* shapes:\n  ${orphans.join("\n  ")}`);
