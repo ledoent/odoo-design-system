@@ -75,9 +75,19 @@ const D = SPEC.defaults;
 const W = SPEC.page.width;
 const text = (args) => makeText({fontFamily: D.fontFamily, fontId: D.fontId, ...args});
 
-// ---------- bucket palette (mirrors _tokens.scss `ods-bucket-index`) ----------
+// ---------- bucket palette (read from DTCG JSON; mirrors `ods-bucket-index` in _tokens.scss) ----------
 
-const BUCKET_HEX = ["#4263EB", "#1098AD", "#2F9E44", "#F08C00", "#D6336C", "#AE3EC9", "#5F3DC4", "#495057"];
+// Read `global.color.bucket.{1..8}` from the canonical DTCG token
+// source so the avatar / tile colours stay in lockstep with both the
+// SCSS-generated `$ods-bucket-palette` Sass map AND whatever Penpot
+// resolves `color.bucket.N` to. Drift-by-hardcoding was the alternative.
+const TOKENS_JSON = resolve(REPO, "odoo_design_system/static/src/tokens/design-system.dtcg.json");
+const _tokens = JSON.parse(readFileSync(TOKENS_JSON, "utf8"));
+const BUCKET_HEX = Array.from({length: 8}, (_, i) => {
+    const t = _tokens?.global?.color?.bucket?.[String(i + 1)];
+    if (!t?.$value) throw new Error(`design-system.dtcg.json missing global.color.bucket.${i + 1}`);
+    return t.$value.toUpperCase();
+});
 
 function bucketForLetter(letter) {
     const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
