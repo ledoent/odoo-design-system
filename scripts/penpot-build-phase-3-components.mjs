@@ -576,9 +576,23 @@ for (const comp of SPEC.components) {
             }
             return;
         }
+        // The change-op envelope's `frame-id` / `parent-id` are
+        // AUTHORITATIVE — Penpot's add-shape uses them to wire the
+        // new shape into its parent's `shapes` array AND overwrites
+        // the obj's own frame-id/parent-id with these values. So we
+        // mirror the obj's own intent here: a top-level frame still
+        // lands at ROOT (its frame-id is ROOT), while children inside
+        // a new frame land at the new frame (their frame-id was set
+        // by makeRect/makeText/makeFrame's `frameId` arg). The prior
+        // hard-coded ROOT envelope put children at ROOT in Penpot's
+        // tree even though the obj said it belonged in the new frame
+        // — a data-integrity bug fixed by penpot-build-phase-3b-
+        // repair.mjs.
+        const envFrameId = obj["frame-id"] || ROOT;
+        const envParentId = obj["parent-id"] || envFrameId;
         addObjChanges.push({
             type: "add-obj", id: obj.id, "page-id": targetPageId,
-            "frame-id": ROOT, "parent-id": ROOT, obj,
+            "frame-id": envFrameId, "parent-id": envParentId, obj,
         });
         existingNames.add(obj.name);
         added++;

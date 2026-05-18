@@ -240,3 +240,42 @@ test("Shared Components page has no orphan __phase3.* shapes", {
     }
     assert.deepEqual(orphans, [], `orphan __phase3.* shapes:\n  ${orphans.join("\n  ")}`);
 });
+
+test("Shared Components page has no double-parented shapes", {
+    skip: TOKEN ? false : "PENPOT_TOKEN not set — skipping live Penpot check.",
+}, async () => {
+    // Phase 3a + 3b build scripts initially emitted add-obj change-ops
+    // with `parent-id: ROOT` in the envelope while the obj's own
+    // frame-id pointed at a new frame. Penpot's add-shape uses the
+    // envelope authoritatively, so children ended up referenced by
+    // both Root Frame's `shapes` array AND the new frame's `shapes`
+    // — Penpot's workspace-load validate-shape tripped and rendered
+    // "Internal Error". `scripts/penpot-build-phase-3b-repair.mjs`
+    // fixed the existing damage; the build scripts now propagate
+    // obj.frame-id into the envelope. This test keeps both invariants
+    // covered.
+    const file = await getFile(FILE_ID);
+    const targetPid = Object.entries(file.data.pagesIndex)
+        .find(([, p]) => p.name === COMPS_SPEC.page.name)?.[0];
+    assert.ok(targetPid);
+    const page = file.data.pagesIndex[targetPid];
+
+    const refCount = new Map();
+    for (const [sid, s] of Object.entries(page.objects)) {
+        for (const childId of s.shapes || []) {
+            if (!refCount.has(childId)) refCount.set(childId, []);
+            refCount.get(childId).push({sid: sid.slice(0, 8), name: s.name || s.type});
+        }
+    }
+    const multiParent = [];
+    for (const [cid, parents] of refCount) {
+        if (parents.length > 1) {
+            const child = page.objects[cid];
+            multiParent.push(
+                `${cid.slice(0, 8)} (${child?.name || child?.type}) ` +
+                `in ${parents.length} parents: ${parents.map((p) => p.name).join(", ")}`
+            );
+        }
+    }
+    assert.deepEqual(multiParent, [], `shapes with multiple parents:\n  ${multiParent.join("\n  ")}`);
+});

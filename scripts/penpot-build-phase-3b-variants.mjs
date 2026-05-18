@@ -421,11 +421,27 @@ for (const comp of SPEC.components) {
             x: cell.coords.x, y: cell.coords.y, w: width, h: height,
             children: children.map((c) => c.id),
         });
+        // The add-obj change-op envelope's `frame-id` / `parent-id`
+        // are AUTHORITATIVE — Penpot's add-shape wires the new shape
+        // into its parent's `shapes` array based on those, AND
+        // overrides the obj's own frame-id/parent-id with the
+        // envelope values. So we mirror obj.frame-id here: the frame
+        // itself lands at ROOT (its own frame-id is ROOT), while
+        // children land at their enclosing frame's id (set by the
+        // makeRect / makeText helpers via the `frameId` param). The
+        // hard-coded `ROOT` envelope for children was a data-
+        // integrity bug — caused 55 over-claimed children on the
+        // canonical file; repaired by scripts/penpot-build-phase-3b-
+        // repair.mjs.
         addObjChanges.push({type: "add-obj", id: frame.id, "page-id": targetPageId,
-                            "frame-id": ROOT, "parent-id": ROOT, obj: frame});
+                            "frame-id": frame["frame-id"] || ROOT,
+                            "parent-id": frame["parent-id"] || ROOT, obj: frame});
         for (const child of children) {
+            const envFrameId = child["frame-id"] || ROOT;
+            const envParentId = child["parent-id"] || envFrameId;
             addObjChanges.push({type: "add-obj", id: child.id, "page-id": targetPageId,
-                                "frame-id": ROOT, "parent-id": ROOT, obj: child});
+                                "frame-id": envFrameId,
+                                "parent-id": envParentId, obj: child});
         }
         addCompChanges.push({
             type: "add-component",
