@@ -84,7 +84,7 @@ known cache gap and is now resolved at the capture layer.
 - [x] **Variant matrices on canvas** — every axis shown for each atom (4 icon sets × 12 samples; 6 chip variants × 2 icon states; 8 avatar buckets; 3 tile accents).
 - [x] **Idempotent build** — re-running `penpot-build-phase-3-components.mjs` reports `nothing to do — N shapes already in place; 4 library components.`
 - [x] **3 screenshots in GCS** at `gs://ledo-pr-assets/odoo-design-system/phase-3/`
-- [x] **UI-driven theme toggle** — `_penpot-ui-theme.mjs` shipped; Phase 2 dark captures now visibly re-skin (state pills go from light pastels to dark saturated tones).
+- [x] **UI-driven theme toggle** — `_penpot-ui-theme.mjs` shipped. Penpot's THEMES dialog enforces a single-active-theme invariant; clicking ANY row activates it and deactivates every other automatically. Phase 1's verification of this helper had a bug where it also clicked the "deactivate others" rows in the same `evaluate()` loop, which fought the enforcement and left the *deactivate-target* re-activated by the trailing click — captured-bit-identical PNGs were the symptom (light/dark MD5-equal in both Phase 2 and the first Phase 3 capture run). Fixed by clicking only the target row; verified live with three distinct MD5s for `foundations-{light,dark,hc}.png` and `components-{light,dark,hc}.png`.
 - [x] CI workflows green (`test.yml`, `penpot-token-sync.yml`)
 
 ### Deferred to Phase 3b

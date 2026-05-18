@@ -78,15 +78,37 @@ generated SCSS. Single PR, single commit.
 
 ## Editing components
 
-Use the OWL source at `odoo_design_system/static/src/components/` as the
-ground truth for prop names and variants. The Penpot component on page 03 is
-the design mock; the code is the implementation. Both should agree.
+The file's **Assets** panel (left sidebar, second tab) hosts four
+library components, one per OWL atom, promoted from the
+**03 — Shared Components** page:
 
-If you add a new variant in Penpot:
+| Library component | OWL source | Variant axes (Phase 3a sampler) |
+| --- | --- | --- |
+| `OdsIcon` | [`icon/icon.esm.js`](../../odoo_design_system/static/src/components/icon/icon.esm.js) | 4 sets × 12 sampler icons |
+| `OdsChip` | [`chip/chip.esm.js`](../../odoo_design_system/static/src/components/chip/chip.esm.js) | 6 variants × {withIcon, no-icon} |
+| `OdsInitialsAvatar` | [`initials_avatar/initials_avatar.esm.js`](../../odoo_design_system/static/src/components/initials_avatar/initials_avatar.esm.js) | 8 buckets (one row) |
+| `OdsCardTile` | [`card_tile/card_tile.esm.js`](../../odoo_design_system/static/src/components/card_tile/card_tile.esm.js) | 3 accents (`ext` / `initial` / `preview`) |
 
-1. Mock it on page 03 next to the others.
-2. Drop a note on page 09 (PR Drafts) describing the prop change.
-3. An engineer wires the OWL code; merging that PR closes the loop.
+Drag any of them onto any page and they appear as an instance. The
+OWL source is still the ground truth for prop names + behavior; the
+Penpot library component is the design mock you instantiate.
+
+**Phase 3a deferred work** (tracked for a Phase 3b PR):
+
+- Per-component variant picker in Penpot's Design panel (variant
+  containers grouping every matrix cell under one library entry).
+- Real SVG glyphs for `OdsIcon` (currently named-rect placeholders;
+  designers see icon names per set, not the glyphs).
+- `OdsChip` warning / success bound to the new `color.state.*`
+  tokens added in Phase 0.
+
+**Proposing a new variant**:
+
+1. Open the OWL source for the atom you want to extend.
+2. Add the new prop / variant in code.
+3. Run `pnpm run penpot:snapshot && node scripts/penpot-build-phase-3-components.mjs`
+   to regenerate the sampler on Page 03 + refresh the library component.
+4. Open a PR titled `feat(<atom>): add <new-variant> variant`.
 
 ## Connecting from your machine
 

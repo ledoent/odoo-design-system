@@ -74,12 +74,17 @@ export async function setActiveThemeViaUI(page, themeName) {
     await page.waitForTimeout(600);
 
     // 3. In the dialog, find the theme rows. Each row is a DIV with
-    //    `aria-checked` and `textContent === <theme-name>`. Click the
-    //    target if it's not already active; deactivate others.
+    //    `aria-checked` and `textContent === <theme-name>`. Penpot
+    //    enforces a single-active-theme invariant: clicking ANY row
+    //    activates it and deactivates every other theme automatically.
+    //    So we only need to click the target row when it's currently
+    //    inactive; the helper used to also click "deactivate others"
+    //    in the same evaluate() loop, which fought Penpot's enforcement
+    //    (the deactivate-click toggled the already-deactivated row
+    //    BACK on, so e.g. high-contrast ended up active even when
+    //    target=dark). Verified live 2026-05-18: a single-row click
+    //    on `dark` flips light/high-contrast off automatically.
     const result = await page.evaluate((target) => {
-        // The dialog is the nearest ancestor that has role=dialog OR a
-        // class containing "modal". Fall back to scanning document if
-        // both come up empty (some Penpot versions skip role=dialog).
         const dialog = document.querySelector('[role="dialog"], [class*="modal"]') || document;
         const themeRows = [...dialog.querySelectorAll('div[aria-checked]')]
             .filter((row) => {
@@ -87,17 +92,14 @@ export async function setActiveThemeViaUI(page, themeName) {
                 return t === "light" || t === "dark" || t === "high-contrast";
             });
         if (!themeRows.length) return {error: "no theme rows visible in dialog"};
-        const changes = [];
-        for (const row of themeRows) {
-            const name = row.textContent.trim();
-            const checked = row.getAttribute("aria-checked") === "true";
-            const wantActive = name === target;
-            if (checked !== wantActive) {
-                row.click();
-                changes.push({name, was: checked, now: wantActive});
-            }
+        const targetRow = themeRows.find((r) => r.textContent.trim() === target);
+        if (!targetRow) return {error: `row for theme "${target}" not visible`};
+        const wasChecked = targetRow.getAttribute("aria-checked") === "true";
+        if (!wasChecked) {
+            targetRow.click();
+            return {clicked: target, was: false, rowCount: themeRows.length};
         }
-        return {changes, rowCount: themeRows.length};
+        return {clicked: null, was: true, rowCount: themeRows.length, note: "already active"};
     }, themeName);
 
     if (result.error) {
