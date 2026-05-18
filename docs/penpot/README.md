@@ -8,24 +8,37 @@ engineers regenerate SCSS from the exported DTCG JSON.
 
 ## What's in the file
 
-Twelve pages, in order:
+Twelve pages, in order. Page contract is enforced by
+[`tests/pages.test.mjs`](../../tests/pages.test.mjs) against the live
+file (skipped in CI when `PENPOT_TOKEN` is unset). The source of truth
+is [`docs/penpot/specs/pages.json`](specs/pages.json) — keep it and
+this table in lockstep.
 
 | # | Page | What lives there |
 | --- | --- | --- |
-| 00 | Cover | One-page brand card + version axis |
-| 01 | Foundations / Tokens | Full swatch grid — brand, portal, bucket, extension, sizing |
-| 02 | Iconography | Lucide + Heroicons (solid / outline / mini) samplers |
-| 03 | Components (shared) | OdsChip, OdsInitialsAvatar, OdsCardTile, OdsIcon — all variants |
-| 04 | Components / 18.0 deltas | Where the 18.0 backport differs from 19.0 |
-| 05 | Components / 19.0 deltas | Current release notes against the primitives |
-| 06 | Patterns | Spined card, chip row, form hero — composed primitives |
-| 07 | Templates / Backend views | Kanban grid, list view, searchpanel, drop-zone |
-| 08 | Templates / Portal & Website | Portal grid, empty state, mobile portrait |
-| 09 | PR Drafts | Scratch space for in-flight design proposals |
-| 10 | Playground | Free-form experiment area |
-| 11 | Changelog | Page-level audit log |
+| 00 | Cover | Project intent + version axis matrix |
+| 01 | Foundations | Vector specimens for every token group (Phase 2) |
+| 02 | Iconography | Lucide + Heroicons samplers; OdsIcon spec (Phase 3) |
+| 03 | Shared Components | OdsChip, OdsInitialsAvatar, OdsCardTile, OdsIcon as Penpot library components (Phase 3) |
+| 04 | 18.0 Deltas | Differences when the design system runs on Odoo 18.0 |
+| 05 | 19.0 Deltas | Release notes specific to Odoo 19.0 |
+| 06 | Patterns | Composed primitives — spined card, chip row, form hero (Phase 4+) |
+| 07 | Backend Templates | Kanban, list, form, searchpanel, drop-zone (Phase 4–6) |
+| 08 | Portal Templates | Portal grid, empty state, mobile portrait, breadcrumb (Phase 8) |
+| 09 | Reports | Printable A4 templates — invoice, quotation, delivery slip (Phase 9) |
+| 10 | Drafts | Scratch space for in-flight design proposals |
+| 11 | Changelog | Page-level audit log of design-system releases |
+
+Every page background is bound (via Penpot `appliedTokens.fill`) to
+the design token `color.surface.canvas`. Toggling the active theme set
+in the **TOKENS → THEMES → EDIT** dialog re-skins all 12 pages in one
+click. The PCS shape for that binding lives in
+[`docs/penpot/specs/token-fill.json`](specs/token-fill.json).
 
 The DMS case-study lives in a sibling file: [`DMS — Migration & Modernization`](https://design.hz.ledoweb.com/#/workspace?team-id=442b344a-1ecc-8198-8008-0771673d374d&file-id=290ad95c-cfaf-819b-8008-07b812589ea5).
+Stock-19.0 screenshot captures (PR #6) live in a third sibling: [`Odoo 19.0 — Stock Reference Screenshots`](https://design.hz.ledoweb.com/#/workspace?team-id=442b344a-1ecc-8198-8008-0771673d374d&file-id=ab1caf40-8849-808b-8008-096a0fe717bb)
+— pulled out of the canonical file during Phase 1 so the design source
+stays raster-free.
 
 ## Editing tokens
 
