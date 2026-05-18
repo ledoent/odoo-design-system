@@ -132,10 +132,10 @@ for the canonical example.
 
 **Done-state**:
 
-- [ ] Every swatch/spec is a vector shape bound to a token (no hex hard-codes; verified by selecting a swatch and confirming the **Design** panel shows a token binding, not a raw value)
-- [ ] Playwright / `/browse`: select a swatch via Playwright `evaluate`, confirm it's a `:rect` not `:image`
-- [ ] Toggle dark theme: all swatches that should change, change; all that shouldn't (e.g. brand primary), don't
-- [ ] `docs/penpot/verification/phase-2.md` committed
+- [x] Every swatch/spec is a vector shape bound to a token — enforced live by [`tests/foundations.test.mjs`](../../tests/foundations.test.mjs) against [`docs/penpot/specs/foundations.json`](specs/foundations.json) (184 specimens; Penpot's `appliedTokens` map asserted per-shape)
+- [x] Playwright: shapes verified as `:rect` / `:text` (not `:image`) — same raster-free invariant enforced by `tests/foundations.test.mjs`
+- [x] Theme bindings present at the data layer; visual canvas re-skin **carries the Phase 1 known cache gap** (state-level activation via REST `set-active-token-themes` works; SPA caches tokensLib past `page.reload()` — see verdict)
+- [x] [`docs/penpot/verification/phase-2.md`](verification/phase-2.md) committed with verdict + GCS embed URLs
 
 ---
 

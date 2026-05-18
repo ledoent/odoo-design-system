@@ -37,7 +37,8 @@ import {readFileSync, readdirSync, statSync} from "node:fs";
 import {dirname, resolve, join} from "node:path";
 import {fileURLToPath} from "node:url";
 
-import {CANONICAL_FILE_ID, ROOT_FRAME_ID, getFile, rpc, requireToken} from "./_penpot-rpc.mjs";
+import {CANONICAL_FILE_ID, FEATURES, ROOT_FRAME_ID, getFile, rpc, requireToken} from "./_penpot-rpc.mjs";
+import {makeRect, makeText} from "./_penpot-shapes.mjs";
 
 requireToken("penpot-build-phase-1-skeleton.mjs");
 
@@ -72,57 +73,10 @@ const ROOT = ROOT_FRAME_ID;
 const VIEW_W = 1440;
 const VIEW_H = 900;
 
-// ---------- shape builders ----------
-
-function makeRect({id, name, x, y, w, h, fillColor, appliedTokens, locked = false}) {
-    const o = {
-        id, type: "rect", name,
-        x, y, width: w, height: h, rotation: 0,
-        "frame-id": ROOT, "parent-id": ROOT,
-        fills: [{"fill-color": fillColor, "fill-opacity": 1}],
-        selrect: {x, y, x1: x, y1: y, x2: x + w, y2: y + h, width: w, height: h},
-        points: [{x, y}, {x: x + w, y}, {x: x + w, y: y + h}, {x, y: y + h}],
-        transform: {a: 1, b: 0, c: 0, d: 1, e: 0, f: 0},
-        "transform-inverse": {a: 1, b: 0, c: 0, d: 1, e: 0, f: 0},
-    };
-    if (appliedTokens) o["applied-tokens"] = appliedTokens;
-    if (locked) o.blocked = true;
-    return o;
-}
-
-function makeText({id, name, x, y, w, h, content, fontSize = 14, fill = "#212529", weight = "400"}) {
-    return {
-        id, type: "text", name,
-        x, y, width: w, height: h, rotation: 0,
-        "frame-id": ROOT, "parent-id": ROOT, "grow-type": "auto-height",
-        fills: [{"fill-color": fill, "fill-opacity": 1}],
-        content: {
-            type: "root",
-            children: [{
-                type: "paragraph-set",
-                children: [{
-                    type: "paragraph",
-                    children: [{
-                        text: content,
-                        "font-family": "sourcesanspro",
-                        "font-id": "gfont-sourcesanspro",
-                        "font-size": String(fontSize),
-                        "font-style": "normal",
-                        "font-weight": weight,
-                        "text-decoration": "none",
-                        "text-transform": "none",
-                        "fill-color": fill,
-                        "fill-opacity": 1,
-                    }],
-                }],
-            }],
-        },
-        selrect: {x, y, x1: x, y1: y, x2: x + w, y2: y + h, width: w, height: h},
-        points: [{x, y}, {x: x + w, y}, {x: x + w, y: y + h}, {x, y: y + h}],
-        transform: {a: 1, b: 0, c: 0, d: 1, e: 0, f: 0},
-        "transform-inverse": {a: 1, b: 0, c: 0, d: 1, e: 0, f: 0},
-    };
-}
+// Shape builders live in `_penpot-shapes.mjs` — same source consumed
+// by Phase 2's specimen builder. See that module for the full
+// signatures; `makeRect({locked: true})` and `makeText({fontSize,
+// fill, weight})` are the only forms Phase 1 needs.
 
 // Page layout: returns an ordered list of (id, change) tuples ready to feed
 // to `update-file` for one page.
@@ -267,10 +221,12 @@ if (pageChanges.length) {
 const after = await getFile(FILE_ID);
 revn = after.revn;
 
-// Pass 2.5: purge any non-skeleton shapes left over from pre-Phase-1
-// content. Pages that were renamed-in-place (`mod-page`) keep their
-// shape list; clear anything that doesn't match the `__phase1.*` name
-// convention so the canvas is reduced to just the skeleton.
+// Pass 2.5: purge non-DS-authored shapes left over from pre-Phase-1
+// content. Pages renamed-in-place (`mod-page`) keep their shape list;
+// clear anything that doesn't match the `__phase<N>.*` convention so
+// the canvas is reduced to the design-system skeleton (Phase 1) plus
+// whatever later phases have added (Phase 2 specimens, etc.).
+const PHASE_NAME_RE = /^__phase\d+\./;
 const purgeChanges = [];
 for (const spec of targetPages) {
     const pid = pageIdByTargetName.get(spec.name);
@@ -278,7 +234,7 @@ for (const spec of targetPages) {
     if (!page) continue;
     for (const [oid, obj] of Object.entries(page.objects || {})) {
         if (oid === ROOT) continue;
-        if ((obj.name || "").startsWith("__phase1.")) continue;
+        if (PHASE_NAME_RE.test(obj.name || "")) continue;
         purgeChanges.push({type: "del-obj", "page-id": pid, id: oid});
     }
 }
