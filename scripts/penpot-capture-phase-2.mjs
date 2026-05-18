@@ -7,28 +7,26 @@
 //
 //   gs://ledo-pr-assets/odoo-design-system/phase-2/foundations-<theme>.png
 //
-// Reuses the Phase 1 capture pattern: REST `set-active-token-themes`
-// change op to mutate `tokensLib.$metadata.{activeThemes,activeSets}`
-// server-side, then Playwright reload + screenshot. The same
-// SPA-cache caveat from Phase 1 applies: state-level activation is
-// authoritative, but the canvas may render the literal fallback for
-// theme-variant shapes if Penpot's frontend doesn't refresh
-// tokensLib between batches. Capture script writes what Penpot
-// renders; do not interpret a stale-looking PNG as a Phase 2 bug
-// unless the spec / `tests/foundations.test.mjs` also fails.
+// Drives theme activation via Penpot's own **TOKENS → THEMES → EDIT**
+// dialog (see `scripts/_penpot-ui-theme.mjs`). REST
+// `set-active-token-themes` mutates `tokensLib.$metadata.*` correctly
+// but the Penpot 2.15 SPA caches theme resolution per-session and
+// keeps showing the literal fallback even after a full page reload.
+// Clicking the in-UI theme-toggle invalidates that cache and the
+// canvas re-renders against the new active sets immediately.
 //
 // Usage:
 //   PENPOT_TOKEN=<pat> PENPOT_PASSWORD=<service-account-password> \
 //       node scripts/penpot-capture-phase-2.mjs
 
-import {randomUUID} from "node:crypto";
 import {readFileSync, mkdirSync} from "node:fs";
 import {execFileSync} from "node:child_process";
 import {resolve, dirname} from "node:path";
 import {fileURLToPath} from "node:url";
 import {chromium} from "playwright";
 
-import {FEATURES, PENPOT_HOST as HOST, getFile, rpc, requireToken} from "./_penpot-rpc.mjs";
+import {PENPOT_HOST as HOST, getFile, requireToken} from "./_penpot-rpc.mjs";
+import {setActiveThemeViaUI} from "./_penpot-ui-theme.mjs";
 
 const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PAGES_SPEC = JSON.parse(readFileSync(resolve(REPO, "docs/penpot/specs/pages.json"), "utf8"));
@@ -69,37 +67,21 @@ await page.locator('button:has-text("Continue")').click();
 await page.waitForURL(/dashboard|workspace/, {timeout: 15_000});
 console.error("✓ logged in");
 
-async function setActiveTheme(themeName) {
-    const head = await getFile(FILE_ID);
-    await rpc("update-file", {
-        id: FILE_ID,
-        revn: head.revn,
-        vern: head.vern ?? 0,
-        "session-id": randomUUID(),
-        features: FEATURES,
-        changes: [{type: "set-active-token-themes", themePaths: [`/${themeName}`]}],
-        skipValidate: false,
-    });
-    const after = await getFile(FILE_ID);
-    const meta = after.data?.tokensLib?.$metadata ?? {};
-    console.error(`  ↻ activeThemes=${JSON.stringify(meta.activeThemes)} activeSets=${JSON.stringify(meta.activeSets)}`);
-}
-
+// Land on the Foundations page once; subsequent theme toggles
+// re-render against the existing canvas (no hash-only nav needed).
 const url = `${HOST}/#/workspace?team-id=${TEAM_ID}&file-id=${FILE_ID}&page-id=${targetPid}`;
+await page.goto(url);
+await page.waitForTimeout(3000);
+await page.keyboard.press("Shift+1");
+await page.waitForTimeout(400);
 
 for (const theme of THEMES) {
     console.error(`\n[theme: ${theme}]`);
-    await setActiveTheme(theme);
-
-    await page.goto(url);
-    await page.waitForTimeout(800);
-    // Force a hard reload so Penpot's SPA re-fetches the file (the
-    // hash-only navigation it does internally keeps a stale tokensLib).
-    await page.reload({waitUntil: "load"});
-    await page.waitForTimeout(2800);
-    // Zoom to fit so the captured area shows the whole tall page.
-    await page.keyboard.press("Shift+1");
-    await page.waitForTimeout(600);
+    const r = await setActiveThemeViaUI(page, theme);
+    console.error(`  ↻ ${JSON.stringify(r)}`);
+    // Penpot's renderer commits the new theme on the next paint; give
+    // it a moment in case of debounce.
+    await page.waitForTimeout(1500);
 
     const localPath = `${OUT_DIR}/foundations-${theme}.png`;
     await page.screenshot({path: localPath, fullPage: false});
