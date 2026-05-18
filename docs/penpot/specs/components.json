@@ -1,0 +1,116 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$description": "Declarative spec for the 'Shared Components' Penpot page (index 3). Phase 3 promotes the 4 existing OWL components (OdsIcon, OdsChip, OdsInitialsAvatar, OdsCardTile) into Penpot library components — draggable from the Assets panel — and lays out a visual sampler of every variant. Build/test/capture all consume this file. The components-path emits real Penpot library components via the `add-component` change-op (see `docs/penpot/verification/phase-3.md` for the RPC schema discovered live).",
+
+    "page": {
+        "name": "03 — Shared Components",
+        "width": 1440
+    },
+
+    "defaults": {
+        "marginX": 64,
+        "rowGap": 24,
+        "sectionGap": 64,
+        "sectionHeaderHeight": 16,
+        "sectionContentOffset": 32,
+        "fontFamily": "sourcesanspro",
+        "fontId": "gfont-sourcesanspro",
+        "iconBaseUrl": "/odoo_design_system/static/icons"
+    },
+
+    "components": [
+        {
+            "id": "ods-icon",
+            "name": "OdsIcon",
+            "path": "Atoms / Iconography",
+            "source": "odoo_design_system/static/src/components/icon/icon.esm.js:OdsIcon",
+            "title": "ODSICON  ·  Iconography sampler (Lucide + Heroicons outline / solid / mini)",
+            "y": 128,
+            "main": {
+                "kind": "icon",
+                "set": "lucide",
+                "name": "folder-open",
+                "size": 48
+            },
+            "specimens": {
+                "kind": "iconMatrix",
+                "iconSize": 24,
+                "rowLabelWidth": 140,
+                "sets": ["lucide", "heroicons", "heroicons-solid", "heroicons-mini"],
+                "samples": ["folder-open", "file-text", "image", "user", "settings-2", "trash-2", "pencil", "plus", "x", "check", "chevron-right", "star"]
+            }
+        },
+        {
+            "id": "ods-chip",
+            "name": "OdsChip",
+            "path": "Atoms / Labels",
+            "source": "odoo_design_system/static/src/components/chip/chip.esm.js:OdsChip",
+            "title": "ODSCHIP  ·  Variant + with/without icon",
+            "y": 440,
+            "main": {
+                "kind": "chip",
+                "variant": "neutral",
+                "label": "Label"
+            },
+            "specimens": {
+                "kind": "chipMatrix",
+                "rowLabelWidth": 140,
+                "rows": [
+                    {"key": "no-icon",   "label": "no icon",      "withIcon": false},
+                    {"key": "with-icon", "label": "with icon (●)", "withIcon": true}
+                ],
+                "variants": [
+                    {"key": "neutral", "label": "Neutral", "literalBg": "#F1F3F5", "literalFg": "#212529"},
+                    {"key": "ext",     "label": ".pdf",    "literalBg": "#F1F3F5", "literalFg": "#D6336C"},
+                    {"key": "size",    "label": "12 MB",   "literalBg": "#F1F3F5", "literalFg": "#495057"},
+                    {"key": "count",   "label": "42",      "literalBg": "#F1F3F5", "literalFg": "#212529"},
+                    {"key": "warning", "label": "Pending", "literalBg": "#FFF3CD", "literalFg": "#856404"},
+                    {"key": "success", "label": "Approved","literalBg": "#D4EDDA", "literalFg": "#155724"}
+                ]
+            }
+        },
+        {
+            "id": "ods-initials-avatar",
+            "name": "OdsInitialsAvatar",
+            "path": "Atoms / People",
+            "source": "odoo_design_system/static/src/components/initials_avatar/initials_avatar.esm.js:OdsInitialsAvatar",
+            "title": "ODSINITIALSAVATAR  ·  Deterministic bucket per first-letter hash",
+            "y": 700,
+            "main": {
+                "kind": "avatar",
+                "letter": "A",
+                "bucket": 1,
+                "size": 40
+            },
+            "specimens": {
+                "kind": "avatarRow",
+                "size": 40,
+                "rowLabelWidth": 140,
+                "names": ["Alice", "Bob", "Charlie", "Daniel", "Eve", "Frank", "Grace", "Henry"]
+            }
+        },
+        {
+            "id": "ods-card-tile",
+            "name": "OdsCardTile",
+            "path": "Atoms / Cards",
+            "source": "odoo_design_system/static/src/components/card_tile/card_tile.esm.js:OdsCardTile",
+            "title": "ODSCARDTILE  ·  accent = ext / initial / preview",
+            "y": 880,
+            "main": {
+                "kind": "tile",
+                "accent": "ext",
+                "label": "pdf"
+            },
+            "specimens": {
+                "kind": "tileRow",
+                "size": 96,
+                "rowLabelWidth": 140,
+                "accents": [
+                    {"key": "ext",     "label": "ext",     "literalAccent": "#D6336C", "labelText": "pdf"},
+                    {"key": "initial", "label": "initial", "literalAccent": "#4263EB", "labelText": "A"},
+                    {"key": "preview", "label": "preview", "literalAccent": "#F1F3F5", "labelText": "□"}
+                ]
+            }
+        }
+    ]
+}

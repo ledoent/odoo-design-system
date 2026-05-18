@@ -59,16 +59,22 @@ export function rectPoints(x, y, w, h) {
  * @param {object} [args.shadow]        — flat literal (see header doc).
  * @param {number} [args.radius]        — uniform corner radius (sets r1..r4).
  * @param {boolean} [args.locked=false] — sets `blocked: true`.
+ * @param {string} [args.frameId=ROOT_FRAME_ID]  — owning frame (defaults
+ *                                     to page root; override when
+ *                                     nesting inside a Penpot frame).
+ * @param {string} [args.parentId=frameId|ROOT]  — z-order parent; almost
+ *                                     always equal to `frameId`.
  */
 export function makeRect({
     id, name, x, y, w, h,
     fillColor, fillOpacity = 1, appliedTokens,
     strokeColor, strokeWidth, shadow, radius, locked = false,
+    frameId = ROOT_FRAME_ID, parentId,
 }) {
     const o = {
         id, type: "rect", name,
         x, y, width: w, height: h, rotation: 0,
-        "frame-id": ROOT_FRAME_ID, "parent-id": ROOT_FRAME_ID,
+        "frame-id": frameId, "parent-id": parentId || frameId,
         fills: fillColor === null
             ? []
             : [{"fill-color": fillColor, "fill-opacity": fillOpacity}],
@@ -121,11 +127,12 @@ export function makeText({
     fontSize = 14, fill = "#212529", weight = "400",
     fontFamily = "sourcesanspro", fontId = "gfont-sourcesanspro",
     appliedTokens, growType = "auto-height",
+    frameId = ROOT_FRAME_ID, parentId,
 }) {
     const o = {
         id, type: "text", name,
         x, y, width: w, height: h, rotation: 0,
-        "frame-id": ROOT_FRAME_ID, "parent-id": ROOT_FRAME_ID,
+        "frame-id": frameId, "parent-id": parentId || frameId,
         "grow-type": growType,
         fills: [{"fill-color": fill, "fill-opacity": 1}],
         content: {
@@ -156,6 +163,50 @@ export function makeText({
     };
     if (appliedTokens) o["applied-tokens"] = appliedTokens;
     return o;
+}
+
+/**
+ * Build a Penpot frame change-op `obj`. Frames are the only shape type
+ * (along with `:group`) that Penpot's Assets-panel thumbnail renderer
+ * accepts as a component's `main-instance` root — see
+ * `frontend/src/app/main/render.cljs :: component-svg` `case` block.
+ * Pointing `add-component.main-instance-id` at a bare `:rect` crashed
+ * the panel with `Error: No matching clause: rect` (PR
+ * `ledoent/penpot#1`). Phase 3a now always wraps the main instance in a
+ * frame, and the validator in `ctkl/add-component` rejects bad writes.
+ *
+ * @param {object} args
+ * @param {string} args.id          — UUID (caller-provided for idempotency).
+ * @param {string} args.name        — `__phaseN.<section>.<key>`.
+ * @param {number} args.x, args.y, args.w, args.h
+ * @param {string[]} args.children  — ordered child shape IDs (top-most last).
+ *                                    Each child shape MUST be emitted with
+ *                                    `frameId: <frame-id>` so Penpot wires the
+ *                                    `frame-id` / `parent-id` correctly.
+ * @param {string|null} [args.fillColor=null] — frame fill; `null` → transparent.
+ */
+export function makeFrame({
+    id, name, x, y, w, h, children,
+    fillColor = null,
+}) {
+    return {
+        id, type: "frame", name,
+        x, y, width: w, height: h, rotation: 0,
+        "frame-id": ROOT_FRAME_ID, "parent-id": ROOT_FRAME_ID,
+        shapes: children,
+        fills: fillColor === null
+            ? []
+            : [{"fill-color": fillColor, "fill-opacity": 1}],
+        strokes: [],
+        selrect: rectSelrect(x, y, w, h),
+        points: rectPoints(x, y, w, h),
+        transform: IDENTITY_TRANSFORM,
+        "transform-inverse": IDENTITY_TRANSFORM,
+        "hide-fill-on-export": false,
+        "show-content": true,
+        "hide-in-viewer": false,
+        "proportion-lock": false,
+    };
 }
 
 /**

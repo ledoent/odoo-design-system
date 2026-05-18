@@ -154,10 +154,10 @@ Each component frame named `odoo_design_system/static/src/js/<file>:<Class>`.
 
 **Done-state**:
 
-- [ ] All 4 components appear in Penpot **Assets** panel; can be dragged onto any page
-- [ ] Variant swap works via Penpot's variant selector
-- [ ] Playwright / `/browse`: instantiate a chip on the Drafts page, change variant, screenshot
-- [ ] `docs/penpot/verification/phase-3.md` committed
+- [x] All 4 atoms appear in Penpot **Assets** panel; can be dragged onto any page — verified live by [`tests/components.test.mjs`](../../tests/components.test.mjs) against [`docs/penpot/specs/components.json`](specs/components.json)
+- [ ] Variant swap via Penpot's right-panel selector — **deferred to Phase 3b** (Phase 3a uses one `add-component` per atom; full VariantContainer flow needs follow-up). Variant matrices visible as canvas specimens in the meantime.
+- [ ] Playwright chip-swap screenshot — **deferred to Phase 3b** (needs the variant-selector flow above to land first)
+- [x] [`docs/penpot/verification/phase-3.md`](verification/phase-3.md) committed with verdict + GCS embed URLs
 
 ---
 
