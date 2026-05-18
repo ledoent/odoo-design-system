@@ -29,7 +29,8 @@ import {readFileSync, readdirSync, statSync} from "node:fs";
 import {dirname, resolve, join} from "node:path";
 import {fileURLToPath} from "node:url";
 
-import {CANONICAL_FILE_ID, ROOT_FRAME_ID, getFile, rpc, requireToken} from "./_penpot-rpc.mjs";
+import {CANONICAL_FILE_ID, FEATURES, ROOT_FRAME_ID, getFile, rpc, requireToken} from "./_penpot-rpc.mjs";
+import {makeRect, makeText, rectSelrect, rectPoints} from "./_penpot-shapes.mjs";
 
 requireToken("penpot-build-phase-2-specimens.mjs");
 
@@ -62,96 +63,17 @@ console.error(`safety: using snapshot ${freshSnapshot.replace(REPO + "/", "")}`)
 
 const SPEC = JSON.parse(readFileSync(SPEC_PATH, "utf8"));
 const D = SPEC.defaults;
+const W = SPEC.page.width;
 
-// ---------- shape builders (mirroring phase-1-skeleton conventions) ----------
-
-function rectSelrect(x, y, w, h) {
-    return {x, y, x1: x, y1: y, x2: x + w, y2: y + h, width: w, height: h};
-}
-
-function rectPoints(x, y, w, h) {
-    return [{x, y}, {x: x + w, y}, {x: x + w, y: y + h}, {x, y: y + h}];
-}
-
-const IDENTITY_TRANSFORM = {a: 1, b: 0, c: 0, d: 1, e: 0, f: 0};
-
-function makeRect({id, name, x, y, w, h, fillColor, fillOpacity = 1, appliedTokens,
-                   strokeColor, strokeWidth, shadow, radius}) {
-    const o = {
-        id, type: "rect", name,
-        x, y, width: w, height: h, rotation: 0,
-        "frame-id": ROOT, "parent-id": ROOT,
-        fills: fillColor === null
-            ? []
-            : [{"fill-color": fillColor, "fill-opacity": fillOpacity}],
-        selrect: rectSelrect(x, y, w, h),
-        points: rectPoints(x, y, w, h),
-        transform: IDENTITY_TRANSFORM,
-        "transform-inverse": IDENTITY_TRANSFORM,
-    };
-    if (appliedTokens) o["applied-tokens"] = appliedTokens;
-    if (strokeColor) {
-        o.strokes = [{
-            "stroke-style": "solid",
-            "stroke-alignment": "inner",
-            "stroke-width": strokeWidth || 2,
-            "stroke-color": strokeColor,
-            "stroke-opacity": 1,
-        }];
-    }
-    if (shadow) {
-        o.shadow = [shadow];
-    }
-    if (typeof radius === "number") {
-        o["r1"] = radius;
-        o["r2"] = radius;
-        o["r3"] = radius;
-        o["r4"] = radius;
-    }
-    return o;
-}
-
-function makeText({id, name, x, y, w, h, content, fontSize = 14, fill = "#212529",
-                   weight = "400", appliedTokens, growType = "auto-height"}) {
-    const o = {
-        id, type: "text", name,
-        x, y, width: w, height: h, rotation: 0,
-        "frame-id": ROOT, "parent-id": ROOT, "grow-type": growType,
-        fills: [{"fill-color": fill, "fill-opacity": 1}],
-        content: {
-            type: "root",
-            children: [{
-                type: "paragraph-set",
-                children: [{
-                    type: "paragraph",
-                    children: [{
-                        text: content,
-                        "font-family": D.fontFamily,
-                        "font-id": D.fontId,
-                        "font-size": String(fontSize),
-                        "font-style": "normal",
-                        "font-weight": weight,
-                        "text-decoration": "none",
-                        "text-transform": "none",
-                        "fill-color": fill,
-                        "fill-opacity": 1,
-                    }],
-                }],
-            }],
-        },
-        selrect: rectSelrect(x, y, w, h),
-        points: rectPoints(x, y, w, h),
-        transform: IDENTITY_TRANSFORM,
-        "transform-inverse": IDENTITY_TRANSFORM,
-    };
-    if (appliedTokens) o["applied-tokens"] = appliedTokens;
-    return o;
-}
+// Wrap `makeText` to lock the section's font face for every label /
+// specimen on this page. Keeps individual emitters free of the
+// per-call font family/id boilerplate.
+const text = (args) => makeText({fontFamily: D.fontFamily, fontId: D.fontId, ...args});
 
 // ---------- section emitters ----------
 
 function sectionHeader(section, addObj) {
-    addObj(makeText({
+    addObj(text({
         id: randomUUID(),
         name: `__phase2.${section.id}.header`,
         x: D.marginX, y: section.y,
@@ -175,7 +97,7 @@ function swatchRow(section, addObj) {
             fillColor: item.literalFill,
             appliedTokens: {fill: item.tokenName},
         }));
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}.label`,
             x, y: baseY + sh + D.labelOffset, w: sw, h: D.labelHeight,
@@ -200,7 +122,7 @@ function borderRow(section, addObj) {
             strokeWidth: 2,
             appliedTokens: {"stroke-color": item.tokenName},
         }));
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}.label`,
             x, y: baseY + sh + D.labelOffset, w: sw, h: D.labelHeight,
@@ -224,7 +146,7 @@ function pillRow(section, addObj) {
             radius: 999,
             appliedTokens: {fill: item.bgToken},
         }));
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}-fg`,
             x: x + 16, y: baseY + (ph - 20) / 2, w: pw - 32, h: 20,
@@ -240,7 +162,7 @@ function spacingScale(section, addObj) {
     const baseY = section.y + D.sectionContentOffset;
     section.items.forEach((item, i) => {
         const y = baseY + i * rowH;
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}.label`,
             x: D.marginX, y, w: labelW, h: 18,
@@ -278,7 +200,7 @@ function radiusRow(section, addObj) {
                 r4: item.tokenName,
             },
         }));
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}.label`,
             x, y: baseY + sh + D.labelOffset, w: sw, h: D.labelHeight,
@@ -293,13 +215,13 @@ function typeRamp(section, addObj) {
     const baseY = section.y + D.sectionContentOffset;
     section.items.forEach((item, i) => {
         const y = baseY + i * rowH;
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}.label`,
             x: D.marginX, y, w: labelW, h: 18,
             content: item.label, fontSize: 11, fill: "#495057", weight: "500",
         }));
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}`,
             x: D.marginX + labelW + 16, y: y - 2, w: 1440 - 2 * D.marginX - labelW - 16, h: rowH,
@@ -318,13 +240,13 @@ function weightRamp(section, addObj) {
     const baseY = section.y + D.sectionContentOffset;
     section.items.forEach((item, i) => {
         const y = baseY + i * rowH;
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}.label`,
             x: D.marginX, y, w: labelW, h: 18,
             content: item.label, fontSize: 11, fill: "#495057", weight: "500",
         }));
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}`,
             x: D.marginX + labelW + 16, y: y - 2, w: 1440 - 2 * D.marginX - labelW - 16, h: rowH,
@@ -344,26 +266,17 @@ function elevationDeck(section, addObj) {
     const baseY = section.y + D.sectionContentOffset;
     section.items.forEach((item, i) => {
         const x = D.marginX + i * (cw + gap);
-        const s = item.literalShadow;
-        const shadow = s ? {
-            id: randomUUID(),
-            style: s.style || "drop-shadow",
-            "offset-x": s["offset-x"],
-            "offset-y": s["offset-y"],
-            blur: s.blur,
-            spread: s.spread,
-            hidden: false,
-            color: {color: s.color, opacity: s.opacity},
-        } : undefined;
+        // `makeRect({shadow})` runs the shape through `normaliseShadow`
+        // in `_penpot-shapes.mjs` — accepts the flat literal verbatim.
         addObj(makeRect({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}`,
             x, y: baseY, w: cw, h: ch,
             fillColor: "#FFFFFF",
             radius: 6,
-            shadow,
+            shadow: item.literalShadow || undefined,
         }));
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}.label`,
             x, y: baseY + ch + D.labelOffset, w: cw, h: D.labelHeight,
@@ -378,7 +291,7 @@ function motionStrips(section, addObj) {
     const baseY = section.y + D.sectionContentOffset;
     section.items.forEach((item, i) => {
         const y = baseY + i * rowH;
-        addObj(makeText({
+        addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}.label`,
             x: D.marginX, y, w: labelW, h: 16,
