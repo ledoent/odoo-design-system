@@ -77,7 +77,7 @@ function sectionHeader(section, addObj) {
         id: randomUUID(),
         name: `__phase2.${section.id}.header`,
         x: D.marginX, y: section.y,
-        w: 1440 - 2 * D.marginX, h: D.sectionHeaderHeight,
+        w: W - 2 * D.marginX, h: D.sectionHeaderHeight,
         content: section.title,
         fontSize: 11, fill: "#6C757D", weight: "600",
     }));
@@ -224,7 +224,7 @@ function typeRamp(section, addObj) {
         addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}`,
-            x: D.marginX + labelW + 16, y: y - 2, w: 1440 - 2 * D.marginX - labelW - 16, h: rowH,
+            x: D.marginX + labelW + 16, y: y - 2, w: W - 2 * D.marginX - labelW - 16, h: rowH,
             content: item.sample,
             fontSize: item.literalSize,
             weight: section.fontWeight || "400",
@@ -249,7 +249,7 @@ function weightRamp(section, addObj) {
         addObj(text({
             id: randomUUID(),
             name: `__phase2.${section.id}.${item.key}`,
-            x: D.marginX + labelW + 16, y: y - 2, w: 1440 - 2 * D.marginX - labelW - 16, h: rowH,
+            x: D.marginX + labelW + 16, y: y - 2, w: W - 2 * D.marginX - labelW - 16, h: rowH,
             content: item.sample,
             fontSize: section.fontSize || 18,
             weight: item.literalWeight,
@@ -317,7 +317,7 @@ const EMITTERS = {
 // ---------- main ----------
 
 const file = await getFile(FILE_ID);
-let revn = file.revn;
+const {revn} = file;
 const vern = file.vern || 0;
 
 const targetPageId = Object.entries(file.data.pagesIndex)
@@ -334,9 +334,8 @@ console.error(`Foundations page-id=${targetPageId.slice(0, 8)}…, ${existingNam
 // new specimens render *past* y=900 on Penpot's infinite canvas —
 // resizing the locked bg trips a server-side rect validator and a
 // taller background isn't required for the specimens to be visible.
-const bgChanges = [];
 
-// Step B: collect add-obj changes per section.
+// Collect add-obj changes per section.
 const addChanges = [];
 let added = 0, skipped = 0;
 for (const section of SPEC.sections) {
@@ -345,13 +344,12 @@ for (const section of SPEC.sections) {
         console.error(`unknown section kind: ${section.kind}`);
         process.exit(5);
     }
-    const localChanges = [];
     const addObj = (obj) => {
         if (existingNames.has(obj.name)) {
             skipped++;
             return;
         }
-        localChanges.push({
+        addChanges.push({
             type: "add-obj", id: obj.id, "page-id": targetPageId,
             "frame-id": ROOT, "parent-id": ROOT, obj,
         });
@@ -365,27 +363,25 @@ for (const section of SPEC.sections) {
         skipped++;
     }
     emitter(section, addObj);
-    addChanges.push(...localChanges);
 }
 
-if (bgChanges.length === 0 && addChanges.length === 0) {
+if (addChanges.length === 0) {
     console.error(`nothing to do — ${skipped} shapes already in place.`);
     process.exit(0);
 }
 
-// Step C: ship the changes in one update-file call. Match Phase 1's
-// payload shape: kebab-case `"session-id"` (Penpot accepts both forms
-// silently but kebab is the canonical PCS spelling), and always pass
+// Ship the changes in one update-file call. Match Phase 1's payload
+// shape: kebab-case `"session-id"` (Penpot accepts both forms silently
+// but kebab is the canonical PCS spelling), and always pass
 // `features: FEATURES` so the server doesn't strip feature-gated
 // attributes from the round-trip (`_penpot-rpc.mjs` documents the
 // silent-data-loss risk).
-const allChanges = [...bgChanges, ...addChanges];
-console.error(`shipping ${bgChanges.length} mod + ${addChanges.length} add changes (revn=${revn})`);
+console.error(`shipping ${addChanges.length} add changes (revn=${revn})`);
 const resp = await rpc("update-file", {
     id: FILE_ID, revn, vern,
     "session-id": randomUUID(),
     features: FEATURES,
-    changes: allChanges,
+    changes: addChanges,
     skipValidate: false,
 });
 console.error(`✓ revn → ${resp.revn ?? "?"}; added ${added} shapes, skipped ${skipped}`);
