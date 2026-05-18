@@ -159,3 +159,24 @@ test("Foundations page contains no raster fills", {
     }
     assert.deepEqual(offenders, [], `raster fills found:\n  ${offenders.join("\n  ")}`);
 });
+
+test("Foundations page has no orphan __phase2.* shapes (every shape on canvas is in the spec)", {
+    skip: TOKEN ? false : "PENPOT_TOKEN not set — skipping live Penpot check.",
+}, async () => {
+    const file = await getFile(FILE_ID);
+    const targetPid = Object.entries(file.data.pagesIndex)
+        .find(([, p]) => p.name === FOUND_SPEC.page.name)?.[0];
+    assert.ok(targetPid);
+    const page = file.data.pagesIndex[targetPid];
+    const expectedNames = new Set(expectedShapes().map((e) => e.name));
+    const orphans = [];
+    for (const s of Object.values(page.objects)) {
+        const name = s?.name || "";
+        if (!name.startsWith("__phase2.")) continue;
+        if (!expectedNames.has(name)) orphans.push(name);
+    }
+    assert.deepEqual(
+        orphans, [],
+        `orphan __phase2.* shapes on Foundations (rename in spec or delete from canvas):\n  ${orphans.join("\n  ")}`,
+    );
+});
