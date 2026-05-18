@@ -39,7 +39,7 @@ import {dirname, resolve, join} from "node:path";
 import {fileURLToPath} from "node:url";
 
 import {CANONICAL_FILE_ID, FEATURES, ROOT_FRAME_ID, getFile, rpc, requireToken} from "./_penpot-rpc.mjs";
-import {makeRect, makeText} from "./_penpot-shapes.mjs";
+import {makeFrame, makeRect, makeText} from "./_penpot-shapes.mjs";
 
 requireToken("penpot-build-phase-3-components.mjs");
 
@@ -240,25 +240,142 @@ function sectionHeader(comp, addObj) {
 }
 
 function mainInstance(comp, addObj) {
-    // The "main instance" shape — the one referenced by `add-component`
-    // as `main-instance-id`. Positioned to the right of the section
-    // header so designers see the canonical example.
-    const id = randomUUID();
-    const name = `__phase3.${comp.id}.main`;
-    const x = D.marginX, y = comp.y + D.sectionContentOffset;
+    // The "main instance" — referenced by `add-component` as
+    // `main-instance-id`. Penpot only accepts `:frame` or `:group` as
+    // a component root (see `frontend/src/app/main/render.cljs ::
+    // component-svg`'s `case` block); a bare `:rect` crashed the
+    // Assets-panel thumbnail with `Error: No matching clause: rect`
+    // (the original Phase 3a bug). We wrap the kind-specific shapes
+    // in a `:frame` and point the component at the frame's id.
+    //
+    // Naming convention:
+    //   `__phase3.<comp>.main`       — the frame (this is the
+    //                                   add-component main-instance-id)
+    //   `__phase3.<comp>.main.body`  — the primary visual rect inside
+    //   `__phase3.<comp>.main.label` — text label inside (if any)
+    //   `…main.letter`/`…main.icon`/`…main.spine` — kind-specific extras
+    const frameId = randomUUID();
+    const frameName = `__phase3.${comp.id}.main`;
+    const baseX = D.marginX, baseY = comp.y + D.sectionContentOffset;
     const m = comp.main;
+    const rx = (args) => makeRect({...args, frameId});
+    const tx = (args) => text({...args, frameId});
+    const children = [];
+    let frameW, frameH;
+
     switch (m.kind) {
-        case "icon":
-            return makeIconBox({id, name, x, y, size: m.size, iconName: m.name}).forEach(addObj);
-        case "chip":
-            return makeChip({id, name, x, y, label: m.label, literalBg: "#F1F3F5", literalFg: "#212529", withIcon: false}).forEach(addObj);
-        case "avatar":
-            return makeAvatar({id, name, x, y, size: m.size || 40, letter: m.letter, bucket: m.bucket}).forEach(addObj);
-        case "tile":
-            return makeTile({id, name, x, y, size: 96, accent: m.accent, labelText: m.label}).forEach(addObj);
+        case "icon": {
+            const size = m.size;
+            children.push(rx({
+                id: randomUUID(), name: `${frameName}.body`,
+                x: baseX, y: baseY, w: size, h: size,
+                fillColor: "#FFFFFF", strokeColor: "#DEE2E6", strokeWidth: 1, radius: 4,
+            }));
+            children.push(tx({
+                id: randomUUID(), name: `${frameName}.label`,
+                x: baseX, y: baseY + size + 6, w: size, h: 14,
+                content: m.name,
+                fontSize: 9, fill: "#6C757D", weight: "500",
+            }));
+            frameW = size;
+            frameH = size + 20;
+            break;
+        }
+        case "chip": {
+            const chipH = 28;
+            const padX = 12;
+            const chipW = Math.max(80, m.label.length * 8 + padX + 12);
+            children.push(rx({
+                id: randomUUID(), name: `${frameName}.body`,
+                x: baseX, y: baseY, w: chipW, h: chipH,
+                fillColor: "#F1F3F5", radius: 999,
+            }));
+            children.push(tx({
+                id: randomUUID(), name: `${frameName}.label`,
+                x: baseX + padX, y: baseY + 5, w: chipW - padX - 8, h: 18,
+                content: m.label,
+                fontSize: 12, fill: "#212529", weight: "500",
+            }));
+            frameW = chipW;
+            frameH = chipH;
+            break;
+        }
+        case "avatar": {
+            const size = m.size || 40;
+            const fill = BUCKET_HEX[(m.bucket - 1 + 8) % 8];
+            children.push(rx({
+                id: randomUUID(), name: `${frameName}.body`,
+                x: baseX, y: baseY, w: size, h: size,
+                fillColor: fill, radius: 999,
+            }));
+            children.push(tx({
+                id: randomUUID(), name: `${frameName}.letter`,
+                x: baseX, y: baseY + (size - 18) / 2, w: size, h: 18,
+                content: m.letter,
+                fontSize: Math.round(size * 0.42), fill: "#FFFFFF", weight: "600",
+            }));
+            frameW = size;
+            frameH = size;
+            break;
+        }
+        case "tile": {
+            const size = 96;
+            if (m.accent === "preview") {
+                children.push(rx({
+                    id: randomUUID(), name: `${frameName}.body`,
+                    x: baseX, y: baseY, w: size, h: size,
+                    fillColor: "#F1F3F5", radius: 6,
+                    strokeColor: "#DEE2E6", strokeWidth: 1,
+                }));
+                children.push(tx({
+                    id: randomUUID(), name: `${frameName}.label`,
+                    x: baseX, y: baseY + (size - 22) / 2, w: size, h: 22,
+                    content: m.label, fontSize: 18, fill: "#ADB5BD", weight: "400",
+                }));
+            } else if (m.accent === "initial") {
+                const b = bucketForLetter(m.label[0]);
+                children.push(rx({
+                    id: randomUUID(), name: `${frameName}.body`,
+                    x: baseX, y: baseY, w: size, h: size,
+                    fillColor: BUCKET_HEX[(b - 1 + 8) % 8], radius: 6,
+                }));
+                children.push(tx({
+                    id: randomUUID(), name: `${frameName}.label`,
+                    x: baseX, y: baseY + (size - 22) / 2, w: size, h: 22,
+                    content: m.label, fontSize: 24, fill: "#FFFFFF", weight: "600",
+                }));
+            } else {  // ext
+                children.push(rx({
+                    id: randomUUID(), name: `${frameName}.body`,
+                    x: baseX, y: baseY, w: size, h: size,
+                    fillColor: "#FFFFFF", radius: 6,
+                    strokeColor: "#DEE2E6", strokeWidth: 1,
+                }));
+                children.push(rx({
+                    id: randomUUID(), name: `${frameName}.spine`,
+                    x: baseX, y: baseY, w: 3, h: size,
+                    fillColor: "#D6336C",
+                }));
+                children.push(tx({
+                    id: randomUUID(), name: `${frameName}.label`,
+                    x: baseX + 8, y: baseY + size - 26, w: size - 16, h: 18,
+                    content: m.label, fontSize: 13, fill: "#D6336C", weight: "600",
+                }));
+            }
+            frameW = size;
+            frameH = size;
+            break;
+        }
         default:
             throw new Error(`unknown main.kind: ${m.kind}`);
     }
+
+    addObj(makeFrame({
+        id: frameId, name: frameName,
+        x: baseX, y: baseY, w: frameW, h: frameH,
+        children: children.map((c) => c.id),
+    }));
+    children.forEach(addObj);
 }
 
 function iconMatrix(comp, addObj) {
@@ -410,6 +527,37 @@ console.error(
     `${existingNames.size} existing shapes, ${componentByName.size} existing components`
 );
 
+// ---------- repair pass ----------
+//
+// Phase 3a's initial build pointed `add-component.main-instance-id` at
+// a bare `:rect`, which crashes Penpot's Assets-panel thumbnail with
+// `Error: No matching clause: rect`. For each component whose existing
+// `__phase3.<id>.main` shape isn't a frame, delete the leaf shape +
+// every `__phase3.<id>.main.*` sibling so `mainInstance()` below can
+// re-emit them inside a `:frame`. The component itself is repointed
+// with `mod-component` further down.
+const delObjChanges = [];
+const repairComponentIds = new Set();
+for (const comp of SPEC.components) {
+    const sid = mainInstanceIdByCompId.get(comp.id);
+    if (!sid) continue;
+    const shape = targetPage.objects[sid];
+    if (!shape || shape.type === "frame") continue;
+    console.error(
+        `repair: ${comp.name} main-instance ${sid.slice(0, 8)}… is :${shape.type}; ` +
+        `wrapping in a frame`
+    );
+    repairComponentIds.add(comp.id);
+    const prefix = `__phase3.${comp.id}.main`;
+    for (const [otherId, s] of Object.entries(targetPage.objects)) {
+        if (s?.name === prefix || (s?.name && s.name.startsWith(prefix + "."))) {
+            delObjChanges.push({type: "del-obj", "page-id": targetPageId, id: otherId});
+            existingNames.delete(s.name);
+        }
+    }
+    mainInstanceIdByCompId.delete(comp.id);
+}
+
 // Collect add-obj changes per component (header + main + specimen matrix).
 const addObjChanges = [];
 let added = 0, skipped = 0;
@@ -447,34 +595,64 @@ for (const comp of SPEC.components) {
     emitter(comp, addObj);
 }
 
-// Collect add-component changes per atom (lifts each main-instance
-// shape into the file's library so the Assets panel lists it).
+// Collect add-component / mod-component changes per atom.
+//
+// - New component: emit `add-component` pointing at the freshly emitted
+//   frame.
+// - Existing component whose recorded `main-instance-id` no longer
+//   matches the canonical `__phase3.<id>.main` shape (e.g. a repaired
+//   rect-based main was just deleted and replaced with a frame): emit
+//   `mod-component` to repoint. Penpot's `ctkl/mod-component`
+//   implementation accepts `:main-instance-id` even though the malli
+//   schema in `changes.cljc` doesn't list it explicitly (open map by
+//   default).
 const addComponentChanges = [];
+const modComponentChanges = [];
 for (const comp of SPEC.components) {
-    if (componentByName.has(comp.name)) continue;  // already a library component
     const mainShapeId = mainInstanceShapeId.get(comp.id);
-    if (!mainShapeId) {
-        console.error(`no main-instance shape known for ${comp.id} — skipping component promotion`);
+    const existing = componentByName.get(comp.name);
+    if (!existing) {
+        if (!mainShapeId) {
+            console.error(`no main-instance shape known for ${comp.id} — skipping component promotion`);
+            continue;
+        }
+        addComponentChanges.push({
+            type: "add-component",
+            id: randomUUID(),
+            name: comp.name,
+            path: comp.path,
+            "main-instance-id": mainShapeId,
+            "main-instance-page": targetPageId,
+        });
         continue;
     }
-    addComponentChanges.push({
-        type: "add-component",
-        id: randomUUID(),
-        name: comp.name,
-        path: comp.path,
+    if (!mainShapeId) {
+        console.error(`${comp.name} exists but main-instance shape missing — skipping mod`);
+        continue;
+    }
+    const currentMain = existing.mainInstanceId || existing["main-instance-id"];
+    if (currentMain === mainShapeId) continue;  // already correct, idempotent
+    modComponentChanges.push({
+        type: "mod-component",
+        id: existing.id,
         "main-instance-id": mainShapeId,
         "main-instance-page": targetPageId,
     });
 }
 
-if (addObjChanges.length === 0 && addComponentChanges.length === 0) {
+if (delObjChanges.length === 0 && addObjChanges.length === 0
+    && addComponentChanges.length === 0 && modComponentChanges.length === 0) {
     console.error(`nothing to do — ${skipped} shapes already in place; ${componentByName.size} library components.`);
     process.exit(0);
 }
 
-const allChanges = [...addObjChanges, ...addComponentChanges];
+// Order matters: del-obj first (frees up the slot for the repaired
+// shapes), then add-obj (frame + children), then component repointing.
+const allChanges = [...delObjChanges, ...addObjChanges, ...addComponentChanges, ...modComponentChanges];
 console.error(
-    `shipping ${addObjChanges.length} add-obj + ${addComponentChanges.length} add-component changes (revn=${revn})`
+    `shipping ${delObjChanges.length} del-obj + ${addObjChanges.length} add-obj + ` +
+    `${addComponentChanges.length} add-component + ${modComponentChanges.length} mod-component ` +
+    `(revn=${revn}; repair=${repairComponentIds.size})`
 );
 const resp = await rpc("update-file", {
     id: FILE_ID, revn, vern,
@@ -484,6 +662,8 @@ const resp = await rpc("update-file", {
     skipValidate: false,
 });
 console.error(
-    `✓ revn → ${resp.revn ?? "?"}; +${added} shapes, +${addComponentChanges.length} components, ` +
-    `${skipped} skipped`
+    `✓ revn → ${resp.revn ?? "?"}; ` +
+    `+${added} shapes, +${addComponentChanges.length} components, ` +
+    `~${modComponentChanges.length} repointed, ` +
+    `-${delObjChanges.length} deleted, ${skipped} skipped`
 );

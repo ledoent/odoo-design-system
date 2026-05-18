@@ -97,6 +97,7 @@ test("Shared Components page hosts all 4 atom library components", {
     for (const [sid, s] of Object.entries(page.objects)) {
         if (s?.name) shapesByName.set(s.name, {id: sid, ...s});
     }
+    const wrongType = [];
     for (const comp of COMPS_SPEC.components) {
         const found = componentsByName.get(comp.name);
         if (!found) {
@@ -108,6 +109,15 @@ test("Shared Components page hosts all 4 atom library components", {
             wrongMain.push(`${comp.name}: main-instance shape __phase3.${comp.id}.main not found on canvas`);
             continue;
         }
+        // Penpot's Assets-panel thumbnail renderer in
+        // `frontend/src/app/main/render.cljs :: component-svg` only
+        // handles `:frame` and `:group` roots — anything else crashes
+        // the panel with `Error: No matching clause: <type>`. The
+        // build script (this PR) and a backend write-path validator
+        // both enforce this invariant; the test keeps it covered.
+        if (expectedMain.type !== "frame" && expectedMain.type !== "group") {
+            wrongType.push(`${comp.name}: main-instance is :${expectedMain.type} (must be :frame or :group)`);
+        }
         const componentMainId = found["main-instance-id"] || found.mainInstanceId;
         if (componentMainId && componentMainId !== expectedMain.id) {
             wrongMain.push(`${comp.name}: main-instance-id mismatch (component → ${componentMainId}, canvas → ${expectedMain.id})`);
@@ -115,6 +125,7 @@ test("Shared Components page hosts all 4 atom library components", {
     }
     assert.deepEqual(missing, [], `missing library components:\n  ${missing.join("\n  ")}`);
     assert.deepEqual(wrongMain, [], `main-instance mismatches:\n  ${wrongMain.join("\n  ")}`);
+    assert.deepEqual(wrongType, [], `main-instance shape type violations:\n  ${wrongType.join("\n  ")}`);
 });
 
 test("Shared Components page carries every specimen from components.json", {
@@ -145,9 +156,10 @@ test("Shared Components page has no orphan __phase3.* shapes", {
 
     // The build script's atomic shape builders add per-specimen
     // children with these suffixes (e.g. `__phase3.ods-chip.neutral`
-    // → also emits `…neutral.label`, `…neutral.icon`). Treat any
-    // expected name as a permitted prefix for those suffixes.
-    const SUFFIXES = [".label", ".letter", ".icon", ".spine", ".caption", ".name"];
+    // → also emits `…neutral.label`, `…neutral.icon`). `.body` is
+    // the rect inside each main-instance frame (a frame is required
+    // because Penpot's thumbnail renderer rejects leaf shape roots).
+    const SUFFIXES = [".body", ".label", ".letter", ".icon", ".spine", ".caption", ".name"];
     const expected = new Set(expectedShapeNames());
 
     const orphans = [];
