@@ -56,16 +56,19 @@ Three full-page screenshots (one per active theme) captured by
 | dark          | [foundations-dark.png](https://storage.googleapis.com/ledo-pr-assets/odoo-design-system/phase-2/foundations-dark.png) |
 | high-contrast | [foundations-high-contrast.png](https://storage.googleapis.com/ledo-pr-assets/odoo-design-system/phase-2/foundations-high-contrast.png) |
 
-Page-level structure visible in light:
+Page-level structure visible in light, stacked top-to-bottom (exact
+counts are derived from `docs/penpot/specs/foundations.json` — the
+build emits one shape per spec item plus per-row labels and per-section
+headers, totalling ~180 shapes at the spec's current size):
 
-- 9 color sections (brand, portal, bucket, neutral scale, file extension,
-  surface, text, border, state pills) — 47 swatches, 47 labels, 9 headers
-- spacing scale (8 bars + labels)
-- radius scale (4 squircles + labels)
-- typography size ramp (8 specimens × text + label rows)
-- typography weight specimens (5 + label rows)
-- elevation deck (5 cards + labels)
-- motion timing strips (3 duration bars + 6 labels)
+- nine color sections — brand, portal, bucket, neutral scale, file
+  extension, surface, text, border, state pills
+- spacing scale (bars + labels)
+- radius scale (squircles + labels)
+- typography size ramp (text + label rows)
+- typography weight specimens (text + label rows)
+- elevation deck (cards + labels)
+- motion timing strips (duration bars + labels)
 
 Theme-variant sections (surface, text, border, state, elevation) carry
 the right `appliedTokens` bindings — verified by `tests/foundations.test.mjs`
