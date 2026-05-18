@@ -15,39 +15,18 @@ import {readFileSync} from "node:fs";
 import {fileURLToPath} from "node:url";
 import {dirname, resolve} from "node:path";
 
+import {ROOT_FRAME_ID, getFile} from "../scripts/_penpot-rpc.mjs";
+
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SPEC = JSON.parse(readFileSync(resolve(ROOT, "docs/penpot/specs/pages.json"), "utf8"));
 
 const TOKEN = process.env.PENPOT_TOKEN;
-const HOST = process.env.PENPOT_HOST || "https://design.hz.ledoweb.com";
 const FILE_ID = process.env.PENPOT_FILE_ID || SPEC.file["file-id"];
-
-const FEATURES = [
-    "design-tokens/v1", "fdata/objects-map", "fdata/path-data",
-    "fdata/shape-data-type", "components/v2", "layout/grid",
-    "styles/v2", "variants/v1",
-];
-
-async function getFile() {
-    const r = await fetch(`${HOST}/api/rpc/command/get-file`, {
-        method: "POST",
-        headers: {
-            "Authorization": `Token ${TOKEN}`,
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        body: JSON.stringify({id: FILE_ID, features: FEATURES}),
-    });
-    if (!r.ok) throw new Error(`get-file → ${r.status}: ${(await r.text()).slice(0, 200)}`);
-    return r.json();
-}
-
-const ROOT_FRAME_ID = "00000000-0000-0000-0000-000000000000";
 
 test("canonical Penpot file matches docs/penpot/specs/pages.json", {
     skip: TOKEN ? false : "PENPOT_TOKEN not set — skipping live Penpot check.",
 }, async () => {
-    const file = await getFile();
+    const file = await getFile(FILE_ID);
     const pagesIndex = file?.data?.pagesIndex || {};
     const pageOrder = file?.data?.pages || [];
 

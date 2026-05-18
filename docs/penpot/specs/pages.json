@@ -5,7 +5,7 @@
         "team-id": "442b344a-1ecc-8198-8008-0771673d374d",
         "team-name": "Ledo web",
         "file-id": "038df003-0f49-80b2-8008-0774e5399553",
-        "file-name": "Ledo Odoo Design System"
+        "file-name": "Odoo 19.0 Design System"
     },
     "pages": [
         {"index":  0, "name": "00 — Cover",              "purpose": "Project intent + version axis matrix."},

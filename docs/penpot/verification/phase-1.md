@@ -72,21 +72,32 @@ dark-theme strips per page:
 ### Known gap — theme-toggle re-skin
 
 The `appliedTokens.fill` binding is **present on every page
-background**, but the captured `*-dark.png` PNGs render with a
-light surface (same as `*-light.png`). Penpot's canvas resolves the
-binding against the *currently-active theme set*; my capture script
-toggles via the SETS-list checkboxes which does not appear to
-activate the theme for canvas rendering. The token-bound shapes are
-correct; the theme-activation mechanism for canvas display is what's
-not yet automated.
+background**, but the captured `*-dark.png` PNGs still render with
+the light surface. Two facts confirmed during the Phase 1 PR review:
 
-**Follow-up** (tracked in Phase 2): drive theme activation via the
-proper **TOKENS → THEMES → EDIT → apply** flow in Playwright — or
-mutate `$metadata.activeThemes` via REST `update-file` if Penpot
-exposes that PCS attribute. The visual proof of theme-driven
-re-skinning will land alongside the Foundations-page vector
-specimens (Phase 2) where individual token values are visible
-side-by-side with the page background.
+1. Penpot's REST `update-file` accepts a `set-active-token-themes`
+   change op. With `themePaths: ["/dark"]` (group-prefixed path)
+   the file's `$metadata.activeThemes` AND `$metadata.activeSets`
+   both update correctly server-side — verified by a fresh
+   `get-file` immediately after.
+2. Reloading the workspace URL in Playwright after the mutation
+   does NOT re-render the canvas against the new active sets. The
+   Penpot SPA appears to read theme-activation state from a
+   user-scoped session source (localStorage / IndexedDB) on top of
+   the file's metadata, and a stale value wins.
+
+**Follow-up** (Phase 2): drive theme activation via the in-UI
+**TOKENS → THEMES → Apply** click sequence in Playwright (not REST)
+so Penpot writes its own session source. Or wait for
+[penpot-mcp](https://github.com/penpot/penpot-mcp) to ship a
+`set-active-theme` tool that does the equivalent.
+
+The captures are otherwise good for verifying structural parity —
+the title + grid + switcher artboard land at the same place every
+page, and a manual TOKENS → THEMES → Apply click in the Penpot UI
+visibly re-skins the canvas (designer-confirmed). The 12-page
+contract test (`tests/pages.test.mjs`) is the durable signal that
+Phase 1's invariants hold.
 
 **Run by:** Claude (auto mode, 2026-05-17 → 2026-05-18 UTC handoff)
 

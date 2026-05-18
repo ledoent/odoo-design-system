@@ -37,15 +37,11 @@ import {readFileSync, readdirSync, statSync} from "node:fs";
 import {dirname, resolve, join} from "node:path";
 import {fileURLToPath} from "node:url";
 
-const HOST = process.env.PENPOT_HOST || "https://design.hz.ledoweb.com";
-const TOKEN = process.env.PENPOT_TOKEN;
-const FILE_ID = process.env.PENPOT_FILE_ID || "038df003-0f49-80b2-8008-0774e5399553";
+import {CANONICAL_FILE_ID, ROOT_FRAME_ID, getFile, rpc, requireToken} from "./_penpot-rpc.mjs";
 
-if (!TOKEN) {
-    console.error("Set PENPOT_TOKEN (service-account PAT, see .env or memory/penpot_design_credentials.md).");
-    process.exit(2);
-}
+requireToken("penpot-build-phase-1-skeleton.mjs");
 
+const FILE_ID = process.env.PENPOT_FILE_ID || CANONICAL_FILE_ID;
 const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PAGES_JSON = resolve(REPO, "docs/penpot/specs/pages.json");
 const BACKUPS_DIR = resolve(REPO, ".penpot-backups");
@@ -72,28 +68,9 @@ if (!freshSnapshot) {
 console.error(`safety: using snapshot ${freshSnapshot.replace(REPO + "/", "")}`);
 
 const PAGES_SPEC = JSON.parse(readFileSync(PAGES_JSON, "utf8"));
-const FEATURES = [
-    "design-tokens/v1", "fdata/objects-map", "fdata/path-data",
-    "fdata/shape-data-type", "components/v2", "layout/grid",
-    "styles/v2", "variants/v1",
-];
-const ROOT = "00000000-0000-0000-0000-000000000000";
+const ROOT = ROOT_FRAME_ID;
 const VIEW_W = 1440;
 const VIEW_H = 900;
-
-async function rpc(command, body = {}) {
-    const r = await fetch(`${HOST}/api/rpc/command/${command}`, {
-        method: "POST",
-        headers: {
-            "Authorization": `Token ${TOKEN}`,
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        body: JSON.stringify(body),
-    });
-    if (!r.ok) throw new Error(`${command} → ${r.status}: ${(await r.text()).slice(0, 600)}`);
-    return r.json();
-}
 
 // ---------- shape builders ----------
 
@@ -193,34 +170,35 @@ function skeletonChanges(pageId, pageIndex, pageName, existingNames = new Set())
     }
 
     // 4. Theme-switcher artboard (top-right corner, 240×140).
-    //    Three 220×40 swatches, each bound to a theme's
-    //    color.surface.canvas. Penpot resolves each binding against
-    //    the active theme set; this lets the page double as a visible
-    //    spot-check of the active theme.
+    //    Three 220×40 swatches showing the LITERAL surface.canvas fill
+    //    each theme resolves to. We can't bind these via
+    //    `appliedTokens.fill` because Penpot's per-shape token
+    //    resolution always uses the currently-active theme — there's
+    //    no "use theme-light for this shape, theme-dark for that one"
+    //    mechanism. The fills below are the literal hex values from
+    //    `odoo_design_system/static/src/tokens/design-system.dtcg.json`
+    //    so editing those in Penpot's Tokens panel won't drift this
+    //    spot-check; a follow-up phase can swap to library-color
+    //    references if Penpot ships per-shape theme overrides.
     if (!existingNames.has("__phase1.switch.light")) {
         const sx = VIEW_W - 240 - 24;
         const sy = 32;
         const themes = [
-            {name: "light", token: "color.surface.canvas",
-             label: "theme-light surface.canvas", fillColor: "#FFFFFF"},
-            {name: "dark", token: "color.surface.canvas",
-             label: "theme-dark surface.canvas", fillColor: "#0F1115"},
-            {name: "high-contrast", token: "color.surface.canvas",
-             label: "theme-high-contrast surface.canvas", fillColor: "#FFFFFF"},
+            {name: "light",         fillColor: "#FFFFFF", textColor: "#495057"},
+            {name: "dark",          fillColor: "#0F1115", textColor: "#F8F9FA"},
+            {name: "high-contrast", fillColor: "#FFFFFF", textColor: "#000000"},
         ];
         themes.forEach((t, idx) => {
             const yy = sy + idx * 44;
             addObj(makeRect({
                 id: randomUUID(), name: `__phase1.switch.${t.name}`,
-                x: sx, y: yy, w: 220, h: 40,
-                fillColor: t.fillColor,
-                appliedTokens: {fill: t.token},
+                x: sx, y: yy, w: 220, h: 40, fillColor: t.fillColor,
             }));
             addObj(makeText({
                 id: randomUUID(), name: `__phase1.switch-label.${t.name}`,
                 x: sx + 10, y: yy + 12, w: 200, h: 16,
                 content: t.name,
-                fontSize: 11, fill: idx === 1 ? "#F8F9FA" : "#495057", weight: "500",
+                fontSize: 11, fill: t.textColor, weight: "500",
             }));
         });
     }
@@ -230,7 +208,7 @@ function skeletonChanges(pageId, pageIndex, pageName, existingNames = new Set())
 
 // ---------- main ----------
 
-const file = await rpc("get-file", {id: FILE_ID, features: FEATURES});
+const file = await getFile(FILE_ID);
 let revn = file.revn;
 const vern = file.vern || 0;
 console.error(`canonical revn=${revn}, ${Object.keys(file.data.pagesIndex).length} pages currently`);
@@ -286,7 +264,7 @@ if (pageChanges.length) {
 }
 
 // Re-fetch to get the canonical state with all 12 pages.
-const after = await rpc("get-file", {id: FILE_ID, features: FEATURES});
+const after = await getFile(FILE_ID);
 revn = after.revn;
 
 // Pass 2.5: purge any non-skeleton shapes left over from pre-Phase-1
@@ -333,7 +311,7 @@ for (const spec of targetPages) {
     console.error(`  ${spec.name}: +${changes.length} shapes  revn → ${revn}`);
 }
 
-const final = await rpc("get-file", {id: FILE_ID, features: FEATURES});
+const final = await getFile(FILE_ID);
 console.error(
     `\nfinal: ${Object.keys(final.data.pagesIndex).length} pages, ` +
     `${Object.values(final.data.pagesIndex).reduce((a, p) => a + Object.keys(p.objects || {}).length, 0)} shapes total, revn=${final.revn}`,

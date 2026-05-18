@@ -26,50 +26,16 @@
 //      by name match against the current state).
 //
 // Usage:
-//   PENPOT_TOKEN=<pat> node scripts/penpot-split-stock-pages.mjs [--dry-run]
+//   PENPOT_TOKEN=<pat> node scripts/penpot-split-stock-pages.mjs
 
 import {randomUUID} from "node:crypto";
+import {CANONICAL_FILE_ID, FEATURES, rpc, getFile, requireToken} from "./_penpot-rpc.mjs";
 
-const HOST = process.env.PENPOT_HOST || "https://design.hz.ledoweb.com";
-const TOKEN = process.env.PENPOT_TOKEN;
-const CANONICAL_ID = process.env.PENPOT_FILE_ID || "038df003-0f49-80b2-8008-0774e5399553";
+requireToken("penpot-split-stock-pages.mjs");
+
+const CANONICAL_ID = process.env.PENPOT_FILE_ID || CANONICAL_FILE_ID;
 const SIBLING_NAME = "Odoo 19.0 — Stock Reference Screenshots";
 const STOCK_PAGE_RE = /\(stock 19\.0\)\s*$/;
-
-if (!TOKEN) {
-    console.error("Set PENPOT_TOKEN (service-account PAT, see .env or memory/penpot_design_credentials.md).");
-    process.exit(2);
-}
-
-const DRY = process.argv.includes("--dry-run");
-
-const FEATURES = [
-    "design-tokens/v1", "fdata/objects-map", "fdata/path-data",
-    "fdata/shape-data-type", "components/v2", "layout/grid",
-    "styles/v2", "variants/v1",
-];
-
-async function rpc(command, body = {}) {
-    if (DRY) {
-        console.error(`[dry-run] ${command} ${JSON.stringify(body).slice(0, 200)}`);
-        return {dryRun: true, id: `dry-${command}`};
-    }
-    const r = await fetch(`${HOST}/api/rpc/command/${command}`, {
-        method: "POST",
-        headers: {
-            "Authorization": `Token ${TOKEN}`,
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        body: JSON.stringify(body),
-    });
-    if (!r.ok) throw new Error(`${command} → ${r.status}: ${(await r.text()).slice(0, 600)}`);
-    return r.json();
-}
-
-async function getFile(id) {
-    return rpc("get-file", {id, features: FEATURES});
-}
 
 // Find an existing sibling file by name in the source file's project.
 async function findExistingSibling(projectId, name) {
