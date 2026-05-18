@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$description": "Canonical 12-page list for the Ledo Odoo Design System Penpot file. Mirrors docs/penpot/PHASED_BUILDOUT.md → Phase 1. Single source of truth for both the build script (scripts/penpot-build-phase-1-skeleton.mjs) and the contract test (tests/pages.test.mjs).",
+    "file": {
+        "team-id": "442b344a-1ecc-8198-8008-0771673d374d",
+        "team-name": "Ledo web",
+        "file-id": "038df003-0f49-80b2-8008-0774e5399553",
+        "file-name": "Ledo Odoo Design System"
+    },
+    "pages": [
+        {"index":  0, "name": "00 — Cover",              "purpose": "Project intent + version axis matrix."},
+        {"index":  1, "name": "01 — Foundations",        "purpose": "Vector specimens for every token group (Phase 2)."},
+        {"index":  2, "name": "02 — Iconography",        "purpose": "Lucide + Heroicons samplers; OdsIcon spec (Phase 3)."},
+        {"index":  3, "name": "03 — Shared Components",  "purpose": "OdsChip, OdsInitialsAvatar, OdsCardTile, OdsIcon as Penpot library components (Phase 3)."},
+        {"index":  4, "name": "04 — 18.0 Deltas",        "purpose": "Differences when the design system runs on Odoo 18.0."},
+        {"index":  5, "name": "05 — 19.0 Deltas",        "purpose": "Release notes / changes specific to Odoo 19.0."},
+        {"index":  6, "name": "06 — Patterns",           "purpose": "Composed primitives — spined card, chip row, form hero (Phase 4+)."},
+        {"index":  7, "name": "07 — Backend Templates",  "purpose": "Kanban, list, form, searchpanel, drop-zone (Phase 4–6)."},
+        {"index":  8, "name": "08 — Portal Templates",   "purpose": "Portal grid, empty state, mobile-portrait, breadcrumb (Phase 8)."},
+        {"index":  9, "name": "09 — Reports",            "purpose": "Printable A4 templates — invoice, quotation, delivery slip (Phase 9)."},
+        {"index": 10, "name": "10 — Drafts",             "purpose": "Scratch space for in-flight design proposals."},
+        {"index": 11, "name": "11 — Changelog",          "purpose": "Page-level audit log of design-system releases."}
+    ]
+}
