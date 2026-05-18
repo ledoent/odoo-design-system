@@ -1,0 +1,237 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$description": "Declarative spec for the 'Foundations' Penpot page (index 1). Drives `scripts/penpot-build-phase-2-specimens.mjs` (authoring) and `tests/foundations.test.mjs` (live contract). Sections stack vertically; the build script computes per-item x/y from `defaults` + section.y. Token bindings use the kebab-case PCS attribute keys documented in `docs/penpot/specs/token-fill.json` (`fill`, `stroke-color`, `r1..r4`, `width`, `font-size`, `font-weight`). Shadow / duration / cubic-bezier types are not bindable via Penpot tokensLib; those sections use literal values pulled from `odoo_design_system/static/src/tokens/design-system.dtcg.json`.",
+
+    "page": {
+        "name": "01 — Foundations",
+        "width": 1440,
+        "height": 2520
+    },
+
+    "defaults": {
+        "marginX": 64,
+        "swatchWidth": 96,
+        "swatchHeight": 64,
+        "swatchGap": 16,
+        "labelHeight": 14,
+        "labelOffset": 8,
+        "sectionHeaderHeight": 16,
+        "sectionContentOffset": 24,
+        "fontFamily": "sourcesanspro",
+        "fontId": "gfont-sourcesanspro"
+    },
+
+    "sections": [
+        {
+            "id": "color-brand",
+            "title": "COLOR · BRAND  (theme-invariant)",
+            "y": 128,
+            "kind": "swatchRow",
+            "items": [
+                {"key": "primary",        "tokenName": "color.brand.primary",        "literalFill": "#D97706", "label": "primary"},
+                {"key": "primary-hover",  "tokenName": "color.brand.primary-hover",  "literalFill": "#B45309", "label": "primary-hover"},
+                {"key": "primary-active", "tokenName": "color.brand.primary-active", "literalFill": "#92400E", "label": "primary-active"},
+                {"key": "secondary",      "tokenName": "color.brand.secondary",      "literalFill": "#F59E0B", "label": "secondary"}
+            ]
+        },
+        {
+            "id": "color-portal",
+            "title": "COLOR · PORTAL  (theme-invariant)",
+            "y": 248,
+            "kind": "swatchRow",
+            "items": [
+                {"key": "nav-dark",      "tokenName": "color.portal.nav-dark",      "literalFill": "#1A1A1E", "label": "nav-dark"},
+                {"key": "sidebar-light", "tokenName": "color.portal.sidebar-light", "literalFill": "#FAFAF8", "label": "sidebar-light"},
+                {"key": "border",        "tokenName": "color.portal.border",        "literalFill": "#E5E5E5", "label": "border"}
+            ]
+        },
+        {
+            "id": "color-bucket",
+            "title": "COLOR · BUCKET  (theme-invariant)",
+            "y": 368,
+            "kind": "swatchRow",
+            "items": [
+                {"key": "1", "tokenName": "color.bucket.1", "literalFill": "#4263EB", "label": "1"},
+                {"key": "2", "tokenName": "color.bucket.2", "literalFill": "#1098AD", "label": "2"},
+                {"key": "3", "tokenName": "color.bucket.3", "literalFill": "#2F9E44", "label": "3"},
+                {"key": "4", "tokenName": "color.bucket.4", "literalFill": "#F08C00", "label": "4"},
+                {"key": "5", "tokenName": "color.bucket.5", "literalFill": "#D6336C", "label": "5"},
+                {"key": "6", "tokenName": "color.bucket.6", "literalFill": "#AE3EC9", "label": "6"},
+                {"key": "7", "tokenName": "color.bucket.7", "literalFill": "#5F3DC4", "label": "7"},
+                {"key": "8", "tokenName": "color.bucket.8", "literalFill": "#495057", "label": "8"}
+            ]
+        },
+        {
+            "id": "color-neutral",
+            "title": "COLOR · NEUTRAL SCALE  (theme-invariant)",
+            "y": 488,
+            "kind": "swatchRow",
+            "swatchWidth": 104,
+            "items": [
+                {"key": "0",   "tokenName": "color.neutral.0",   "literalFill": "#FFFFFF", "label": "0"},
+                {"key": "100", "tokenName": "color.neutral.100", "literalFill": "#F8F9FA", "label": "100"},
+                {"key": "200", "tokenName": "color.neutral.200", "literalFill": "#E9ECEF", "label": "200"},
+                {"key": "300", "tokenName": "color.neutral.300", "literalFill": "#DEE2E6", "label": "300"},
+                {"key": "400", "tokenName": "color.neutral.400", "literalFill": "#CED4DA", "label": "400"},
+                {"key": "500", "tokenName": "color.neutral.500", "literalFill": "#ADB5BD", "label": "500"},
+                {"key": "600", "tokenName": "color.neutral.600", "literalFill": "#6C757D", "label": "600"},
+                {"key": "700", "tokenName": "color.neutral.700", "literalFill": "#495057", "label": "700"},
+                {"key": "800", "tokenName": "color.neutral.800", "literalFill": "#343A40", "label": "800"},
+                {"key": "900", "tokenName": "color.neutral.900", "literalFill": "#212529", "label": "900"},
+                {"key": "950", "tokenName": "color.neutral.950", "literalFill": "#0F1115", "label": "950"}
+            ]
+        },
+        {
+            "id": "color-ext",
+            "title": "COLOR · FILE EXTENSION  (theme-invariant)",
+            "y": 608,
+            "kind": "swatchRow",
+            "items": [
+                {"key": "pdf", "tokenName": "color.ext.pdf", "literalFill": "#D6336C", "label": "pdf"},
+                {"key": "doc", "tokenName": "color.ext.doc", "literalFill": "#1971C2", "label": "doc"},
+                {"key": "xls", "tokenName": "color.ext.xls", "literalFill": "#2F9E44", "label": "xls"},
+                {"key": "ppt", "tokenName": "color.ext.ppt", "literalFill": "#E8590C", "label": "ppt"},
+                {"key": "zip", "tokenName": "color.ext.zip", "literalFill": "#5F3DC4", "label": "zip"},
+                {"key": "jpg", "tokenName": "color.ext.jpg", "literalFill": "#D6336C", "label": "jpg"},
+                {"key": "mp4", "tokenName": "color.ext.mp4", "literalFill": "#AE3EC9", "label": "mp4"},
+                {"key": "txt", "tokenName": "color.ext.txt", "literalFill": "#495057", "label": "txt"}
+            ]
+        },
+        {
+            "id": "color-surface",
+            "title": "COLOR · SURFACE  (theme-variant — re-skins per active theme)",
+            "y": 728,
+            "kind": "swatchRow",
+            "items": [
+                {"key": "canvas",  "tokenName": "color.surface.canvas",  "literalFill": "#FFFFFF",     "label": "canvas"},
+                {"key": "raised",  "tokenName": "color.surface.raised",  "literalFill": "#F8F9FA",     "label": "raised"},
+                {"key": "sunken",  "tokenName": "color.surface.sunken",  "literalFill": "#E9ECEF",     "label": "sunken"},
+                {"key": "overlay", "tokenName": "color.surface.overlay", "literalFill": "#3D3D3D",     "label": "overlay"}
+            ]
+        },
+        {
+            "id": "color-text",
+            "title": "COLOR · TEXT  (theme-variant)",
+            "y": 848,
+            "kind": "swatchRow",
+            "items": [
+                {"key": "primary",   "tokenName": "color.text.primary",   "literalFill": "#212529", "label": "primary"},
+                {"key": "secondary", "tokenName": "color.text.secondary", "literalFill": "#495057", "label": "secondary"},
+                {"key": "muted",     "tokenName": "color.text.muted",     "literalFill": "#6C757D", "label": "muted"},
+                {"key": "on-brand",  "tokenName": "color.text.on-brand",  "literalFill": "#FFFFFF", "label": "on-brand"},
+                {"key": "inverse",   "tokenName": "color.text.inverse",   "literalFill": "#FFFFFF", "label": "inverse"}
+            ]
+        },
+        {
+            "id": "color-border",
+            "title": "COLOR · BORDER  (theme-variant — stroke binding)",
+            "y": 968,
+            "kind": "borderRow",
+            "items": [
+                {"key": "subtle",  "tokenName": "color.border.subtle",  "literalStroke": "#E9ECEF", "label": "subtle"},
+                {"key": "default", "tokenName": "color.border.default", "literalStroke": "#DEE2E6", "label": "default"},
+                {"key": "strong",  "tokenName": "color.border.strong",  "literalStroke": "#ADB5BD", "label": "strong"}
+            ]
+        },
+        {
+            "id": "color-state",
+            "title": "COLOR · STATE  (theme-variant — bg + fg pairs)",
+            "y": 1088,
+            "kind": "pillRow",
+            "items": [
+                {"key": "success", "bgToken": "color.state.success-bg", "fgToken": "color.state.success-fg", "literalBg": "#D4EDDA", "literalFg": "#155724", "label": "success"},
+                {"key": "warning", "bgToken": "color.state.warning-bg", "fgToken": "color.state.warning-fg", "literalBg": "#FFF3CD", "literalFg": "#856404", "label": "warning"},
+                {"key": "danger",  "bgToken": "color.state.danger-bg",  "fgToken": "color.state.danger-fg",  "literalBg": "#F8D7DA", "literalFg": "#721C24", "label": "danger"},
+                {"key": "info",    "bgToken": "color.state.info-bg",    "fgToken": "color.state.info-fg",    "literalBg": "#D1ECF1", "literalFg": "#0C5460", "label": "info"}
+            ]
+        },
+        {
+            "id": "spacing",
+            "title": "SPACING SCALE  (8 px grid — bar width is the token value)",
+            "y": 1208,
+            "kind": "spacingScale",
+            "items": [
+                {"key": "0", "tokenName": "spacing.0", "literalWidth": 1,  "label": "0  (0px)"},
+                {"key": "1", "tokenName": "spacing.1", "literalWidth": 4,  "label": "1  (4px)"},
+                {"key": "2", "tokenName": "spacing.2", "literalWidth": 8,  "label": "2  (8px)"},
+                {"key": "3", "tokenName": "spacing.3", "literalWidth": 12, "label": "3  (12px)"},
+                {"key": "4", "tokenName": "spacing.4", "literalWidth": 16, "label": "4  (16px)"},
+                {"key": "5", "tokenName": "spacing.5", "literalWidth": 24, "label": "5  (24px)"},
+                {"key": "6", "tokenName": "spacing.6", "literalWidth": 32, "label": "6  (32px)"},
+                {"key": "7", "tokenName": "spacing.7", "literalWidth": 48, "label": "7  (48px)"}
+            ]
+        },
+        {
+            "id": "radius",
+            "title": "RADIUS SCALE  (4 corners bound r1..r4)",
+            "y": 1448,
+            "kind": "radiusRow",
+            "items": [
+                {"key": "sm",   "tokenName": "radius.sm",   "literalRadius": 3,   "label": "sm  (3px)"},
+                {"key": "base", "tokenName": "radius.base", "literalRadius": 4,   "label": "base  (4px)"},
+                {"key": "lg",   "tokenName": "radius.lg",   "literalRadius": 6,   "label": "lg  (6px)"},
+                {"key": "pill", "tokenName": "radius.pill", "literalRadius": 999, "label": "pill  (999px)"}
+            ]
+        },
+        {
+            "id": "typography-size",
+            "title": "TYPOGRAPHY · SIZE RAMP  (weight=normal, font-size token-bound)",
+            "y": 1608,
+            "kind": "typeRamp",
+            "rowHeight": 56,
+            "fontWeight": "400",
+            "items": [
+                {"key": "xs",   "tokenName": "font-size.xs",   "literalSize": 12, "label": "xs  12px",  "sample": "The quick brown fox jumps over the lazy dog."},
+                {"key": "sm",   "tokenName": "font-size.sm",   "literalSize": 13, "label": "sm  13px",  "sample": "The quick brown fox jumps over the lazy dog."},
+                {"key": "base", "tokenName": "font-size.base", "literalSize": 14, "label": "base  14px", "sample": "The quick brown fox jumps over the lazy dog."},
+                {"key": "lg",   "tokenName": "font-size.lg",   "literalSize": 16, "label": "lg  16px",   "sample": "The quick brown fox jumps over the lazy dog."},
+                {"key": "xl",   "tokenName": "font-size.xl",   "literalSize": 18, "label": "xl  18px",   "sample": "The quick brown fox jumps over the lazy dog."},
+                {"key": "2xl",  "tokenName": "font-size.2xl",  "literalSize": 22, "label": "2xl  22px",  "sample": "The quick brown fox jumps over the lazy dog."},
+                {"key": "3xl",  "tokenName": "font-size.3xl",  "literalSize": 28, "label": "3xl  28px",  "sample": "Quick brown fox."},
+                {"key": "4xl",  "tokenName": "font-size.4xl",  "literalSize": 36, "label": "4xl  36px",  "sample": "Quick brown fox."}
+            ]
+        },
+        {
+            "id": "typography-weight",
+            "title": "TYPOGRAPHY · WEIGHT  (size=18px, font-weight token-bound)",
+            "y": 2080,
+            "kind": "weightRamp",
+            "rowHeight": 36,
+            "fontSize": 18,
+            "items": [
+                {"key": "light",    "tokenName": "font-weight.light",    "literalWeight": "300", "label": "light  300",    "sample": "The quick brown fox."},
+                {"key": "normal",   "tokenName": "font-weight.normal",   "literalWeight": "400", "label": "normal  400",   "sample": "The quick brown fox."},
+                {"key": "medium",   "tokenName": "font-weight.medium",   "literalWeight": "500", "label": "medium  500",   "sample": "The quick brown fox."},
+                {"key": "semibold", "tokenName": "font-weight.semibold", "literalWeight": "600", "label": "semibold  600", "sample": "The quick brown fox."},
+                {"key": "bold",     "tokenName": "font-weight.bold",     "literalWeight": "700", "label": "bold  700",     "sample": "The quick brown fox."}
+            ]
+        },
+        {
+            "id": "elevation",
+            "title": "ELEVATION DECK  (theme-variant — shadow not bindable in tokensLib; values baked from theme-light)",
+            "y": 2280,
+            "kind": "elevationDeck",
+            "items": [
+                {"key": "0", "label": "elevation.0", "literalShadow": null},
+                {"key": "1", "label": "elevation.1", "literalShadow": {"offset-x": 0, "offset-y": 1,  "blur": 3,  "spread": 0, "color": "#000000", "opacity": 0.08, "style": "drop-shadow"}},
+                {"key": "2", "label": "elevation.2", "literalShadow": {"offset-x": 0, "offset-y": 4,  "blur": 6,  "spread": 0, "color": "#000000", "opacity": 0.10, "style": "drop-shadow"}},
+                {"key": "3", "label": "elevation.3", "literalShadow": {"offset-x": 0, "offset-y": 4,  "blur": 18, "spread": 0, "color": "#000000", "opacity": 0.08, "style": "drop-shadow"}},
+                {"key": "4", "label": "elevation.4", "literalShadow": {"offset-x": 0, "offset-y": 20, "blur": 25, "spread": 0, "color": "#000000", "opacity": 0.14, "style": "drop-shadow"}}
+            ]
+        },
+        {
+            "id": "motion",
+            "title": "MOTION  (visual reference — duration/cubic-bezier not bindable in Penpot tokensLib)",
+            "y": 2420,
+            "kind": "motionStrips",
+            "items": [
+                {"key": "duration-fast", "label": "duration.fast  100ms",  "type": "duration", "value": 100},
+                {"key": "duration-base", "label": "duration.base  150ms",  "type": "duration", "value": 150},
+                {"key": "duration-slow", "label": "duration.slow  300ms",  "type": "duration", "value": 300},
+                {"key": "easing-standard",   "label": "easing.standard  cubic-bezier(0.4, 0, 0.2, 1)", "type": "easing"},
+                {"key": "easing-decelerate", "label": "easing.decelerate  cubic-bezier(0, 0, 0.2, 1)", "type": "easing"},
+                {"key": "easing-accelerate", "label": "easing.accelerate  cubic-bezier(0.4, 0, 1, 1)", "type": "easing"}
+            ]
+        }
+    ]
+}
