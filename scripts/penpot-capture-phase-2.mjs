@@ -28,7 +28,7 @@ import {resolve, dirname} from "node:path";
 import {fileURLToPath} from "node:url";
 import {chromium} from "playwright";
 
-import {PENPOT_HOST as HOST, getFile, rpc, requireToken} from "./_penpot-rpc.mjs";
+import {FEATURES, PENPOT_HOST as HOST, getFile, rpc, requireToken} from "./_penpot-rpc.mjs";
 
 const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PAGES_SPEC = JSON.parse(readFileSync(resolve(REPO, "docs/penpot/specs/pages.json"), "utf8"));
@@ -75,7 +75,8 @@ async function setActiveTheme(themeName) {
         id: FILE_ID,
         revn: head.revn,
         vern: head.vern ?? 0,
-        sessionId: randomUUID(),
+        "session-id": randomUUID(),
+        features: FEATURES,
         changes: [{type: "set-active-token-themes", themePaths: [`/${themeName}`]}],
         skipValidate: false,
     });

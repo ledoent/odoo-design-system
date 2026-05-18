@@ -373,12 +373,19 @@ if (bgChanges.length === 0 && addChanges.length === 0) {
     process.exit(0);
 }
 
-// Step C: ship the changes in one update-file call.
-const sessionId = randomUUID();
+// Step C: ship the changes in one update-file call. Match Phase 1's
+// payload shape: kebab-case `"session-id"` (Penpot accepts both forms
+// silently but kebab is the canonical PCS spelling), and always pass
+// `features: FEATURES` so the server doesn't strip feature-gated
+// attributes from the round-trip (`_penpot-rpc.mjs` documents the
+// silent-data-loss risk).
 const allChanges = [...bgChanges, ...addChanges];
 console.error(`shipping ${bgChanges.length} mod + ${addChanges.length} add changes (revn=${revn})`);
 const resp = await rpc("update-file", {
-    id: FILE_ID, revn, vern, sessionId,
-    changes: allChanges, skipValidate: false,
+    id: FILE_ID, revn, vern,
+    "session-id": randomUUID(),
+    features: FEATURES,
+    changes: allChanges,
+    skipValidate: false,
 });
 console.error(`✓ revn → ${resp.revn ?? "?"}; added ${added} shapes, skipped ${skipped}`);
