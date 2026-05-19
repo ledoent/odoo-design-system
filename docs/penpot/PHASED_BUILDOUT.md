@@ -176,9 +176,9 @@ Each component frame named `odoo_design_system/static/src/js/<file>:<Class>`.
 
 **Done-state**:
 
-- [ ] Each surface is a Penpot component with light / dark / high-contrast variants
-- [ ] Playwright recording: open Odoo backend at `/odoo` in one viewport, Penpot frame in another, diff under 4px deviation on key dimensions (navbar height, breadcrumb height, search bar height)
-- [ ] `docs/penpot/verification/phase-4.md` committed
+- [x] Each surface is a Penpot component with light / dark / high-contrast variants — 12 Chrome components (4 × 3) verified by `tests/backend-chrome.test.mjs` (38/38 green); accessible in the Penpot Assets panel under `Chrome / Navigation` and `Chrome / Controls`
+- [ ] Playwright recording: open Odoo backend at `/odoo` in one viewport, Penpot frame in another, diff under 4px deviation on key dimensions (navbar height, breadcrumb height, search bar height) — **deferred to Phase 4b** (requires Odoo instance in CI)
+- [x] [`docs/penpot/verification/phase-4.md`](verification/phase-4.md) committed with verdict + GCS screenshot
 
 ---
 
