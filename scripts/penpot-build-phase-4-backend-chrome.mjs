@@ -33,7 +33,7 @@ import {
     CANONICAL_FILE_ID, FEATURES, ROOT_FRAME_ID,
     getFile, rpc, requireToken,
 } from "./_penpot-rpc.mjs";
-import { makeFrame, makeRect, makeText, rectSelrect, rectPoints } from "./_penpot-shapes.mjs";
+import { makeFrame, makeRect, makeText } from "./_penpot-shapes.mjs";
 
 requireToken("penpot-build-phase-4-backend-chrome.mjs");
 
@@ -82,10 +82,12 @@ function variantIdFor(seed) {
 }
 
 // ---------- shape builders --------------------------------------------------
-// Resolve a hex color from a theme by key (handles null colorKey → no fill)
+// Resolve a hex color from a theme by key (null colorKey → no fill).
+// Throws on an unknown key so spec typos fail at build time, not silently.
 function themeColor(theme, key) {
     if (!key) return null;
-    return theme[key] ?? "#000000";
+    if (!(key in theme)) throw new Error(`theme "${theme.name}" has no color key "${key}"`);
+    return theme[key];
 }
 
 // Build an add-obj change-op with correct envelope fields.

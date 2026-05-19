@@ -47,8 +47,11 @@ PENPOT_TOKEN=… pnpm run test
 3. **Theme variant properties**: `Navbar`, `ControlPanel`, `StatusBar`, `UserMenu` each expose
    `Theme = Light | Dark | High Contrast` variant properties.
 4. **Main-instance type**: every `mainInstanceId` resolves to a `:frame` on the page.
-5. **Shape location**: 175 `__phase4.*` shapes on page 07; 0 leaked to any other page.
-6. **Orphan check**: no `__phase4.*.main` frame is parented outside the root frame.
+5. **Shape location + count**: exactly 175 `__phase4.*` shapes on page 07 (spec-derived
+   formula: `∑ surfaces [THEMES×(children+2)+1]`); 0 leaked to any other page.
+6. **Orphan check**: no `__phase4.*.main` frame is parented outside the root frame; all
+   frame children have `parentId === frame.id` (guards against the double-parenting bug
+   that phase-3b encountered).
 
 Full run output:
 
@@ -86,8 +89,9 @@ Full run output:
 
 6. Orphan check
   ✓ no orphaned __phase4.*.main frames (12 main frames)
+  ✓ all children correctly parented to their frames
 
-38 passed, 0 failed.
+39 passed, 0 failed.
 ```
 
 ## Visual evidence
@@ -124,7 +128,7 @@ requires a running Odoo instance in the CI environment. Phase 4 marks this as a 
 ## Verdict
 
 - [x] **12 Chrome components in `data.components`** — 4 surfaces × 3 themes. Verified by
-  `tests/backend-chrome.test.mjs` (38/38 green) and visible in the Penpot Assets panel
+  `tests/backend-chrome.test.mjs` (39/39 green) and visible in the Penpot Assets panel
   under `Chrome / Navigation` and `Chrome / Controls`.
 - [x] **Variant-set grouping** — each surface's three theme variants are reachable via a
   single Assets-panel entry with a `Theme` property dropdown.

@@ -129,10 +129,15 @@ async function run() {
     // --- 5. All __phase4.* shapes on correct page ---------------------------
     console.log("\n5. Phase 4 shapes on correct page");
     const phase4Shapes = Object.values(objs).filter(s => s.name?.startsWith("__phase4."));
+
+    // Expected = per surface: THEMES×(1 frame + N children + 1 label) + 1 section header
+    const expectedShapeCount = SURFACES.reduce(
+        (n, s) => n + THEMES.length * (s.children.length + 2) + 1, 0
+    );
     ok(
-        `${phase4Shapes.length} __phase4.* shapes found on page "${SPEC.page.name}"`,
-        phase4Shapes.length > 0,
-        "none found — build script may not have run"
+        `${phase4Shapes.length} __phase4.* shapes (spec predicts ${expectedShapeCount})`,
+        phase4Shapes.length === expectedShapeCount,
+        `got ${phase4Shapes.length}`
     );
 
     // Verify no phase4 shapes on other pages
@@ -149,21 +154,45 @@ async function run() {
         );
     }
 
-    // --- 6. No orphan shapes ------------------------------------------------
+    // --- 6. Orphan check + child-in-frame parenting -------------------------
     console.log("\n6. Orphan check");
     const ROOT = "00000000-0000-0000-0000-000000000000";
-    // Orphans = __phase4.*.main frames whose parent is not ROOT
     const mainFrames = phase4Shapes.filter(s => s.name?.endsWith(".main"));
-    // Penpot returns frame topology as camelCase on read
-    const orphans = mainFrames.filter(
+
+    // Main frames must be parented to ROOT
+    const orphanedFrames = mainFrames.filter(
         s => (s.parentId ?? s["parent-id"]) !== ROOT &&
              (s.frameId  ?? s["frame-id"])  !== ROOT
     );
     ok(
         `no orphaned __phase4.*.main frames (${mainFrames.length} main frames)`,
-        orphans.length === 0,
-        orphans.map(s => s.name).join(", ")
+        orphanedFrames.length === 0,
+        orphanedFrames.map(s => s.name).join(", ")
     );
+
+    // Children of each main frame must be parented to their frame (not ROOT).
+    // Double-parenting (child in frame.shapes AND rootFrame.shapes) is a known
+    // Penpot API bug — the phase-3b repair script hit this exact issue.
+    let misparentedCount = 0;
+    for (const frame of mainFrames) {
+        const childIds = frame.shapes ?? frame["shapes"] ?? [];
+        for (const childId of childIds) {
+            const child = objs[childId];
+            if (!child) continue;
+            const parentId = child.parentId ?? child["parent-id"];
+            if (parentId !== frame.id) {
+                misparentedCount++;
+                ok(
+                    `child "${child.name}" parented to its frame`,
+                    false,
+                    `parentId=${parentId} expected=${frame.id}`
+                );
+            }
+        }
+    }
+    if (misparentedCount === 0) {
+        ok(`all children correctly parented to their frames`, true);
+    }
 
     // --- summary ------------------------------------------------------------
     console.log(`\n${passed} passed, ${failed} failed.\n`);
