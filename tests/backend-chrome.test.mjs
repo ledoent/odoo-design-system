@@ -19,9 +19,12 @@ import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { CANONICAL_FILE_ID, FEATURES, getFile, requireToken } from "../scripts/_penpot-rpc.mjs";
+import { CANONICAL_FILE_ID, FEATURES, getFile } from "../scripts/_penpot-rpc.mjs";
 
-requireToken("tests/backend-chrome.test.mjs");
+if (!process.env.PENPOT_TOKEN) {
+    console.log("# PENPOT_TOKEN not set — skipping live Penpot check.");
+    process.exit(0);
+}
 
 const REPO      = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SPEC_PATH = resolve(REPO, "docs/penpot/specs/backend-chrome.json");
