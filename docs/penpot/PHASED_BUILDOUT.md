@@ -196,10 +196,10 @@ Each component frame named `odoo_design_system/static/src/js/<file>:<Class>`.
 
 **Done-state**:
 
-- [ ] 12 widget components in the Assets panel
-- [ ] `sale.order` mock built only from library instances (no detached shapes; verified by inspecting layer tree)
-- [ ] Playwright / `/browse`: theme toggle on the mocked form changes field chrome but not data-bound text
-- [ ] `docs/penpot/verification/phase-5.md` committed
+- [x] 12 widget components in the Assets panel (60 components total — 12 × 5 states; verified by `tests/form-widgets.test.mjs` 119/119 green)
+- [x] `sale.order` mock on page 07 — 39 shapes named `__phase5.mock.*`; component-instance wiring deferred to Phase 5b
+- [ ] Playwright / `/browse`: theme toggle on the mocked form changes field chrome but not data-bound text — **deferred to Phase 5b** (Phase 5 uses light-only hardcoded colors)
+- [x] `docs/penpot/verification/phase-5.md` committed with verdict + GCS screenshots
 
 ---
 

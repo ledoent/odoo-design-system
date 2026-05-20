@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$description": "Declarative spec for Phase 5 — form field widgets, chrome surfaces, and sale.order mock on '07 — Backend Templates'. Build, test, and capture scripts consume this file.",
+  "page": {
+    "name": "07 — Backend Templates",
+    "id":   "2426b3eb-e4fd-46f0-9ccd-eb5b3eefd66b"
+  },
+  "defaults": {
+    "marginX":              64,
+    "sectionGap":           80,
+    "variantGap":           32,
+    "sectionHeaderHeight":  16,
+    "sectionContentOffset": 32,
+    "inputHeight":          38,
+    "labelHeight":          20,
+    "labelGap":              4,
+    "errorHeight":          16,
+    "errorGap":              4,
+    "inputRadius":           4,
+    "fontFamily": "sourcesanspro",
+    "fontId":     "gfont-sourcesanspro"
+  },
+  "states": [
+    {
+      "name": "empty",
+      "variantLabel": "Empty",
+      "containerBg":     "#ffffff",
+      "containerBorder": "#ced4da",
+      "valueColor":      "#6c757d",
+      "errorMsgColor":   null,
+      "toggleTrackBg":   "#6c757d",
+      "thumbColor":      "#ffffff",
+      "labelColor":      "#6c757d"
+    },
+    {
+      "name": "filled",
+      "variantLabel": "Filled",
+      "containerBg":     "#ffffff",
+      "containerBorder": "#ced4da",
+      "valueColor":      "#212529",
+      "errorMsgColor":   null,
+      "toggleTrackBg":   "#198754",
+      "thumbColor":      "#ffffff",
+      "labelColor":      "#6c757d"
+    },
+    {
+      "name": "focused",
+      "variantLabel": "Focused",
+      "containerBg":     "#ffffff",
+      "containerBorder": "#86b7fe",
+      "valueColor":      "#212529",
+      "errorMsgColor":   null,
+      "toggleTrackBg":   "#198754",
+      "thumbColor":      "#ffffff",
+      "labelColor":      "#6c757d"
+    },
+    {
+      "name": "error",
+      "variantLabel": "Error",
+      "containerBg":     "#ffffff",
+      "containerBorder": "#dc3545",
+      "valueColor":      "#212529",
+      "errorMsgColor":   "#dc3545",
+      "toggleTrackBg":   "#dc3545",
+      "thumbColor":      "#ffffff",
+      "labelColor":      "#6c757d"
+    },
+    {
+      "name": "readonly",
+      "variantLabel": "Readonly",
+      "containerBg":     "#f8f9fa",
+      "containerBorder": null,
+      "valueColor":      "#212529",
+      "errorMsgColor":   null,
+      "toggleTrackBg":   "#adb5bd",
+      "thumbColor":      "#ffffff",
+      "labelColor":      "#6c757d"
+    }
+  ],
+  "widgets": [
+    {
+      "id": "char",
+      "name": "CharInput",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/char/char_field.js:CharField",
+      "variantAxis": "State",
+      "width": 260,
+      "height": 82,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0,  "y": 0,  "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",     "content": "Customer" },
+        { "role": "container", "type": "rect", "x": 0,  "y": 24, "w": 260, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "value",     "type": "text", "x": 8,  "y": 31, "w": 244, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",     "content": "Azure Interior" },
+        { "role": "error-msg", "type": "text", "x": 0,  "y": 66, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor",  "content": "This field is required." }
+      ]
+    },
+    {
+      "id": "text",
+      "name": "TextField",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/text/text_field.js:TextField",
+      "variantAxis": "State",
+      "width": 260,
+      "height": 124,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0,  "y": 0,   "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Notes" },
+        { "role": "container", "type": "rect", "x": 0,  "y": 24,  "w": 260, "h": 80, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "value",     "type": "text", "x": 8,  "y": 31,  "w": 244, "h": 60, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "Internal notes go here…" },
+        { "role": "error-msg", "type": "text", "x": 0,  "y": 108, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "This field is required." }
+      ]
+    },
+    {
+      "id": "integer",
+      "name": "IntegerInput",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/integer/integer_field.js:IntegerField",
+      "variantAxis": "State",
+      "width": 180,
+      "height": 82,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0,  "y": 0,  "w": 180, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Quantity" },
+        { "role": "container", "type": "rect", "x": 0,  "y": 24, "w": 180, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "value",     "type": "text", "x": 8,  "y": 31, "w": 164, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "42" },
+        { "role": "error-msg", "type": "text", "x": 0,  "y": 66, "w": 180, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Please enter a number." }
+      ]
+    },
+    {
+      "id": "monetary",
+      "name": "MonetaryInput",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/monetary/monetary_field.js:MonetaryField",
+      "variantAxis": "State",
+      "width": 260,
+      "height": 82,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0,   "y": 0,  "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Amount" },
+        { "role": "container", "type": "rect", "x": 0,   "y": 24, "w": 260, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "currency",  "type": "rect", "x": 0,   "y": 24, "w": 44,  "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "curr-lbl",  "type": "text", "x": 6,   "y": 31, "w": 32,  "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "USD" },
+        { "role": "value",     "type": "text", "x": 52,  "y": 31, "w": 200, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "1,250.00" },
+        { "role": "error-msg", "type": "text", "x": 0,   "y": 66, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Please enter a valid amount." }
+      ]
+    },
+    {
+      "id": "date",
+      "name": "DateInput",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/date/date_field.js:DateField",
+      "variantAxis": "State",
+      "width": 200,
+      "height": 82,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0,   "y": 0,  "w": 200, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Order Date" },
+        { "role": "container", "type": "rect", "x": 0,   "y": 24, "w": 200, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "value",     "type": "text", "x": 8,   "y": 31, "w": 160, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "05/20/2026" },
+        { "role": "icon",      "type": "rect", "x": 172, "y": 29, "w": 20,  "h": 20, "radius": 2,    "colorKey": "containerBorder" },
+        { "role": "error-msg", "type": "text", "x": 0,   "y": 66, "w": 200, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Invalid date." }
+      ]
+    },
+    {
+      "id": "datetime",
+      "name": "DateTimeInput",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/datetime/datetime_field.js:DateTimeField",
+      "variantAxis": "State",
+      "width": 260,
+      "height": 82,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0,   "y": 0,  "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Scheduled Date" },
+        { "role": "container", "type": "rect", "x": 0,   "y": 24, "w": 260, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "value",     "type": "text", "x": 8,   "y": 31, "w": 228, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "05/20/2026 14:00" },
+        { "role": "icon",      "type": "rect", "x": 232, "y": 29, "w": 20,  "h": 20, "radius": 2,    "colorKey": "containerBorder" },
+        { "role": "error-msg", "type": "text", "x": 0,   "y": 66, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Invalid date/time." }
+      ]
+    },
+    {
+      "id": "selection",
+      "name": "SelectionField",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/selection/selection_field.js:SelectionField",
+      "variantAxis": "State",
+      "width": 260,
+      "height": 82,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0,   "y": 0,  "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Status" },
+        { "role": "container", "type": "rect", "x": 0,   "y": 24, "w": 260, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "value",     "type": "text", "x": 8,   "y": 31, "w": 224, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "Draft" },
+        { "role": "caret",     "type": "rect", "x": 236, "y": 31, "w": 16,  "h": 16, "radius": 2,    "colorKey": "containerBorder" },
+        { "role": "error-msg", "type": "text", "x": 0,   "y": 66, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Please select a value." }
+      ]
+    },
+    {
+      "id": "many2one",
+      "name": "Many2OneField",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/many2one/many2one_field.js:Many2OneField",
+      "variantAxis": "State",
+      "width": 260,
+      "height": 82,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0,   "y": 0,  "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Customer" },
+        { "role": "container", "type": "rect", "x": 0,   "y": 24, "w": 260, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "value",     "type": "text", "x": 8,   "y": 31, "w": 224, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "Azure Interior" },
+        { "role": "icon",      "type": "rect", "x": 236, "y": 29, "w": 16,  "h": 20, "radius": 2,    "colorKey": "containerBorder" },
+        { "role": "error-msg", "type": "text", "x": 0,   "y": 66, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Please select a customer." }
+      ]
+    },
+    {
+      "id": "many2many-tags",
+      "name": "Many2ManyTags",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/many2many_tags/many2many_tags_field.js:Many2ManyTagsField",
+      "variantAxis": "State",
+      "width": 260,
+      "height": 104,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0,  "y": 0,  "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Tags" },
+        { "role": "container", "type": "rect", "x": 0,  "y": 24, "w": 260, "h": 60, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "tag",       "type": "rect", "x": 8,  "y": 32, "w": 64,  "h": 24, "radius": 4,    "colorKey": "containerBorder" },
+        { "role": "add-text",  "type": "text", "x": 80, "y": 37, "w": 160, "h": 14, "fontSize": 12, "weight": "400", "colorKey": "valueColor",    "content": "Add a tag…" },
+        { "role": "error-msg", "type": "text", "x": 0,  "y": 88, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "At least one tag required." }
+      ]
+    },
+    {
+      "id": "one2many",
+      "name": "One2ManyField",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/one2many/one2many_field.js:One2ManyField",
+      "variantAxis": "State",
+      "width": 260,
+      "height": 180,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0, "y": 0,   "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Order Lines" },
+        { "role": "header",    "type": "rect", "x": 0, "y": 24,  "w": 260, "h": 28, "radius": 0,    "colorKey": "containerBorder" },
+        { "role": "row1",      "type": "rect", "x": 0, "y": 52,  "w": 260, "h": 32, "radius": 0,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "row2",      "type": "rect", "x": 0, "y": 84,  "w": 260, "h": 32, "radius": 0,    "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "add-text",  "type": "text", "x": 8, "y": 124, "w": 220, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "valueColor",    "content": "Add a product" },
+        { "role": "error-msg", "type": "text", "x": 0, "y": 148, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "At least one line required." }
+      ]
+    },
+    {
+      "id": "boolean-toggle",
+      "name": "BooleanToggle",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/boolean/boolean_field.js:BooleanField",
+      "variantAxis": "State",
+      "width": 260,
+      "height": 52,
+      "children": [
+        { "role": "track",     "type": "rect", "x": 0,  "y": 4,  "w": 40,  "h": 24, "radius": 12, "colorKey": "toggleTrackBg" },
+        { "role": "thumb",     "type": "rect", "x": 18, "y": 8,  "w": 16,  "h": 16, "radius": 8,  "colorKey": "thumbColor" },
+        { "role": "label",     "type": "text", "x": 52, "y": 10, "w": 200, "h": 20, "fontSize": 14, "weight": "400", "colorKey": "labelColor",    "content": "Active" },
+        { "role": "error-msg", "type": "text", "x": 0,  "y": 36, "w": 260, "h": 12, "fontSize": 11, "weight": "400", "colorKey": "errorMsgColor", "content": "Required." }
+      ]
+    },
+    {
+      "id": "image",
+      "name": "ImageField",
+      "path": "Form / Fields",
+      "source": "addons/web/static/src/views/form/fields/image/image_field.js:ImageField",
+      "variantAxis": "State",
+      "width": 260,
+      "height": 172,
+      "children": [
+        { "role": "label",     "type": "text", "x": 0,  "y": 0,   "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Photo" },
+        { "role": "zone",      "type": "rect", "x": 0,  "y": 24,  "w": 128, "h": 128, "radius": 4,   "colorKey": "containerBg", "borderKey": "containerBorder" },
+        { "role": "icon",      "type": "rect", "x": 54, "y": 68,  "w": 20,  "h": 20,  "radius": 2,   "colorKey": "containerBorder" },
+        { "role": "error-msg", "type": "text", "x": 0,  "y": 156, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Image required." }
+      ]
+    }
+  ],
+  "chrome": [
+    {
+      "id": "sheet",
+      "name": "Sheet",
+      "path": "Form / Chrome",
+      "source": "addons/web/static/src/views/form/form_renderer.js:FormRenderer",
+      "width": 1440,
+      "height": 600,
+      "children": [
+        { "role": "bg",     "type": "rect", "x": 0,  "y": 0, "w": 1440, "h": 600, "fillColor": "#ffffff", "shadow": true },
+        { "role": "border", "type": "rect", "x": 0,  "y": 0, "w": 1440, "h": 600, "fillColor": null, "strokeColor": "#dee2e6", "strokeWidth": 1 },
+        { "role": "title",  "type": "text", "x": 40, "y": 40, "w": 400, "h": 24,  "fontSize": 18, "weight": "600", "fill": "#212529", "content": "Sale Order" }
+      ]
+    },
+    {
+      "id": "field-group",
+      "name": "FieldGroup",
+      "path": "Form / Chrome",
+      "source": "addons/web/static/src/views/form/form_renderer.js:FieldGroup",
+      "width": 1440,
+      "height": 40,
+      "children": [
+        { "role": "bg",     "type": "rect", "x": 0,  "y": 0,  "w": 1440, "h": 40, "fillColor": "#f8f9fa" },
+        { "role": "border", "type": "rect", "x": 0,  "y": 39, "w": 1440, "h": 1,  "fillColor": "#dee2e6" },
+        { "role": "label",  "type": "text", "x": 40, "y": 13, "w": 300,  "h": 14, "fontSize": 13, "weight": "400", "fill": "#6c757d", "content": "Customer Information" }
+      ]
+    },
+    {
+      "id": "notebook-tab",
+      "name": "NotebookTab",
+      "path": "Form / Chrome",
+      "source": "addons/web/static/src/core/notebook/notebook.js:Notebook",
+      "width": 1440,
+      "height": 40,
+      "children": [
+        { "role": "bg",            "type": "rect", "x": 0,   "y": 0,  "w": 1440, "h": 40, "fillColor": "#ffffff" },
+        { "role": "bottom-border", "type": "rect", "x": 0,   "y": 39, "w": 1440, "h": 1,  "fillColor": "#dee2e6" },
+        { "role": "active-line",   "type": "rect", "x": 0,   "y": 38, "w": 128,  "h": 2,  "fillColor": "#714B67" },
+        { "role": "active-text",   "type": "text", "x": 16,  "y": 13, "w": 96,   "h": 14, "fontSize": 14, "weight": "500", "fill": "#212529", "content": "Order Lines" },
+        { "role": "inactive-text", "type": "text", "x": 144, "y": 13, "w": 80,   "h": 14, "fontSize": 13, "weight": "400", "fill": "#6c757d", "content": "Other Info" }
+      ]
+    }
+  ],
+  "mock": {
+    "id": "sale-order",
+    "sectionLabel": "SALE ORDER MOCK  ·  Full form composed from Phase 4 + Phase 5 components",
+    "width": 1440,
+    "height": 740,
+    "shapeCount": 38,
+    "children": [
+      { "role": "navbar-bg",      "type": "rect", "x": 0,   "y": 0,   "w": 1440, "h": 46,  "fillColor": "#714B67" },
+      { "role": "navbar-brand",   "type": "text", "x": 16,  "y": 15,  "w": 80,   "h": 16,  "fill": "#ffffff", "fontSize": 16, "weight": "600",  "content": "Odoo" },
+      { "role": "navbar-search",  "type": "rect", "x": 480, "y": 10,  "w": 480,  "h": 26,  "fillColor": null, "strokeColor": "#ffffff", "strokeWidth": 1, "radius": 4 },
+      { "role": "cp-bg",          "type": "rect", "x": 0,   "y": 46,  "w": 1440, "h": 44,  "fillColor": "#ffffff" },
+      { "role": "cp-border",      "type": "rect", "x": 0,   "y": 89,  "w": 1440, "h": 1,   "fillColor": "#dee2e6" },
+      { "role": "cp-breadcrumb",  "type": "text", "x": 16,  "y": 61,  "w": 200,  "h": 14,  "fill": "#212529", "fontSize": 13, "weight": "500",  "content": "Sales ›  SO/2026/001" },
+      { "role": "cp-new-btn",     "type": "rect", "x": 1396,"y": 54,  "w": 44,   "h": 28,  "fillColor": "#714B67", "radius": 4 },
+      { "role": "cp-new-text",    "type": "text", "x": 1407,"y": 63,  "w": 28,   "h": 14,  "fill": "#ffffff", "fontSize": 13, "weight": "500",  "content": "New" },
+      { "role": "sb-bg",          "type": "rect", "x": 0,   "y": 90,  "w": 1440, "h": 32,  "fillColor": "#f8f9fa" },
+      { "role": "sb-border",      "type": "rect", "x": 0,   "y": 90,  "w": 1440, "h": 1,   "fillColor": "#dee2e6" },
+      { "role": "sb-state-quo",   "type": "rect", "x": 16,  "y": 97,  "w": 76,   "h": 18,  "fillColor": "#f8f9fa", "strokeColor": "#dee2e6", "strokeWidth": 1, "radius": 999 },
+      { "role": "sb-quo-text",    "type": "text", "x": 24,  "y": 102, "w": 60,   "h": 12,  "fill": "#6c757d", "fontSize": 12, "weight": "400",  "content": "Quotation" },
+      { "role": "sb-state-order", "type": "rect", "x": 106, "y": 97,  "w": 82,   "h": 18,  "fillColor": "#155724", "radius": 999 },
+      { "role": "sb-ord-text",    "type": "text", "x": 114, "y": 102, "w": 66,   "h": 12,  "fill": "#ffffff", "fontSize": 12, "weight": "500",  "content": "Sales Order" },
+      { "role": "sheet-bg",       "type": "rect", "x": 0,   "y": 122, "w": 1440, "h": 618, "fillColor": "#ffffff" },
+      { "role": "fg-bg",          "type": "rect", "x": 0,   "y": 122, "w": 1440, "h": 40,  "fillColor": "#f8f9fa" },
+      { "role": "fg-border",      "type": "rect", "x": 0,   "y": 161, "w": 1440, "h": 1,   "fillColor": "#dee2e6" },
+      { "role": "fg-label",       "type": "text", "x": 40,  "y": 135, "w": 300,  "h": 14,  "fill": "#6c757d", "fontSize": 13, "weight": "400",  "content": "Customer Information" },
+      { "role": "cust-label",     "type": "text", "x": 40,  "y": 176, "w": 260,  "h": 20,  "fill": "#6c757d", "fontSize": 12, "weight": "400",  "content": "Customer" },
+      { "role": "cust-field",     "type": "rect", "x": 40,  "y": 200, "w": 260,  "h": 38,  "fillColor": "#ffffff", "strokeColor": "#ced4da", "strokeWidth": 1, "radius": 4 },
+      { "role": "cust-value",     "type": "text", "x": 48,  "y": 207, "w": 244,  "h": 20,  "fill": "#212529", "fontSize": 13, "weight": "400",  "content": "Azure Interior" },
+      { "role": "date-label",     "type": "text", "x": 320, "y": 176, "w": 200,  "h": 20,  "fill": "#6c757d", "fontSize": 12, "weight": "400",  "content": "Order Date" },
+      { "role": "date-field",     "type": "rect", "x": 320, "y": 200, "w": 200,  "h": 38,  "fillColor": "#ffffff", "strokeColor": "#ced4da", "strokeWidth": 1, "radius": 4 },
+      { "role": "date-value",     "type": "text", "x": 328, "y": 207, "w": 184,  "h": 20,  "fill": "#212529", "fontSize": 13, "weight": "400",  "content": "05/20/2026" },
+      { "role": "tab-bg",         "type": "rect", "x": 0,   "y": 258, "w": 1440, "h": 40,  "fillColor": "#ffffff" },
+      { "role": "tab-border",     "type": "rect", "x": 0,   "y": 297, "w": 1440, "h": 1,   "fillColor": "#dee2e6" },
+      { "role": "tab-line",       "type": "rect", "x": 0,   "y": 296, "w": 128,  "h": 2,   "fillColor": "#714B67" },
+      { "role": "tab-active",     "type": "text", "x": 16,  "y": 271, "w": 96,   "h": 14,  "fill": "#212529", "fontSize": 14, "weight": "500",  "content": "Order Lines" },
+      { "role": "tab-inactive",   "type": "text", "x": 144, "y": 271, "w": 80,   "h": 14,  "fill": "#6c757d", "fontSize": 13, "weight": "400",  "content": "Other Info" },
+      { "role": "list-header",    "type": "rect", "x": 24,  "y": 298, "w": 1392, "h": 32,  "fillColor": "#f8f9fa", "strokeColor": "#dee2e6", "strokeWidth": 1 },
+      { "role": "list-hdr-prod",  "type": "text", "x": 32,  "y": 306, "w": 160,  "h": 14,  "fill": "#6c757d", "fontSize": 12, "weight": "500",  "content": "Product" },
+      { "role": "list-hdr-qty",   "type": "text", "x": 500, "y": 306, "w": 60,   "h": 14,  "fill": "#6c757d", "fontSize": 12, "weight": "500",  "content": "Qty" },
+      { "role": "list-hdr-price", "type": "text", "x": 600, "y": 306, "w": 80,   "h": 14,  "fill": "#6c757d", "fontSize": 12, "weight": "500",  "content": "Unit Price" },
+      { "role": "list-hdr-sub",   "type": "text", "x": 760, "y": 306, "w": 80,   "h": 14,  "fill": "#6c757d", "fontSize": 12, "weight": "500",  "content": "Subtotal" },
+      { "role": "list-row1",      "type": "rect", "x": 24,  "y": 330, "w": 1392, "h": 36,  "fillColor": "#ffffff", "strokeColor": "#dee2e6", "strokeWidth": 1 },
+      { "role": "row1-product",   "type": "text", "x": 32,  "y": 341, "w": 200,  "h": 14,  "fill": "#212529", "fontSize": 13, "weight": "400",  "content": "Acoustic Bloc Screen" },
+      { "role": "row1-qty",       "type": "text", "x": 508, "y": 341, "w": 60,   "h": 14,  "fill": "#212529", "fontSize": 13, "weight": "400",  "content": "5.00" },
+      { "role": "row1-sub",       "type": "text", "x": 768, "y": 341, "w": 80,   "h": 14,  "fill": "#212529", "fontSize": 13, "weight": "400",  "content": "143.75" }
+    ]
+  }
+}
