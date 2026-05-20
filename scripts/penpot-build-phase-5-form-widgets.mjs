@@ -105,13 +105,16 @@ function buildWidgetVariant(widget, state, frameY, frameX) {
     for (const ch of widget.children) {
         const id   = randomUUID();
         childIds.push(id);
-        const fill  = stateColor(state, ch.colorKey);
+        // staticFill bypasses state-driven color resolution (for icons, headers, etc.)
+        const fill  = ch.staticFill !== undefined ? ch.staticFill : stateColor(state, ch.colorKey);
         const bord  = stateColor(state, ch.borderKey ?? null);
         // Invisible stand-in for null fill on text (no transparent text support in makeText)
         const textFill = fill ?? "#f8f9fa";
+        // stateX allows per-state x override (used by BooleanToggle thumb)
+        const relX  = ch.stateX ? (ch.stateX[state.name] ?? ch.x ?? 0) : (ch.x ?? 0);
 
         const base = {
-            x: (ch.x ?? 0) + frameX,
+            x: relX + frameX,
             y: (ch.y ?? 0) + frameY,
             w: ch.w,
             h: ch.h,

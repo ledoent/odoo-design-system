@@ -152,7 +152,7 @@
         { "role": "label",     "type": "text", "x": 0,   "y": 0,  "w": 200, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Order Date" },
         { "role": "container", "type": "rect", "x": 0,   "y": 24, "w": 200, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
         { "role": "value",     "type": "text", "x": 8,   "y": 31, "w": 160, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "05/20/2026" },
-        { "role": "icon",      "type": "rect", "x": 172, "y": 29, "w": 20,  "h": 20, "radius": 2,    "colorKey": "containerBorder" },
+        { "role": "icon",      "type": "rect", "x": 172, "y": 29, "w": 20,  "h": 20, "radius": 2,    "staticFill": "#adb5bd" },
         { "role": "error-msg", "type": "text", "x": 0,   "y": 66, "w": 200, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Invalid date." }
       ]
     },
@@ -168,7 +168,7 @@
         { "role": "label",     "type": "text", "x": 0,   "y": 0,  "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Scheduled Date" },
         { "role": "container", "type": "rect", "x": 0,   "y": 24, "w": 260, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
         { "role": "value",     "type": "text", "x": 8,   "y": 31, "w": 228, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "05/20/2026 14:00" },
-        { "role": "icon",      "type": "rect", "x": 232, "y": 29, "w": 20,  "h": 20, "radius": 2,    "colorKey": "containerBorder" },
+        { "role": "icon",      "type": "rect", "x": 232, "y": 29, "w": 20,  "h": 20, "radius": 2,    "staticFill": "#adb5bd" },
         { "role": "error-msg", "type": "text", "x": 0,   "y": 66, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Invalid date/time." }
       ]
     },
@@ -184,7 +184,7 @@
         { "role": "label",     "type": "text", "x": 0,   "y": 0,  "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Status" },
         { "role": "container", "type": "rect", "x": 0,   "y": 24, "w": 260, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
         { "role": "value",     "type": "text", "x": 8,   "y": 31, "w": 224, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "Draft" },
-        { "role": "caret",     "type": "rect", "x": 236, "y": 31, "w": 16,  "h": 16, "radius": 2,    "colorKey": "containerBorder" },
+        { "role": "caret",     "type": "rect", "x": 236, "y": 31, "w": 16,  "h": 16, "radius": 2,    "staticFill": "#adb5bd" },
         { "role": "error-msg", "type": "text", "x": 0,   "y": 66, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Please select a value." }
       ]
     },
@@ -200,7 +200,7 @@
         { "role": "label",     "type": "text", "x": 0,   "y": 0,  "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Customer" },
         { "role": "container", "type": "rect", "x": 0,   "y": 24, "w": 260, "h": 38, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
         { "role": "value",     "type": "text", "x": 8,   "y": 31, "w": 224, "h": 20, "fontSize": 13, "weight": "400", "colorKey": "valueColor",    "content": "Azure Interior" },
-        { "role": "icon",      "type": "rect", "x": 236, "y": 29, "w": 16,  "h": 20, "radius": 2,    "colorKey": "containerBorder" },
+        { "role": "icon",      "type": "rect", "x": 236, "y": 29, "w": 16,  "h": 20, "radius": 2,    "staticFill": "#adb5bd" },
         { "role": "error-msg", "type": "text", "x": 0,   "y": 66, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Please select a customer." }
       ]
     },
@@ -215,7 +215,7 @@
       "children": [
         { "role": "label",     "type": "text", "x": 0,  "y": 0,  "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Tags" },
         { "role": "container", "type": "rect", "x": 0,  "y": 24, "w": 260, "h": 60, "radius": 4,    "colorKey": "containerBg", "borderKey": "containerBorder" },
-        { "role": "tag",       "type": "rect", "x": 8,  "y": 32, "w": 64,  "h": 24, "radius": 4,    "colorKey": "containerBorder" },
+        { "role": "tag",       "type": "rect", "x": 8,  "y": 32, "w": 64,  "h": 24, "radius": 4,    "staticFill": "#adb5bd" },
         { "role": "add-text",  "type": "text", "x": 80, "y": 37, "w": 160, "h": 14, "fontSize": 12, "weight": "400", "colorKey": "valueColor",    "content": "Add a tag…" },
         { "role": "error-msg", "type": "text", "x": 0,  "y": 88, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "At least one tag required." }
       ]
@@ -230,7 +230,7 @@
       "height": 180,
       "children": [
         { "role": "label",     "type": "text", "x": 0, "y": 0,   "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Order Lines" },
-        { "role": "header",    "type": "rect", "x": 0, "y": 24,  "w": 260, "h": 28, "radius": 0,    "colorKey": "containerBorder" },
+        { "role": "header",    "type": "rect", "x": 0, "y": 24,  "w": 260, "h": 28, "radius": 0,    "staticFill": "#dee2e6" },
         { "role": "row1",      "type": "rect", "x": 0, "y": 52,  "w": 260, "h": 32, "radius": 0,    "colorKey": "containerBg", "borderKey": "containerBorder" },
         { "role": "row2",      "type": "rect", "x": 0, "y": 84,  "w": 260, "h": 32, "radius": 0,    "colorKey": "containerBg", "borderKey": "containerBorder" },
         { "role": "add-text",  "type": "text", "x": 8, "y": 124, "w": 220, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "valueColor",    "content": "Add a product" },
@@ -246,8 +246,8 @@
       "width": 260,
       "height": 52,
       "children": [
-        { "role": "track",     "type": "rect", "x": 0,  "y": 4,  "w": 40,  "h": 24, "radius": 12, "colorKey": "toggleTrackBg" },
-        { "role": "thumb",     "type": "rect", "x": 18, "y": 8,  "w": 16,  "h": 16, "radius": 8,  "colorKey": "thumbColor" },
+        { "role": "track",     "type": "rect", "x": 0, "y": 4,  "w": 40,  "h": 24, "radius": 12, "colorKey": "toggleTrackBg" },
+        { "role": "thumb",     "type": "rect", "stateX": {"empty": 4, "filled": 20, "focused": 20, "error": 4, "readonly": 4}, "y": 8,  "w": 16,  "h": 16, "radius": 8,  "colorKey": "thumbColor" },
         { "role": "label",     "type": "text", "x": 52, "y": 10, "w": 200, "h": 20, "fontSize": 14, "weight": "400", "colorKey": "labelColor",    "content": "Active" },
         { "role": "error-msg", "type": "text", "x": 0,  "y": 36, "w": 260, "h": 12, "fontSize": 11, "weight": "400", "colorKey": "errorMsgColor", "content": "Required." }
       ]
@@ -263,7 +263,7 @@
       "children": [
         { "role": "label",     "type": "text", "x": 0,  "y": 0,   "w": 260, "h": 20, "fontSize": 12, "weight": "400", "colorKey": "labelColor",    "content": "Photo" },
         { "role": "zone",      "type": "rect", "x": 0,  "y": 24,  "w": 128, "h": 128, "radius": 4,   "colorKey": "containerBg", "borderKey": "containerBorder" },
-        { "role": "icon",      "type": "rect", "x": 54, "y": 68,  "w": 20,  "h": 20,  "radius": 2,   "colorKey": "containerBorder" },
+        { "role": "icon",      "type": "rect", "x": 54, "y": 68,  "w": 20,  "h": 20,  "radius": 2,   "staticFill": "#adb5bd" },
         { "role": "error-msg", "type": "text", "x": 0,  "y": 156, "w": 260, "h": 16, "fontSize": 12, "weight": "400", "colorKey": "errorMsgColor", "content": "Image required." }
       ]
     }
